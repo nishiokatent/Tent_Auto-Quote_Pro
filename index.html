@@ -17,19 +17,16 @@
   --green:#16a34a;--gbg:#f0fdf4;--gb:#bbf7d0;
   --red:#dc2626;--blue:#2563eb;--bluebg:#eff6ff;--blueb:#bfdbfe;
   --mono:'DM Mono',monospace;--sans:'Noto Sans JP',sans-serif;
-  --r:10px;--rs:6px;
-  --hh:52px;--nh:42px;--fh:68px;
+  --r:10px;--rs:6px;--hh:52px;--nh:42px;--fh:68px;
 }
 body{font-family:var(--sans);background:var(--g);color:var(--t);font-size:14px;line-height:1.6;min-height:100dvh;}
 
-/* Header */
 .header{height:var(--hh);background:var(--h);display:flex;align-items:center;padding:0 20px;gap:10px;position:sticky;top:0;z-index:100;}
 .logo-mark{width:28px;height:28px;background:var(--a);border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;font-weight:500;color:#fff;flex-shrink:0;}
 .logo-text{font-family:var(--mono);font-size:12px;font-weight:500;color:#fff;letter-spacing:.06em;}
 .logo-sub{font-size:10px;color:var(--h3);margin-left:6px;display:none;}
 @media(min-width:600px){.logo-sub{display:inline;}}
 
-/* Nav */
 .nav{height:var(--nh);background:var(--w);border-bottom:1px solid var(--b);display:flex;position:sticky;top:var(--hh);z-index:99;overflow-x:auto;scrollbar-width:none;}
 .nav::-webkit-scrollbar{display:none;}
 .nav-tab{flex-shrink:0;display:flex;align-items:center;padding:0 18px;font-size:12px;font-weight:500;color:var(--t3);cursor:pointer;border-bottom:2px solid transparent;transition:color .15s,border-color .15s;white-space:nowrap;}
@@ -37,9 +34,6 @@ body{font-family:var(--sans);background:var(--g);color:var(--t);font-size:14px;l
 .nav-tab.active{color:var(--a);border-bottom-color:var(--a);}
 .panel{display:none;}.panel.active{display:block;}
 
-/* ═══════════════════════════════
-   PC LAYOUT ≥768px : 2カラム
-═══════════════════════════════ */
 @media(min-width:768px){
   .est-layout{display:grid;grid-template-columns:1fr 1fr;height:calc(100dvh - var(--hh) - var(--nh));overflow:hidden;}
   .est-left{overflow-y:auto;padding:20px;border-right:1px solid var(--b);}
@@ -50,60 +44,44 @@ body{font-family:var(--sans);background:var(--g);color:var(--t);font-size:14px;l
   .pc-save-row .btn{flex:1;}
   .sp-bottom-pad{display:none;}
 }
-
-/* ═══════════════════════════════
-   MOBILE LAYOUT <768px : フローティング合計
-═══════════════════════════════ */
 @media(max-width:767px){
   .est-layout{display:block;}
-  .est-left{padding:14px;}
-  .est-right{padding:0 14px;}
+  .est-left,.est-right{padding:14px;}
   .pc-total{display:none;}
   .pc-save-row{display:none;}
-  .float-bar{
-    display:flex;position:fixed;bottom:0;left:0;right:0;
-    height:var(--fh);background:var(--h);border-top:1px solid var(--h2);
-    padding:0 16px;align-items:center;gap:12px;z-index:200;
-  }
+  .float-bar{display:flex;position:fixed;bottom:0;left:0;right:0;height:var(--fh);background:var(--h);border-top:1px solid var(--h2);padding:0 16px;align-items:center;gap:12px;z-index:200;}
   .float-info{flex:1;}
   .float-label{font-size:10px;color:var(--h3);margin-bottom:1px;}
   .float-amount{font-size:22px;font-weight:700;font-family:var(--mono);color:var(--a);line-height:1.1;}
   .float-rieki{font-size:11px;font-family:var(--mono);font-weight:500;}
-  .float-save{padding:10px 18px;border-radius:var(--rs);background:var(--a);border:none;color:#fff;font-size:13px;font-weight:700;font-family:var(--sans);cursor:pointer;flex-shrink:0;}
+  .float-save{padding:10px 18px;border-radius:var(--rs);background:var(--a);border:none;color:#fff;font-size:13px;font-weight:700;cursor:pointer;flex-shrink:0;}
   .float-save:active{opacity:.85;}
   .sp-bottom-pad{height:calc(var(--fh) + 16px);}
 }
 
-/* Cards */
 .card{background:var(--w);border:1px solid var(--b);border-radius:var(--r);padding:18px;margin-bottom:14px;}
 .card:last-child{margin-bottom:0;}
 .card-title{font-size:11px;font-weight:700;color:var(--t3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
 .card-title::before{content:'';width:3px;height:13px;background:var(--a);border-radius:2px;flex-shrink:0;}
-.card-subtitle{font-size:10px;font-weight:400;color:var(--t3);margin-left:4px;text-transform:none;letter-spacing:0;}
+.card-sub{font-size:10px;font-weight:400;color:var(--t3);margin-left:4px;text-transform:none;letter-spacing:0;}
 
-/* PC右パネル専用 */
 .result-header{background:var(--h);border-radius:var(--r);padding:18px 20px;margin-bottom:14px;}
 .result-amount-label{font-size:10px;color:var(--h3);margin-bottom:4px;letter-spacing:.04em;}
 .result-amount{font-size:30px;font-weight:700;font-family:var(--mono);color:var(--a);line-height:1.15;}
-.result-sub{display:flex;justify-content:space-between;margin-top:8px;padding-top:8px;border-top:1px solid var(--h2);font-size:12px;}
-.result-sub .tax{color:var(--h3);}
-.result-sub .tax-val{font-family:var(--mono);color:var(--h3);}
+.result-subrow{display:flex;justify-content:space-between;margin-top:6px;padding-top:6px;border-top:1px solid var(--h2);font-size:12px;}
+.result-subrow .rl{color:var(--h3);}
+.result-subrow .rv{font-family:var(--mono);color:var(--h3);}
 .profit-section{margin-top:10px;padding-top:10px;border-top:1px solid var(--h2);}
-.profit-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+.profit-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
 .profit-label{font-size:11px;color:var(--h3);}
 .profit-val{font-family:var(--mono);font-size:17px;font-weight:700;}
 .pbar-bg{height:7px;background:var(--h2);border-radius:4px;overflow:hidden;}
 .pbar-fill{height:100%;border-radius:4px;transition:width .4s,background .3s;}
 
-/* Grid */
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
-@media(max-width:480px){
-  .g3{grid-template-columns:1fr 1fr;}
-  .g3 .f:last-child{grid-column:1/-1;}
-}
+@media(max-width:480px){.g3{grid-template-columns:1fr 1fr;}.g3 .f:last-child{grid-column:1/-1;}}
 
-/* Fields */
 .f{display:flex;flex-direction:column;gap:4px;}
 .f label{font-size:11px;font-weight:500;color:var(--t2);}
 input[type="text"],input[type="number"],select{
@@ -116,25 +94,14 @@ input:focus,select:focus{border-color:var(--a);background:var(--w);}
 input[type="number"]{font-family:var(--mono);}
 input[type="number"]::-webkit-inner-spin-button{-webkit-appearance:none;}
 input[type="number"]{-moz-appearance:textfield;appearance:textfield;}
-select{
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 11 11'%3E%3Cpath fill='%2394a3b8' d='M5.5 7L1 2.5h9z'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right 10px center;padding-right:28px;cursor:pointer;
-}
-.fabric-sel{
-  border-color:var(--ab);background:var(--abg);color:var(--ad);font-weight:500;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 11 11'%3E%3Cpath fill='%23f97316' d='M5.5 7L1 2.5h9z'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:right 10px center;padding-right:28px;
-}
-.fabric-sel:focus{border-color:var(--a);}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 11 11'%3E%3Cpath fill='%2394a3b8' d='M5.5 7L1 2.5h9z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:28px;cursor:pointer;}
+.fabric-sel{border-color:var(--ab);background:var(--abg);color:var(--ad);font-weight:500;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 11 11'%3E%3Cpath fill='%23f97316' d='M5.5 7L1 2.5h9z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:28px;}
 .mm-wrap{display:flex;}
 .mm-wrap input{border-radius:var(--rs) 0 0 var(--rs);flex:1;border-right:none;}
 .mm-unit{background:var(--g2);border:1px solid var(--b);border-radius:0 var(--rs) var(--rs) 0;padding:8px 9px;font-size:11px;font-family:var(--mono);color:var(--t3);white-space:nowrap;flex-shrink:0;}
 .nagare-box{display:flex;align-items:center;gap:5px;padding:8px 11px;background:var(--g);border:1px solid var(--b);border-radius:var(--rs);font-size:13px;color:var(--t3);font-family:var(--mono);}
 .nagare-val{color:#0ea5e9;font-weight:500;}
-.work-row{display:flex;gap:8px;margin-top:6px;}
-.work-row select{flex:1;font-size:12px;padding:6px 28px 6px 9px;}
 
-/* Metrics */
 .metrics2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
 .metrics3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
 .metric{background:var(--g);border:1px solid var(--b);border-radius:var(--rs);padding:10px 12px;}
@@ -148,24 +115,31 @@ select{
 .metric.green .m-val{color:var(--green);}
 .m-sub{font-size:10px;color:var(--t3);margin-top:2px;}
 
-/* Item rows */
 .item-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--b);gap:8px;}
 .item-row:last-child{border-bottom:none;}
 .item-label{font-size:12px;color:var(--t2);flex-shrink:0;display:flex;align-items:center;gap:5px;}
 .badge{display:inline-block;font-size:9px;font-family:var(--mono);padding:1px 5px;border-radius:3px;font-weight:500;}
 .badge-o{background:var(--abg);color:var(--a);}
 .badge-b{background:var(--bluebg);color:var(--blue);}
+.badge-g{background:var(--gbg);color:var(--green);}
+.badge-gray{background:var(--g2);color:var(--t2);}
+.badge-p{background:#f3e8ff;color:#7c3aed;}
 .item-row input[type="number"]{width:112px;text-align:right;font-family:var(--mono);font-size:13px;font-weight:500;}
 @media(max-width:400px){.item-row input[type="number"]{width:90px;}}
 
-/* Result rows (PC右) */
+.est-item-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--b);gap:8px;}
+.est-item-row:last-child{border-bottom:none;}
+.est-item-left{display:flex;align-items:center;gap:6px;min-width:0;flex:1;}
+.est-item-name{font-size:12px;color:var(--t2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.est-item-row input[type="number"]{width:112px;text-align:right;font-family:var(--mono);font-size:13px;font-weight:500;flex-shrink:0;}
+@media(max-width:400px){.est-item-row input[type="number"]{width:90px;}}
+
 .result-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--b);}
 .result-item:last-child{border-bottom:none;}
-.ri-label{font-size:12px;color:var(--t2);display:flex;align-items:center;gap:4px;}
+.ri-label{font-size:12px;color:var(--t2);}
 .ri-val{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--t);}
 
-/* Buttons */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 16px;border-radius:var(--rs);font-size:13px;font-weight:500;font-family:var(--sans);cursor:pointer;border:1px solid var(--b2);background:var(--w);color:var(--t);transition:background .15s;white-space:nowrap;}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 16px;border-radius:var(--rs);font-size:13px;font-weight:500;cursor:pointer;border:1px solid var(--b2);background:var(--w);color:var(--t);transition:background .15s;white-space:nowrap;}
 .btn:hover{background:var(--g2);}
 .btn:active{transform:scale(.98);}
 .btn-primary{background:var(--a);border-color:var(--a);color:#fff;}
@@ -177,7 +151,6 @@ select{
 .btn-row{display:flex;gap:8px;}
 .btn-row .btn{flex:1;}
 
-/* Suggest */
 .suggest-wrap{position:relative;}
 .suggest-list{position:absolute;top:calc(100% + 3px);left:0;right:0;background:var(--w);border:1px solid var(--b2);border-radius:var(--rs);z-index:300;max-height:200px;overflow-y:auto;display:none;box-shadow:0 4px 16px rgba(0,0,0,.1);}
 .suggest-list.show{display:block;}
@@ -191,7 +164,46 @@ select{
 .empty-hint{font-size:11px;color:var(--t3);}
 .dist-badge{display:inline-flex;font-size:11px;font-family:var(--mono);padding:4px 10px;border-radius:99px;background:var(--bluebg);color:var(--blue);border:1px solid var(--blueb);margin-top:7px;}
 
-/* Other panels */
+/* 範囲マスタ */
+.range-section{margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--b);}
+.range-section:last-child{border-bottom:none;margin-bottom:0;}
+.range-title{font-size:12px;font-weight:700;margin-bottom:7px;display:flex;justify-content:space-between;align-items:center;}
+.range-hdr{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:5px;padding:0 0 3px;}
+.range-hdr span{font-size:10px;color:var(--t3);}
+.range-row{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:5px;align-items:center;padding:5px 0;border-bottom:1px solid var(--b);}
+.range-row:last-child{border-bottom:none;}
+.range-row input{font-size:12px;}
+
+/* ドラッグ並び替え */
+.drag-handle{width:28px;height:36px;display:flex;align-items:center;justify-content:center;cursor:grab;color:var(--t3);flex-shrink:0;border-radius:4px;touch-action:none;}
+.drag-handle:hover{color:var(--t2);background:var(--g2);}
+.drag-handle:active{cursor:grabbing;}
+.drag-handle svg{width:14px;height:14px;display:block;}
+.sortable-item{transition:background .1s;}
+.sortable-item.dragging{opacity:.4;}
+.sortable-item.drag-over{background:var(--abg);border-color:var(--ab);}
+
+/* マスタリスト行 */
+.master-fabric-row{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--b);}
+.master-fabric-row:last-child{border-bottom:none;}
+.master-fabric-info{flex:1;min-width:0;}
+.mf-name{font-size:13px;font-weight:700;word-break:break-all;white-space:normal;line-height:1.4;}
+.mf-meta{font-size:11px;color:var(--t3);font-family:var(--mono);margin-top:2px;}
+.master-fabric-inputs{display:flex;gap:5px;align-items:center;flex-shrink:0;}
+.master-fabric-inputs input{width:80px;font-size:12px;text-align:right;}
+
+.master-estitem-row{display:flex;align-items:flex-start;gap:8px;padding:10px 0;border-bottom:1px solid var(--b);}
+.master-estitem-row:last-child{border-bottom:none;}
+.master-estitem-body{flex:1;min-width:0;}
+.mei-name input{font-weight:700;font-size:13px;background:transparent;border:none;border-bottom:1px solid var(--b);border-radius:0;padding:2px 0;width:100%;outline:none;}
+.mei-name input:focus{border-bottom-color:var(--a);}
+.mei-controls{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;}
+.mei-controls select{font-size:11px;padding:4px 24px 4px 7px;width:auto;}
+.mei-controls input[type="number"]{width:90px;font-size:11px;}
+
+.add-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:8px;margin-bottom:8px;}
+@media(max-width:480px){.add-grid{grid-template-columns:1fr 1fr;}.add-grid .f:first-child{grid-column:1/-1;}}
+
 .page-wrap{padding:20px;max-width:720px;margin:0 auto;}
 .case-card{background:var(--w);border:1px solid var(--b);border-radius:var(--r);padding:14px 16px;margin-bottom:10px;transition:border-color .15s,transform .15s;}
 .case-card:hover{border-color:var(--b2);transform:translateY(-1px);}
@@ -219,18 +231,6 @@ select{
 .preview-box{background:var(--g);border:1px solid var(--b);border-left:3px solid var(--a);border-radius:0 var(--rs) var(--rs) 0;padding:10px 12px;margin-top:10px;}
 .preview-title{font-size:10px;color:var(--a);font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin-bottom:7px;}
 .divider{height:1px;background:var(--b);margin:14px 0;}
-.range-section{margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--b);}
-.range-section:last-child{border-bottom:none;margin-bottom:0;}
-.range-title{font-size:12px;font-weight:700;margin-bottom:7px;display:flex;justify-content:space-between;align-items:center;}
-.range-header{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:5px;padding:0 0 3px;}
-.range-header span{font-size:10px;color:var(--t3);}
-.range-item{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:5px;align-items:center;padding:5px 0;border-bottom:1px solid var(--b);}
-.range-item:last-child{border-bottom:none;}
-.range-item input{font-size:12px;}
-.master-item{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--b);}
-.master-item:last-child{border-bottom:none;}
-.master-name{font-size:13px;font-weight:700;}
-.master-meta{font-size:11px;color:var(--t3);font-family:var(--mono);margin-top:2px;}
 .empty{text-align:center;padding:40px 20px;color:var(--t3);}
 .empty-icon{font-size:36px;opacity:.35;margin-bottom:10px;}
 .empty-text{font-size:13px;}
@@ -251,16 +251,10 @@ select{
   <div class="nav-tab" onclick="sw('master')">⚙️ マスタ</div>
 </nav>
 
-<!-- ══════════════════════════════
-     見積作成
-══════════════════════════════ -->
+<!-- ══ 見積作成 ══ -->
 <div class="panel active" id="panel-est">
   <div class="est-layout">
-
-    <!-- 左：入力エリア -->
     <div class="est-left">
-
-      <!-- 案件情報 -->
       <div class="card">
         <div class="card-title">案件情報</div>
         <div class="g2" style="margin-bottom:10px;">
@@ -282,9 +276,8 @@ select{
         </div>
       </div>
 
-      <!-- 生地・寸法 -->
       <div class="card">
-        <div class="card-title">生地・寸法 <span class="card-subtitle">mm入力</span></div>
+        <div class="card-title">生地・寸法 <span class="card-sub">mm入力</span></div>
         <div class="f" style="margin-bottom:12px;">
           <label>生地</label>
           <select id="fabric" class="fabric-sel" onchange="calc()"></select>
@@ -294,7 +287,7 @@ select{
           <div class="f"><label>出幅</label><div class="mm-wrap"><input type="number" id="debaba" value="3000" step="1" min="0" oninput="calc()"><span class="mm-unit">mm</span></div></div>
           <div class="f"><label>奥高</label><div class="mm-wrap"><input type="number" id="okutaka" value="2000" step="1" min="0" oninput="calc()"><span class="mm-unit">mm</span></div></div>
         </div>
-        <div class="g3">
+        <div class="g3" style="margin-bottom:14px;">
           <div class="f"><label>前高</label><div class="mm-wrap"><input type="number" id="maetaka" value="1000" step="1" min="0" oninput="calc()"><span class="mm-unit">mm</span></div></div>
           <div class="f"><label>妻</label>
             <select id="tsuma" onchange="calc()">
@@ -305,9 +298,20 @@ select{
             <div class="nagare-box">流れ <span class="nagare-val" id="nagare">-</span> mm</div>
           </div>
         </div>
+        <div style="border-top:1px solid var(--b);padding-top:14px;">
+          <div style="font-size:11px;font-weight:700;color:var(--t3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;">要尺・面積</div>
+          <div class="metrics2" style="margin-bottom:10px;">
+            <div class="metric accent"><div class="m-label">主（間口）要尺</div><div class="m-val"><span id="r-omote">-</span> m</div><div class="m-sub" id="r-os">-</div></div>
+            <div class="metric accent"><div class="m-label">妻要尺</div><div class="m-val"><span id="r-tsuma">-</span> m</div><div class="m-sub" id="r-ts">-</div></div>
+          </div>
+          <div class="metrics3">
+            <div class="metric"><div class="m-label">合計要尺</div><div class="m-val"><span id="r-yojaku">-</span> m</div></div>
+            <div class="metric"><div class="m-label">面積</div><div class="m-val"><span id="r-menseki">-</span> m²</div></div>
+            <div class="metric green"><div class="m-label">流れ寸</div><div class="m-val"><span id="r-nagare">-</span> mm</div></div>
+          </div>
+        </div>
       </div>
 
-      <!-- 施工人工 -->
       <div class="card">
         <div class="card-title">施工人工</div>
         <div class="g2">
@@ -324,70 +328,32 @@ select{
         </div>
       </div>
 
-      <!-- 見積項目 -->
       <div class="card">
-        <div class="card-title">見積項目 <span class="card-subtitle">マスタ目安から自動入力・手修正可</span></div>
-        <div class="item-row"><div class="item-label">キャンバス加工費 <span class="badge badge-o">要尺</span></div><input type="number" id="e-canvas" oninput="markEdited(this);calcTotal()"></div>
-        <div class="item-row"><div class="item-label">古材撤去及び処分費 <span class="badge badge-b">面積</span></div><input type="number" id="e-tettyo" oninput="markEdited(this);calcTotal()"></div>
-        <div class="item-row"><div class="item-label">塗装費 <span class="badge badge-b">面積</span></div><input type="number" id="e-tosou" oninput="markEdited(this);calcTotal()"></div>
-        <div class="item-row"><div class="item-label">現場取付施工費 <span class="badge badge-o">人工</span></div><input type="number" id="e-koji" oninput="markEdited(this);calcTotal()"></div>
-        <div class="item-row"><div class="item-label">取付付属部品 <span class="badge badge-b">面積</span></div><input type="number" id="e-parts" oninput="markEdited(this);calcTotal()"></div>
-        <div class="item-row"><div class="item-label">現調採寸費 <span class="badge badge-b">面積</span></div><input type="number" id="e-gencyo" oninput="markEdited(this);calcTotal()"></div>
-        <div class="item-row"><div class="item-label">諸経費 <span class="badge badge-b">距離</span></div><input type="number" id="e-shokehi" oninput="markEdited(this);calcTotal()"></div>
+        <div class="card-title">見積項目 <span class="card-sub">マスタ目安から自動入力・手修正可</span></div>
+        <div id="est-items-list"></div>
       </div>
 
-      <!-- SP用保存ボタン余白 -->
       <div class="sp-bottom-pad"></div>
     </div>
 
-    <!-- 右：結果エリア（PC専用） -->
     <div class="est-right">
-
-      <!-- 合計ヘッダー（PC） -->
       <div class="pc-total">
         <div class="result-header">
           <div class="result-amount-label">合計（税込）</div>
           <div class="result-amount" id="pc-total">¥0</div>
-          <div class="result-sub">
-            <span class="tax">小計（税抜）</span>
-            <span class="tax-val" id="pc-shokei">¥0</span>
-          </div>
-          <div class="result-sub" style="border-top:none;margin-top:2px;padding-top:2px;">
-            <span class="tax">消費税（10%）</span>
-            <span class="tax-val" id="pc-tax">¥0</span>
-          </div>
+          <div class="result-subrow"><span class="rl">小計（税抜）</span><span class="rv" id="pc-shokei">¥0</span></div>
+          <div class="result-subrow" style="border-top:none;margin-top:2px;padding-top:2px;"><span class="rl">消費税（10%）</span><span class="rv" id="pc-tax">¥0</span></div>
           <div class="profit-section">
-            <div class="profit-header">
-              <span class="profit-label">利益率（原価 vs 小計）</span>
-              <span class="profit-val" id="pc-rieki">-</span>
-            </div>
+            <div class="profit-hd"><span class="profit-label">利益率（原価 vs 小計）</span><span class="profit-val" id="pc-rieki">-</span></div>
             <div class="pbar-bg"><div class="pbar-fill" id="pc-pbar" style="width:0%"></div></div>
           </div>
         </div>
-
-        <!-- 保存ボタン（PC） -->
         <div class="pc-save-row">
           <button class="btn btn-primary" onclick="saveCase()">💾 案件を保存</button>
           <button class="btn" onclick="resetEst()">↩ リセット</button>
         </div>
       </div>
-
-      <!-- 要尺・面積 -->
       <div class="card" style="margin-top:14px;">
-        <div class="card-title">要尺・面積</div>
-        <div class="metrics2" style="margin-bottom:10px;">
-          <div class="metric accent"><div class="m-label">主（間口）要尺</div><div class="m-val"><span id="r-omote">-</span> m</div><div class="m-sub" id="r-os">-</div></div>
-          <div class="metric accent"><div class="m-label">妻要尺</div><div class="m-val"><span id="r-tsuma">-</span> m</div><div class="m-sub" id="r-ts">-</div></div>
-        </div>
-        <div class="metrics3">
-          <div class="metric"><div class="m-label">合計要尺</div><div class="m-val"><span id="r-yojaku">-</span> m</div></div>
-          <div class="metric"><div class="m-label">面積</div><div class="m-val"><span id="r-menseki">-</span> m²</div></div>
-          <div class="metric green"><div class="m-label">流れ</div><div class="m-val"><span id="r-nagare">-</span> mm</div></div>
-        </div>
-      </div>
-
-      <!-- 生地原価 -->
-      <div class="card">
         <div class="card-title">原価内訳</div>
         <div class="result-item"><span class="ri-label">生地原価</span><span class="ri-val" id="r-genka-fabric">-</span></div>
         <div class="result-item"><span class="ri-label">施工費（原価）</span><span class="ri-val" id="r-genka-koji">-</span></div>
@@ -396,22 +362,13 @@ select{
           <span class="ri-val" style="font-weight:700;font-size:15px;" id="r-genka-total">-</span>
         </div>
       </div>
-
-      <!-- 見積項目サマリ -->
       <div class="card">
         <div class="card-title">見積項目サマリ</div>
-        <div class="result-item"><span class="ri-label">キャンバス加工費</span><span class="ri-val" id="s-canvas">-</span></div>
-        <div class="result-item"><span class="ri-label">古材撤去及び処分費</span><span class="ri-val" id="s-tettyo">-</span></div>
-        <div class="result-item"><span class="ri-label">塗装費</span><span class="ri-val" id="s-tosou">-</span></div>
-        <div class="result-item"><span class="ri-label">現場取付施工費</span><span class="ri-val" id="s-koji">-</span></div>
-        <div class="result-item"><span class="ri-label">取付付属部品</span><span class="ri-val" id="s-parts">-</span></div>
-        <div class="result-item"><span class="ri-label">現調採寸費</span><span class="ri-val" id="s-gencyo">-</span></div>
-        <div class="result-item"><span class="ri-label">諸経費</span><span class="ri-val" id="s-shokehi">-</span></div>
+        <div id="pc-summary-list"></div>
       </div>
     </div>
   </div>
 
-  <!-- スマホ：フローティング合計バー -->
   <div class="float-bar">
     <div class="float-info">
       <div class="float-label">合計（税込）</div>
@@ -422,13 +379,11 @@ select{
   </div>
 </div>
 
-<!-- ══════════════════════════════
-     過去案件インポート
-══════════════════════════════ -->
+<!-- ══ 過去案件 ══ -->
 <div class="panel" id="panel-imp">
   <div class="page-wrap">
     <div class="card">
-      <div class="card-title">過去案件を入力 <span class="card-subtitle">寸法と金額から単価を自動割り出し</span></div>
+      <div class="card-title">過去案件を入力 <span class="card-sub">寸法と金額から単価を自動割り出し</span></div>
       <div class="f" style="margin-bottom:10px;"><label>案件名（任意）</label><input type="text" id="i-name" placeholder="○○商店 2023年施工"></div>
       <div class="f" style="margin-bottom:10px;"><label>生地</label><select id="i-fabric" class="fabric-sel" onchange="calcImpPreview()"></select></div>
       <div class="g2" style="margin-bottom:10px;">
@@ -446,13 +401,7 @@ select{
       </div>
       <div class="divider"></div>
       <div style="font-size:12px;font-weight:700;color:var(--t2);margin-bottom:10px;">各項目の実績金額（税抜）</div>
-      <div class="item-row"><div class="item-label">キャンバス加工費</div><input type="number" id="i-canvas" placeholder="0" oninput="calcImpPreview()"></div>
-      <div class="item-row"><div class="item-label">古材撤去及び処分費</div><input type="number" id="i-tettyo" placeholder="0" oninput="calcImpPreview()"></div>
-      <div class="item-row"><div class="item-label">塗装費</div><input type="number" id="i-tosou" placeholder="0" oninput="calcImpPreview()"></div>
-      <div class="item-row"><div class="item-label">現場取付施工費</div><input type="number" id="i-koji" placeholder="0" oninput="calcImpPreview()"></div>
-      <div class="item-row"><div class="item-label">取付付属部品</div><input type="number" id="i-parts" placeholder="0" oninput="calcImpPreview()"></div>
-      <div class="item-row"><div class="item-label">現調採寸費</div><input type="number" id="i-gencyo" placeholder="0" oninput="calcImpPreview()"></div>
-      <div class="item-row"><div class="item-label">諸経費</div><input type="number" id="i-shokehi" placeholder="0"></div>
+      <div id="imp-items-list"></div>
     </div>
     <div id="imp-preview" style="display:none;">
       <div class="preview-box">
@@ -471,9 +420,7 @@ select{
   </div>
 </div>
 
-<!-- ══════════════════════════════
-     案件一覧
-══════════════════════════════ -->
+<!-- ══ 案件一覧 ══ -->
 <div class="panel" id="panel-cases">
   <div class="page-wrap">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
@@ -484,38 +431,74 @@ select{
   </div>
 </div>
 
-<!-- ══════════════════════════════
-     マスタ
-══════════════════════════════ -->
+<!-- ══ マスタ ══ -->
 <div class="panel" id="panel-master">
   <div class="page-wrap">
+
     <div class="card">
       <div class="card-title">自社情報</div>
-      <div class="g2" style="margin-bottom:8px;">
-        <div class="f"><label>会社所在地</label><input type="text" id="m-company" placeholder="大阪府堺市中区" oninput="saveM()"></div>
+      <div class="g2" style="margin-bottom:10px;">
+        <div class="f"><label>会社名</label><input type="text" id="m-compname" placeholder="○○テント店" oninput="saveM()"></div>
         <div class="f"><label>1人1日単価（円）</label><input type="number" id="m-ninku" oninput="saveM()"></div>
+      </div>
+      <div class="f" style="margin-bottom:6px;">
+        <label>会社所在地</label>
+        <div class="suggest-wrap">
+          <input type="text" id="m-company" placeholder="市区町村を入力（例：堺市中区）" oninput="onCompanyAddrInput()" autocomplete="off">
+          <div class="suggest-list" id="company-suggest-list"></div>
+        </div>
       </div>
       <div style="font-size:11px;color:var(--t3);">都道府県を基準に距離を概算計算します。本番環境では市区町村レベルの精度で計算されます。</div>
     </div>
+
     <div class="card">
-      <div class="card-title">生地マスタ</div>
+      <div class="card-title">生地マスタ <span class="card-sub">ドラッグで並び替え</span></div>
       <div id="fabric-list"></div>
       <div class="divider"></div>
-      <div style="font-size:11px;font-weight:700;color:var(--t2);margin-bottom:10px;">新規追加</div>
-      <div class="g2" style="margin-bottom:8px;">
-        <div class="f"><label>メーカー・品名</label><input type="text" id="m-fname" placeholder="帝人 シャガール"></div>
-        <div class="f"><label>巾（mm）</label><input type="number" id="m-fhaba" placeholder="1200"></div>
+      <button class="btn btn-sm" id="fabric-add-btn" onclick="toggleAddForm('fabric')" style="width:100%;">＋ 生地を追加</button>
+      <div id="fabric-add-form" style="display:none;margin-top:12px;">
+        <div class="g2" style="margin-bottom:8px;">
+          <div class="f"><label>メーカー・品名</label><input type="text" id="m-fname" placeholder="帝人 シャガール"></div>
+          <div class="f"><label>巾（cm）</label><input type="number" id="m-fhaba" placeholder="120"></div>
+        </div>
+        <div class="g2" style="margin-bottom:10px;">
+          <div class="f"><label>仕入単価（円/m）</label><input type="number" id="m-fsiire" placeholder="900"></div>
+          <div class="f"><label>掛率（%）</label><input type="number" id="m-fkake" value="70"></div>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-primary btn-sm" onclick="addFabric()" style="flex:1;">追加する</button>
+          <button class="btn btn-sm" onclick="toggleAddForm('fabric')" style="flex:1;">キャンセル</button>
+        </div>
       </div>
-      <div class="g2" style="margin-bottom:10px;">
-        <div class="f"><label>仕入単価（円/m）</label><input type="number" id="m-fsiire" placeholder="900"></div>
-        <div class="f"><label>掛率（%）</label><input type="number" id="m-fkake" value="70"></div>
-      </div>
-      <button class="btn btn-primary btn-sm" onclick="addFabric()">＋ 追加</button>
     </div>
+
     <div class="card">
-      <div class="card-title">各項目 目安単価マスタ（範囲別）</div>
-      <div id="range-master"></div>
+      <div class="card-title">見積項目マスタ <span class="card-sub">ドラッグで並び替え・範囲別単価設定可</span></div>
+      <div id="est-master-list"></div>
+      <div class="divider"></div>
+      <button class="btn btn-sm" id="estitem-add-btn" onclick="toggleAddForm('estitem')" style="width:100%;">＋ 項目を追加</button>
+      <div id="estitem-add-form" style="display:none;margin-top:12px;">
+        <div class="add-grid" style="margin-bottom:8px;">
+          <div class="f"><label>項目名</label><input type="text" id="m-iname" placeholder="キャンバス加工費"></div>
+          <div class="f"><label>単位</label>
+            <select id="m-iunit">
+              <option value="yojaku">m（要尺）</option>
+              <option value="menseki">m²（面積）</option>
+              <option value="maguchi">m（間口）</option>
+              <option value="debaba">m（出幅）</option>
+              <option value="shiki">式（固定）</option>
+              <option value="ninku">人工</option>
+            </select>
+          </div>
+          <div class="f"><label>初期単価（円）</label><input type="number" id="m-itanka" placeholder="500"></div>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-primary btn-sm" onclick="addEstItem()" style="flex:1;">追加する</button>
+          <button class="btn btn-sm" onclick="toggleAddForm('estitem')" style="flex:1;">キャンセル</button>
+        </div>
+      </div>
     </div>
+
     <div class="card">
       <div class="card-title">諸経費マスタ（距離別）</div>
       <div class="item-row"><div class="item-label">〜10km</div><input type="number" id="m-dist0" style="width:120px;text-align:right;" oninput="saveM()"></div>
@@ -523,24 +506,82 @@ select{
       <div class="item-row"><div class="item-label">30〜50km</div><input type="number" id="m-dist2" style="width:120px;text-align:right;" oninput="saveM()"></div>
       <div class="item-row"><div class="item-label">50km〜</div><input type="number" id="m-dist3" style="width:120px;text-align:right;" oninput="saveM()"></div>
     </div>
+
   </div>
 </div>
 
 <script>
 const PREF_COORDS={'北海道':[43.06,141.35],'青森県':[40.82,140.74],'岩手県':[39.70,141.15],'宮城県':[38.27,140.87],'秋田県':[39.72,140.10],'山形県':[38.24,140.36],'福島県':[37.75,140.47],'茨城県':[36.34,140.45],'栃木県':[36.57,139.88],'群馬県':[36.39,139.06],'埼玉県':[35.86,139.65],'千葉県':[35.61,140.12],'東京都':[35.69,139.69],'神奈川県':[35.45,139.64],'新潟県':[37.90,139.02],'富山県':[36.70,137.21],'石川県':[36.59,136.63],'福井県':[36.07,136.22],'山梨県':[35.66,138.57],'長野県':[36.65,138.18],'岐阜県':[35.39,136.72],'静岡県':[34.98,138.38],'愛知県':[35.18,137.10],'三重県':[34.73,136.51],'滋賀県':[35.00,135.87],'京都府':[35.02,135.76],'大阪府':[34.69,135.52],'兵庫県':[34.69,135.18],'奈良県':[34.69,135.83],'和歌山県':[34.23,135.17],'鳥取県':[35.50,134.24],'島根県':[35.47,133.06],'岡山県':[34.66,133.93],'広島県':[34.40,132.46],'山口県':[34.19,131.47],'徳島県':[34.07,134.56],'香川県':[34.34,134.04],'愛媛県':[33.84,132.77],'高知県':[33.56,133.53],'福岡県':[33.61,130.42],'佐賀県':[33.25,130.30],'長崎県':[32.74,129.87],'熊本県':[32.79,130.74],'大分県':[33.24,131.61],'宮崎県':[31.91,131.42],'鹿児島県':[31.56,130.56],'沖縄県':[26.21,127.68]};
-const LOCATIONS=[['札幌市中央区','北海道'],['札幌市北区','北海道'],['札幌市東区','北海道'],['函館市','北海道'],['旭川市','北海道'],['小樽市','北海道'],['釧路市','北海道'],['帯広市','北海道'],['青森市','青森県'],['弘前市','青森県'],['八戸市','青森県'],['盛岡市','岩手県'],['一関市','岩手県'],['仙台市青葉区','宮城県'],['仙台市宮城野区','宮城県'],['仙台市泉区','宮城県'],['石巻市','宮城県'],['秋田市','秋田県'],['山形市','山形県'],['鶴岡市','山形県'],['福島市','福島県'],['郡山市','福島県'],['いわき市','福島県'],['水戸市','茨城県'],['つくば市','茨城県'],['宇都宮市','栃木県'],['前橋市','群馬県'],['高崎市','群馬県'],['さいたま市大宮区','埼玉県'],['さいたま市浦和区','埼玉県'],['川越市','埼玉県'],['川口市','埼玉県'],['千葉市中央区','千葉県'],['船橋市','千葉県'],['松戸市','千葉県'],['千代田区','東京都'],['中央区','東京都'],['港区','東京都'],['新宿区','東京都'],['渋谷区','東京都'],['品川区','東京都'],['世田谷区','東京都'],['杉並区','東京都'],['練馬区','東京都'],['足立区','東京都'],['江東区','東京都'],['八王子市','東京都'],['立川市','東京都'],['横浜市中区','神奈川県'],['横浜市港北区','神奈川県'],['横浜市青葉区','神奈川県'],['川崎市中原区','神奈川県'],['藤沢市','神奈川県'],['横須賀市','神奈川県'],['新潟市中央区','新潟県'],['長岡市','新潟県'],['富山市','富山県'],['金沢市','石川県'],['福井市','福井県'],['甲府市','山梨県'],['長野市','長野県'],['松本市','長野県'],['岐阜市','岐阜県'],['大垣市','岐阜県'],['静岡市葵区','静岡県'],['浜松市中区','静岡県'],['沼津市','静岡県'],['名古屋市中区','愛知県'],['名古屋市中村区','愛知県'],['名古屋市守山区','愛知県'],['名古屋市天白区','愛知県'],['豊橋市','愛知県'],['岡崎市','愛知県'],['一宮市','愛知県'],['豊田市','愛知県'],['津市','三重県'],['四日市市','三重県'],['大津市','滋賀県'],['草津市','滋賀県'],['京都市中京区','京都府'],['京都市左京区','京都府'],['京都市右京区','京都府'],['京都市上京区','京都府'],['京都市下京区','京都府'],['京都市南区','京都府'],['京都市北区','京都府'],['京都市東山区','京都府'],['京都市山科区','京都府'],['京都市伏見区','京都府'],['京都市西京区','京都府'],['宇治市','京都府'],['亀岡市','京都府'],['長岡京市','京都府'],['向日市','京都府'],['木津川市','京都府'],['城陽市','京都府'],['綾部市','京都府'],['福知山市','京都府'],['舞鶴市','京都府'],['京丹後市','京都府'],['大阪市中央区','大阪府'],['大阪市北区','大阪府'],['大阪市西区','大阪府'],['大阪市浪速区','大阪府'],['大阪市天王寺区','大阪府'],['大阪市阿倍野区','大阪府'],['大阪市住吉区','大阪府'],['大阪市東住吉区','大阪府'],['大阪市平野区','大阪府'],['大阪市淀川区','大阪府'],['大阪市城東区','大阪府'],['堺市堺区','大阪府'],['堺市中区','大阪府'],['堺市東区','大阪府'],['堺市西区','大阪府'],['堺市南区','大阪府'],['堺市北区','大阪府'],['堺市美原区','大阪府'],['東大阪市','大阪府'],['豊中市','大阪府'],['吹田市','大阪府'],['枚方市','大阪府'],['八尾市','大阪府'],['寝屋川市','大阪府'],['高槻市','大阪府'],['茨木市','大阪府'],['守口市','大阪府'],['松原市','大阪府'],['富田林市','大阪府'],['和泉市','大阪府'],['岸和田市','大阪府'],['神戸市中央区','兵庫県'],['神戸市灘区','兵庫県'],['神戸市兵庫区','兵庫県'],['神戸市長田区','兵庫県'],['神戸市須磨区','兵庫県'],['神戸市垂水区','兵庫県'],['神戸市西区','兵庫県'],['神戸市東灘区','兵庫県'],['姫路市','兵庫県'],['尼崎市','兵庫県'],['西宮市','兵庫県'],['明石市','兵庫県'],['伊丹市','兵庫県'],['川西市','兵庫県'],['宝塚市','兵庫県'],['奈良市','奈良県'],['橿原市','奈良県'],['生駒市','奈良県'],['和歌山市','和歌山県'],['鳥取市','鳥取県'],['米子市','鳥取県'],['松江市','島根県'],['出雲市','島根県'],['岡山市北区','岡山県'],['倉敷市','岡山県'],['広島市中区','広島県'],['広島市西区','広島県'],['広島市安佐南区','広島県'],['福山市','広島県'],['呉市','広島県'],['山口市','山口県'],['下関市','山口県'],['徳島市','徳島県'],['高松市','香川県'],['丸亀市','香川県'],['松山市','愛媛県'],['今治市','愛媛県'],['高知市','高知県'],['福岡市中央区','福岡県'],['福岡市博多区','福岡県'],['福岡市東区','福岡県'],['北九州市小倉北区','福岡県'],['久留米市','福岡県'],['佐賀市','佐賀県'],['長崎市','長崎県'],['佐世保市','長崎県'],['熊本市中央区','熊本県'],['熊本市東区','熊本県'],['八代市','熊本県'],['大分市','大分県'],['別府市','大分県'],['宮崎市','宮崎県'],['都城市','宮崎県'],['鹿児島市','鹿児島県'],['霧島市','鹿児島県'],['那覇市','沖縄県'],['沖縄市','沖縄県'],['浦添市','沖縄県']];
-const RANGE_DEFS=[{key:'canvas',label:'キャンバス加工費',unit:'要尺(m)',basis:'yojaku'},{key:'tettyo',label:'古材撤去及び処分費',unit:'面積(m²)',basis:'menseki'},{key:'tosou',label:'塗装費',unit:'面積(m²)',basis:'menseki'},{key:'parts',label:'取付付属部品',unit:'面積(m²)',basis:'menseki'},{key:'gencyo',label:'現調採寸費',unit:'面積(m²)',basis:'menseki'}];
-const IMP_ITEMS=[{id:'canvas',label:'キャンバス加工費',basis:'yojaku',unit:'m'},{id:'tettyo',label:'古材撤去及び処分費',basis:'menseki',unit:'m²'},{id:'tosou',label:'塗装費',basis:'menseki',unit:'m²'},{id:'parts',label:'取付付属部品',basis:'menseki',unit:'m²'},{id:'gencyo',label:'現調採寸費',basis:'menseki',unit:'m²'}];
+const LOCATIONS=[['札幌市中央区','北海道'],['札幌市北区','北海道'],['函館市','北海道'],['旭川市','北海道'],['青森市','青森県'],['八戸市','青森県'],['盛岡市','岩手県'],['仙台市青葉区','宮城県'],['仙台市宮城野区','宮城県'],['石巻市','宮城県'],['秋田市','秋田県'],['山形市','山形県'],['福島市','福島県'],['郡山市','福島県'],['いわき市','福島県'],['水戸市','茨城県'],['つくば市','茨城県'],['宇都宮市','栃木県'],['前橋市','群馬県'],['高崎市','群馬県'],['さいたま市大宮区','埼玉県'],['さいたま市浦和区','埼玉県'],['川越市','埼玉県'],['川口市','埼玉県'],['千葉市中央区','千葉県'],['船橋市','千葉県'],['松戸市','千葉県'],['千代田区','東京都'],['中央区','東京都'],['港区','東京都'],['新宿区','東京都'],['渋谷区','東京都'],['品川区','東京都'],['世田谷区','東京都'],['杉並区','東京都'],['練馬区','東京都'],['足立区','東京都'],['江東区','東京都'],['八王子市','東京都'],['横浜市中区','神奈川県'],['横浜市港北区','神奈川県'],['横浜市青葉区','神奈川県'],['川崎市中原区','神奈川県'],['藤沢市','神奈川県'],['新潟市中央区','新潟県'],['長岡市','新潟県'],['富山市','富山県'],['金沢市','石川県'],['福井市','福井県'],['甲府市','山梨県'],['長野市','長野県'],['松本市','長野県'],['岐阜市','岐阜県'],['大垣市','岐阜県'],['静岡市葵区','静岡県'],['浜松市中区','静岡県'],['名古屋市中区','愛知県'],['名古屋市中村区','愛知県'],['豊橋市','愛知県'],['岡崎市','愛知県'],['豊田市','愛知県'],['津市','三重県'],['四日市市','三重県'],['大津市','滋賀県'],['草津市','滋賀県'],['京都市中京区','京都府'],['京都市左京区','京都府'],['京都市右京区','京都府'],['京都市上京区','京都府'],['京都市下京区','京都府'],['京都市南区','京都府'],['京都市北区','京都府'],['京都市東山区','京都府'],['京都市山科区','京都府'],['京都市伏見区','京都府'],['京都市西京区','京都府'],['宇治市','京都府'],['亀岡市','京都府'],['長岡京市','京都府'],['綾部市','京都府'],['福知山市','京都府'],['舞鶴市','京都府'],['大阪市中央区','大阪府'],['大阪市北区','大阪府'],['大阪市西区','大阪府'],['大阪市浪速区','大阪府'],['大阪市天王寺区','大阪府'],['大阪市住吉区','大阪府'],['大阪市平野区','大阪府'],['大阪市淀川区','大阪府'],['大阪市城東区','大阪府'],['堺市堺区','大阪府'],['堺市中区','大阪府'],['堺市東区','大阪府'],['堺市西区','大阪府'],['堺市南区','大阪府'],['堺市北区','大阪府'],['堺市美原区','大阪府'],['東大阪市','大阪府'],['豊中市','大阪府'],['吹田市','大阪府'],['枚方市','大阪府'],['八尾市','大阪府'],['寝屋川市','大阪府'],['高槻市','大阪府'],['茨木市','大阪府'],['守口市','大阪府'],['松原市','大阪府'],['富田林市','大阪府'],['和泉市','大阪府'],['岸和田市','大阪府'],['神戸市中央区','兵庫県'],['神戸市灘区','兵庫県'],['神戸市兵庫区','兵庫県'],['神戸市長田区','兵庫県'],['神戸市須磨区','兵庫県'],['神戸市垂水区','兵庫県'],['神戸市西区','兵庫県'],['神戸市東灘区','兵庫県'],['姫路市','兵庫県'],['尼崎市','兵庫県'],['西宮市','兵庫県'],['明石市','兵庫県'],['伊丹市','兵庫県'],['宝塚市','兵庫県'],['奈良市','奈良県'],['橿原市','奈良県'],['生駒市','奈良県'],['和歌山市','和歌山県'],['鳥取市','鳥取県'],['松江市','島根県'],['出雲市','島根県'],['岡山市北区','岡山県'],['倉敷市','岡山県'],['広島市中区','広島県'],['広島市安佐南区','広島県'],['福山市','広島県'],['山口市','山口県'],['下関市','山口県'],['高松市','香川県'],['松山市','愛媛県'],['高知市','高知県'],['福岡市中央区','福岡県'],['福岡市博多区','福岡県'],['北九州市小倉北区','福岡県'],['久留米市','福岡県'],['佐賀市','佐賀県'],['長崎市','長崎県'],['熊本市中央区','熊本県'],['八代市','熊本県'],['大分市','大分県'],['宮崎市','宮崎県'],['鹿児島市','鹿児島県'],['那覇市','沖縄県'],['沖縄市','沖縄県']];
 
-let master={company:'',ninku:30000,fabrics:[{id:1,name:'帝人 シャガール',haba:1200,siire:900,kake:70},{id:2,name:'帝人 ニューパスティ',haba:940,siire:750,kake:70},{id:3,name:'帝人 テトロン',haba:940,siire:650,kake:70},{id:4,name:'ダイニック レガード',haba:1540,siire:1100,kake:70}],nextId:5,ranges:{canvas:[{from:0,to:9999,tanka:500}],tettyo:[{from:0,to:10,tanka:800},{from:10,to:9999,tanka:600}],tosou:[{from:0,to:9999,tanka:0}],parts:[{from:0,to:10,tanka:300},{from:10,to:9999,tanka:250}],gencyo:[{from:0,to:10,tanka:200},{from:10,to:9999,tanka:150}]},dist:[5000,10000,20000,30000],recentAddr:[]};
+const UNIT_LABELS={yojaku:'m（要尺）',menseki:'m²（面積）',maguchi:'m（間口）',debaba:'m（出幅）',shiki:'式（固定）',ninku:'人工'};
+const UNIT_BADGE={yojaku:'badge-o',menseki:'badge-b',maguchi:'badge-p',debaba:'badge-p',shiki:'badge-gray',ninku:'badge-g'};
+const UNIT_RANGE={yojaku:true,menseki:true,maguchi:true,debaba:true}; // 範囲設定可能な単位
+
+const HANDLE_SVG=`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="5" x2="13" y2="5"/><line x1="3" y1="8" x2="13" y2="8"/><line x1="3" y1="11" x2="13" y2="11"/></svg>`;
+
+const DEFAULT_EST_ITEMS=[
+  {id:'ei1',name:'キャンバス加工費',unit:'yojaku',ranges:[{from:0,to:9999,tanka:500}]},
+  {id:'ei2',name:'古材撤去及び処分費',unit:'menseki',ranges:[{from:0,to:10,tanka:800},{from:10,to:9999,tanka:600}]},
+  {id:'ei3',name:'塗装費',unit:'menseki',ranges:[{from:0,to:9999,tanka:0}]},
+  {id:'ei4',name:'現場取付施工費',unit:'ninku',ranges:[{from:0,to:9999,tanka:1}]},
+  {id:'ei5',name:'取付付属部品',unit:'menseki',ranges:[{from:0,to:10,tanka:300},{from:10,to:9999,tanka:250}]},
+  {id:'ei6',name:'現調採寸費',unit:'menseki',ranges:[{from:0,to:10,tanka:200},{from:10,to:9999,tanka:150}]},
+  {id:'ei7',name:'諸経費',unit:'shiki',ranges:[{from:0,to:9999,tanka:5000}]},
+];
+
+let master={
+  companyName:'',company:'',ninku:30000,
+  fabrics:[
+    {id:1,name:'帝人 シャガール',haba:1200,siire:900,kake:70},
+    {id:2,name:'帝人 ニューパスティ',haba:940,siire:750,kake:70},
+    {id:3,name:'帝人 テトロン',haba:940,siire:650,kake:70},
+    {id:4,name:'ダイニック レガード',haba:1540,siire:1100,kake:70},
+  ],
+  nextFabricId:5,
+  estItems:JSON.parse(JSON.stringify(DEFAULT_EST_ITEMS)),
+  nextItemId:100,
+  dist:[5000,10000,20000,30000],
+  recentAddr:[],
+};
 let cases=[],imports=[],lastCalc=null,distKm=null,currentAddr='',currentPref='',sugIdx=-1;
+let estInputs={};
 
-function lsLoad(){try{const d=JSON.parse(localStorage.getItem('taq_m'));if(d)master={...master,...d};}catch(e){}try{const d=JSON.parse(localStorage.getItem('taq_c'));if(d)cases=d;}catch(e){}try{const d=JSON.parse(localStorage.getItem('taq_i'));if(d)imports=d;}catch(e){}}
-function lsSave(){try{localStorage.setItem('taq_m',JSON.stringify(master));}catch(e){}try{localStorage.setItem('taq_c',JSON.stringify(cases));}catch(e){}try{localStorage.setItem('taq_i',JSON.stringify(imports));}catch(e){}}
+function lsLoad(){try{const d=JSON.parse(localStorage.getItem('taq_m3'));if(d)master={...master,...d};}catch(e){}try{const d=JSON.parse(localStorage.getItem('taq_c3'));if(d)cases=d;}catch(e){}try{const d=JSON.parse(localStorage.getItem('taq_i3'));if(d)imports=d;}catch(e){}}
+function lsSave(){try{localStorage.setItem('taq_m3',JSON.stringify(master));}catch(e){}try{localStorage.setItem('taq_c3',JSON.stringify(cases));}catch(e){}try{localStorage.setItem('taq_i3',JSON.stringify(imports));}catch(e){}}
 
-function sw(t){['est','imp','cases','master'].forEach((id,i)=>{document.querySelectorAll('.nav-tab')[i].classList.toggle('active',id===t);document.getElementById('panel-'+id).classList.toggle('active',id===t);});if(t==='master')renderMaster();if(t==='cases')renderCases();if(t==='imp')renderImpList();}
+function sw(t){['est','imp','cases','master'].forEach((id,i)=>{document.querySelectorAll('.nav-tab')[i].classList.toggle('active',id===t);document.getElementById('panel-'+id).classList.toggle('active',id===t);});if(t==='master')renderMaster();if(t==='cases')renderCases();if(t==='imp'){buildImpItemsList();renderImpList();}}
 
-// サジェスト
+// ── サジェスト ──
+// 会社住所サジェスト（マスタ用）
+function onCompanyAddrInput(){
+  const q=document.getElementById('m-company').value.trim();
+  const list=document.getElementById('company-suggest-list');
+  if(q.length<1){list.classList.remove('show');return;}
+  const hits=LOCATIONS.filter(([n])=>n.includes(q)).slice(0,10);
+  if(!hits.length){list.classList.remove('show');return;}
+  list.innerHTML=hits.map(([n,p])=>`<div class="suggest-item" data-n="${n}" data-p="${p}" onmousedown="selCompanySug('${n}','${p}')">${n}<span class="suggest-pref">${p}</span></div>`).join('');
+  list.classList.add('show');
+}
+function selCompanySug(n,p){
+  document.getElementById('m-company').value=p+' '+n;
+  document.getElementById('company-suggest-list').classList.remove('show');
+  saveM();
+}
+document.addEventListener('click',e=>{
+  if(!e.target.closest('#m-company')&&!e.target.closest('#company-suggest-list'))
+    document.getElementById('company-suggest-list')?.classList.remove('show');
+});
+
+// 折りたたみ
+function toggleAddForm(type){
+  const form=document.getElementById(type+'-add-form');
+  const btn=document.getElementById(type+'-add-btn');
+  const open=form.style.display==='none';
+  form.style.display=open?'block':'none';
+  btn.textContent=open?'▲ 閉じる':(type==='fabric'?'＋ 生地を追加':'＋ 項目を追加');
+}
+
 function onAddrInput(){const q=document.getElementById('addr-input').value.trim();const list=document.getElementById('suggest-list');if(q.length<1){list.classList.remove('show');return;}const hits=LOCATIONS.filter(([n])=>n.includes(q)).slice(0,10);if(!hits.length){list.classList.remove('show');return;}sugIdx=-1;list.innerHTML=hits.map(([n,p])=>`<div class="suggest-item" data-n="${n}" data-p="${p}" onmousedown="selSug('${n}','${p}')">${n}<span class="suggest-pref">${p}</span></div>`).join('');list.classList.add('show');}
 document.addEventListener('keydown',e=>{const list=document.getElementById('suggest-list');if(!list.classList.contains('show'))return;const items=list.querySelectorAll('.suggest-item');if(e.key==='ArrowDown'){e.preventDefault();sugIdx=Math.min(sugIdx+1,items.length-1);items.forEach((el,i)=>el.classList.toggle('act',i===sugIdx));}else if(e.key==='ArrowUp'){e.preventDefault();sugIdx=Math.max(sugIdx-1,0);items.forEach((el,i)=>el.classList.toggle('act',i===sugIdx));}else if(e.key==='Enter'&&sugIdx>=0){const el=items[sugIdx];selSug(el.dataset.n,el.dataset.p);}else if(e.key==='Escape')list.classList.remove('show');});
 document.addEventListener('click',e=>{if(!e.target.closest('.suggest-wrap'))document.getElementById('suggest-list').classList.remove('show');});
@@ -557,15 +598,12 @@ async function calcDist(){
   const badge=document.getElementById('dist-badge');
   badge.style.display='inline-flex';badge.textContent='計算中...';
   try{
-    const[r1,r2]=await Promise.all([
-      fetch('https://nominatim.openstreetmap.org/search?q='+encodeURIComponent(master.company)+'&format=json&limit=1&countrycodes=jp').then(r=>r.json()),
-      fetch('https://nominatim.openstreetmap.org/search?q='+encodeURIComponent(iv)+'&format=json&limit=1&countrycodes=jp').then(r=>r.json())
-    ]);
+    const[r1,r2]=await Promise.all([fetch('https://nominatim.openstreetmap.org/search?q='+encodeURIComponent(master.company)+'&format=json&limit=1&countrycodes=jp').then(r=>r.json()),fetch('https://nominatim.openstreetmap.org/search?q='+encodeURIComponent(iv)+'&format=json&limit=1&countrycodes=jp').then(r=>r.json())]);
     if(!r1.length||!r2.length)throw new Error('住所が見つかりません');
     distKm=haversine(+r1[0].lat,+r1[0].lon,+r2[0].lat,+r2[0].lon);
     badge.textContent='📍 '+distKm.toFixed(1)+'km → 諸経費目安 ¥'+getShokehi().toLocaleString();
   }catch(e){
-    const toPref=currentPref||extractPref(iv);const fromPref=extractPref(master.company);
+    const toPref=currentPref||extractPref(iv),fromPref=extractPref(master.company);
     if(!fromPref||!toPref){badge.textContent='住所を認識できません';return;}
     const[la1,lo1]=PREF_COORDS[fromPref],[la2,lo2]=PREF_COORDS[toPref];
     distKm=haversine(la1,lo1,la2,lo2);
@@ -575,11 +613,19 @@ async function calcDist(){
   master.recentAddr=(master.recentAddr||[]).filter(a=>a!==currentAddr);
   master.recentAddr.unshift(currentAddr);master.recentAddr=master.recentAddr.slice(0,10);
   lsSave();renderRecentAddr();
-  const el=document.getElementById('e-shokehi');if(!el.dataset.edited){el.value=getShokehi();calcTotal();}
+  const shItem=master.estItems.find(it=>it.unit==='shiki');
+  if(shItem){const el=document.getElementById('ei_'+shItem.id);if(el&&!estInputs[shItem.id]?.edited){el.value=getShokehi();calcTotal();}}
 }
 function getShokehi(){const d=distKm===null?0:distKm;if(d<10)return master.dist[0];if(d<30)return master.dist[1];if(d<50)return master.dist[2];return master.dist[3];}
 
-// 計算
+// ── 範囲から単価取得 ──
+function getRangeTankaByVal(ranges,val){
+  if(!ranges||!ranges.length)return 0;
+  for(const r of ranges){if(val>=r.from&&val<r.to)return r.tanka;}
+  return ranges[ranges.length-1].tanka;
+}
+
+// ── 計算 ──
 function calcDims(maguchi,debaba,okutaka,maetaka,tsumaC,habaM){
   const nagare=Math.sqrt(debaba*debaba+(okutaka-maetaka)*(okutaka-maetaka));
   const tachi=nagare+maetaka,mHaba=Math.ceil(maguchi/habaM),omote=tachi*mHaba;
@@ -588,11 +634,45 @@ function calcDims(maguchi,debaba,okutaka,maetaka,tsumaC,habaM){
   const tsumaY=tsumaOne*tsumaC;
   return{nagare,tachi,mHaba,omote,tsumaOne,tsumaY,totalY:omote+tsumaY,menseki:maguchi*debaba};
 }
-function buildFabricSel(){['fabric','i-fabric'].forEach(sid=>{const sel=document.getElementById(sid);if(!sel)return;const cur=sel.value;sel.innerHTML='';master.fabrics.forEach(f=>{const o=document.createElement('option');o.value=f.id;o.textContent=f.name+' ('+f.haba+'mm巾)';sel.appendChild(o);});if(cur)sel.value=cur;});calc();}
+
+function getAutoVal(item,dims){
+  const{totalY,menseki,kojihi,maguchi,debaba}=dims;
+  if(item.unit==='yojaku')return Math.round(totalY*getRangeTankaByVal(item.ranges,totalY));
+  if(item.unit==='menseki')return Math.round(menseki*getRangeTankaByVal(item.ranges,menseki));
+  if(item.unit==='maguchi')return Math.round(maguchi*getRangeTankaByVal(item.ranges,maguchi));
+  if(item.unit==='debaba')return Math.round(debaba*getRangeTankaByVal(item.ranges,debaba));
+  if(item.unit==='ninku')return Math.round(kojihi);
+  if(item.unit==='shiki')return Math.round(getRangeTankaByVal(item.ranges,0));
+  return 0;
+}
+
+function buildFabricSel(){['fabric','i-fabric'].forEach(sid=>{const sel=document.getElementById(sid);if(!sel)return;const cur=sel.value;sel.innerHTML='';master.fabrics.forEach(f=>{const o=document.createElement('option');o.value=f.id;o.textContent=f.name+' ('+(f.haba/10)+'cm巾)';sel.appendChild(o);});if(cur)sel.value=cur;});calc();}
 function getF(sid='fabric'){const id=parseInt(document.getElementById(sid).value);return master.fabrics.find(f=>f.id===id)||master.fabrics[0];}
 function fmt(n){return '¥'+Math.round(n).toLocaleString();}
-function markEdited(el){el.dataset.edited='1';}
-function getRangeTanka(key,val){const rs=master.ranges[key]||[];for(const r of rs){if(val>=r.from&&val<r.to)return r.tanka;}return rs.length?rs[rs.length-1].tanka:0;}
+
+function buildEstItemsList(){
+  const el=document.getElementById('est-items-list');if(!el)return;
+  el.innerHTML=master.estItems.map(item=>`
+    <div class="est-item-row">
+      <div class="est-item-left">
+        <span class="est-item-name">${item.name}</span>
+        <span class="badge ${UNIT_BADGE[item.unit]}">${UNIT_LABELS[item.unit]}</span>
+      </div>
+      <input type="number" id="ei_${item.id}" placeholder="0" oninput="onEstInput('${item.id}',this)">
+    </div>`).join('');
+  master.estItems.forEach(item=>{const el=document.getElementById('ei_'+item.id);if(el&&estInputs[item.id]){el.value=estInputs[item.id].val;if(estInputs[item.id].edited)el.dataset.edited='1';}});
+}
+
+function onEstInput(id,el){if(!estInputs[id])estInputs[id]={};estInputs[id].val=el.value;estInputs[id].edited=true;calcTotal();}
+
+function buildImpItemsList(){
+  const el=document.getElementById('imp-items-list');if(!el)return;
+  el.innerHTML=master.estItems.map(item=>`
+    <div class="item-row">
+      <div class="item-label">${item.name} <span class="badge ${UNIT_BADGE[item.unit]}">${UNIT_LABELS[item.unit]}</span></div>
+      <input type="number" id="ii_${item.id}" placeholder="0" oninput="calcImpPreview()">
+    </div>`).join('');
+}
 
 function calc(){
   const f=getF();const habaM=f.haba/1000;
@@ -603,8 +683,10 @@ function calc(){
   const tsumaC=parseInt(document.getElementById('tsuma').value);
   const workers=parseFloat(document.getElementById('workers').value);
   const wtime=parseFloat(document.getElementById('worktime').value);
-  const{nagare,tachi,mHaba,omote,tsumaOne,tsumaY,totalY,menseki}=calcDims(maguchi,debaba,okutaka,maetaka,tsumaC,habaM);
+  const dims=calcDims(maguchi,debaba,okutaka,maetaka,tsumaC,habaM);
+  const{nagare,tachi,mHaba,omote,tsumaOne,tsumaY,totalY,menseki}=dims;
   const kojihi=workers*wtime*master.ninku;
+  dims.kojihi=kojihi;dims.maguchi=maguchi;dims.debaba=debaba;
   const fabricCost=f.siire*totalY;
   const genka=fabricCost+kojihi;
 
@@ -620,48 +702,152 @@ function calc(){
   document.getElementById('r-genka-koji').textContent=fmt(kojihi);
   document.getElementById('r-genka-total').textContent=fmt(genka);
 
-  function setAuto(id,val){const el=document.getElementById(id);if(!el.dataset.edited)el.value=Math.round(val);}
-  setAuto('e-canvas',totalY*getRangeTanka('canvas',totalY));
-  setAuto('e-tettyo',menseki*getRangeTanka('tettyo',menseki));
-  setAuto('e-tosou',menseki*getRangeTanka('tosou',menseki));
-  setAuto('e-koji',kojihi);
-  setAuto('e-parts',menseki*getRangeTanka('parts',menseki));
-  setAuto('e-gencyo',menseki*getRangeTanka('gencyo',menseki));
-  setAuto('e-shokehi',getShokehi());
+  master.estItems.forEach(item=>{
+    const el=document.getElementById('ei_'+item.id);if(!el)return;
+    if(!estInputs[item.id]?.edited){
+      const auto=getAutoVal(item,dims);
+      el.value=auto;
+      if(!estInputs[item.id])estInputs[item.id]={};
+      estInputs[item.id].val=auto;
+    }
+  });
 
   lastCalc={maguchi,debaba,okutaka,maetaka,tsumaC,nagare,tachi,mHaba,omote,tsumaY,totalY,menseki,kojihi,fabricId:f.id,fabricName:f.name,workers,wtime,genka};
   calcTotal();
 }
 
 function calcTotal(){
-  const ids=['e-canvas','e-tettyo','e-tosou','e-koji','e-parts','e-gencyo','e-shokehi'];
-  const shokei=ids.reduce((s,id)=>s+(parseFloat(document.getElementById(id).value)||0),0);
+  let shokei=0;
+  master.estItems.forEach(item=>{shokei+=(parseFloat(document.getElementById('ei_'+item.id)?.value)||0);});
   const tax=shokei*.1,total=shokei+tax;
   const genka=lastCalc?lastCalc.genka:0;
   const rieki=shokei>0?(shokei-genka)/shokei*100:0;
+  const rColor=rieki>=40?'#4ade80':rieki>=25?'#facc15':'#f87171';
 
-  // サマリ更新
-  ids.forEach(id=>{const key=id.replace('e-','s-');const el=document.getElementById(key);if(el)el.textContent=fmt(parseFloat(document.getElementById(id).value)||0);});
-
-  // PC合計
   document.getElementById('pc-total').textContent=fmt(total);
   document.getElementById('pc-shokei').textContent=fmt(shokei);
   document.getElementById('pc-tax').textContent=fmt(tax);
   const pcR=document.getElementById('pc-rieki'),pcBar=document.getElementById('pc-pbar');
-  pcR.textContent=rieki.toFixed(1)+'%';
-  pcBar.style.width=Math.max(0,Math.min(100,rieki))+'%';
-  if(rieki>=40){pcR.style.color='#4ade80';pcBar.style.background='#4ade80';}
-  else if(rieki>=25){pcR.style.color='#facc15';pcBar.style.background='#facc15';}
-  else{pcR.style.color='#f87171';pcBar.style.background='#f87171';}
-
-  // SP フローティング
+  pcR.textContent=rieki.toFixed(1)+'%';pcR.style.color=rColor;
+  pcBar.style.width=Math.max(0,Math.min(100,rieki))+'%';pcBar.style.background=rColor;
   document.getElementById('sp-total').textContent=fmt(total);
   const spR=document.getElementById('sp-rieki');
-  spR.textContent='利益率 '+rieki.toFixed(1)+'%';
-  spR.style.color=rieki>=40?'#4ade80':rieki>=25?'#facc15':'#f87171';
+  spR.textContent='利益率 '+rieki.toFixed(1)+'%';spR.style.color=rColor;
+
+  const sumEl=document.getElementById('pc-summary-list');
+  if(sumEl){sumEl.innerHTML=master.estItems.map(item=>`<div class="result-item"><span class="ri-label">${item.name}</span><span class="ri-val">${fmt(parseFloat(document.getElementById('ei_'+item.id)?.value)||0)}</span></div>`).join('');}
 }
 
-// インポート
+// ── 見積項目マスタ操作 ──
+function addEstItem(){
+  const name=document.getElementById('m-iname').value.trim();
+  const unit=document.getElementById('m-iunit').value;
+  const tanka=parseFloat(document.getElementById('m-itanka').value)||0;
+  if(!name){alert('項目名を入力してください');return;}
+  const id='ei'+(master.nextItemId++);
+  master.estItems.push({id,name,unit,ranges:[{from:0,to:9999,tanka}]});
+  lsSave();
+  ['m-iname','m-itanka'].forEach(i=>document.getElementById(i).value='');
+  document.getElementById('estitem-add-form').style.display='none';
+  document.getElementById('estitem-add-btn').textContent='＋ 項目を追加';
+  renderMaster();buildEstItemsList();buildImpItemsList();calc();
+}
+
+function delEstItem(id){
+  if(master.estItems.length<=1){alert('最低1項目必要です');return;}
+  master.estItems=master.estItems.filter(i=>i.id!==id);
+  delete estInputs[id];
+  lsSave();renderMaster();buildEstItemsList();buildImpItemsList();calc();
+}
+
+function updateEstItemName(id,val){const item=master.estItems.find(i=>i.id===id);if(item){item.name=val;lsSave();buildEstItemsList();buildImpItemsList();}}
+function updateEstItemUnit(id,val){const item=master.estItems.find(i=>i.id===id);if(item){item.unit=val;lsSave();renderMaster();buildEstItemsList();buildImpItemsList();calc();}}
+function addRange(itemId){const item=master.estItems.find(i=>i.id===itemId);if(!item)return;const last=item.ranges[item.ranges.length-1];const from=last.to>=9999?last.from+10:last.to;item.ranges.push({from,to:9999,tanka:0});lsSave();renderMaster();}
+function delRange(itemId,ri){const item=master.estItems.find(i=>i.id===itemId);if(!item||item.ranges.length<=1){alert('最低1行必要です');return;}item.ranges.splice(ri,1);lsSave();renderMaster();}
+function updateRange(itemId,ri,field,val){const item=master.estItems.find(i=>i.id===itemId);if(!item)return;const v=parseFloat(val);if(field==='to'&&(isNaN(v)||val===''))item.ranges[ri].to=9999;else item.ranges[ri][field]=isNaN(v)?0:v;lsSave();calc();}
+
+// ── ドラッグ並び替え（マウス＆タッチ両対応） ──
+let dragSrc=null,dragList=null,dragType=null;
+
+function initDrag(container,type){
+  let dragEl=null,placeholder=null,startY=0,offsetY=0;
+
+  function getItems(){return Array.from(container.querySelectorAll('.sortable-item'));}
+  function getIdx(el){return getItems().indexOf(el);}
+
+  function onDragStart(e,el){
+    dragEl=el;
+    dragEl.classList.add('dragging');
+    placeholder=document.createElement('div');
+    placeholder.style.cssText=`height:${dragEl.offsetHeight}px;background:var(--abg);border:1px dashed var(--ab);border-radius:var(--rs);margin:2px 0;`;
+    startY=e.touches?e.touches[0].clientY:e.clientY;
+    offsetY=0;
+    document.addEventListener('mousemove',onMove);
+    document.addEventListener('mouseup',onEnd);
+    document.addEventListener('touchmove',onMove,{passive:false});
+    document.addEventListener('touchend',onEnd);
+  }
+
+  function onMove(e){
+    if(!dragEl)return;
+    e.preventDefault();
+    const clientY=e.touches?e.touches[0].clientY:e.clientY;
+    offsetY=clientY-startY;
+    dragEl.style.transform=`translateY(${offsetY}px)`;
+    dragEl.style.zIndex='999';
+    dragEl.style.position='relative';
+    // ドロップ位置検出
+    const items=getItems().filter(i=>i!==dragEl);
+    const rect=dragEl.getBoundingClientRect();
+    const midY=rect.top+rect.height/2+offsetY;
+    let target=null;
+    for(const it of items){
+      const r=it.getBoundingClientRect();
+      if(midY<r.top+r.height/2){target=it;break;}
+    }
+    if(target){container.insertBefore(placeholder,target);}
+    else{container.appendChild(placeholder);}
+  }
+
+  function onEnd(){
+    if(!dragEl)return;
+    dragEl.classList.remove('dragging');
+    dragEl.style.transform='';dragEl.style.zIndex='';dragEl.style.position='';
+    if(placeholder&&placeholder.parentNode){
+      container.insertBefore(dragEl,placeholder);
+      placeholder.remove();
+    }
+    // 新しい順序をmasterに反映
+    const newOrder=getItems().map(el=>el.dataset.id);
+    if(type==='fabric'){
+      master.fabrics=newOrder.map(id=>master.fabrics.find(f=>String(f.id)===id)).filter(Boolean);
+    }else if(type==='estitem'){
+      master.estItems=newOrder.map(id=>master.estItems.find(i=>i.id===id)).filter(Boolean);
+    }
+    lsSave();buildEstItemsList();buildImpItemsList();buildFabricSel();calc();
+    dragEl=null;placeholder=null;
+    document.removeEventListener('mousemove',onMove);
+    document.removeEventListener('mouseup',onEnd);
+    document.removeEventListener('touchmove',onMove);
+    document.removeEventListener('touchend',onEnd);
+  }
+
+  // ハンドルにイベント付与
+  container.addEventListener('mousedown',e=>{
+    const handle=e.target.closest('.drag-handle');
+    if(!handle)return;
+    const item=handle.closest('.sortable-item');
+    if(item)onDragStart(e,item);
+  });
+  container.addEventListener('touchstart',e=>{
+    const handle=e.target.closest('.drag-handle');
+    if(!handle)return;
+    const item=handle.closest('.sortable-item');
+    if(item)onDragStart(e,item);
+  },{passive:false});
+}
+
+// ── インポート ──
 function calcImpPreview(){
   const f=getF('i-fabric');const habaM=f.haba/1000;
   const maguchi=(parseFloat(document.getElementById('i-maguchi').value)||0)/1000;
@@ -670,11 +856,17 @@ function calcImpPreview(){
   const maetaka=(parseFloat(document.getElementById('i-maetaka').value)||0)/1000;
   const tsumaC=parseInt(document.getElementById('i-tsuma').value);
   if(!maguchi||!debaba||!okutaka){document.getElementById('imp-preview').style.display='none';return;}
-  const{totalY,menseki}=calcDims(maguchi,debaba,okutaka,maetaka,tsumaC,habaM);
-  const rows=IMP_ITEMS.map(item=>{const amt=parseFloat(document.getElementById('i-'+item.id).value)||0;const base=item.basis==='yojaku'?totalY:menseki;return{...item,amt,base:base.toFixed(2),tanka:base>0?amt/base:0};}).filter(r=>r.amt>0);
+  const dims=calcDims(maguchi,debaba,okutaka,maetaka,tsumaC,habaM);
+  dims.kojihi=0;dims.maguchi=maguchi;dims.debaba=debaba;
+  const rows=master.estItems.filter(item=>['yojaku','menseki','maguchi','debaba'].includes(item.unit)).map(item=>{
+    const amt=parseFloat(document.getElementById('ii_'+item.id)?.value)||0;
+    const base=item.unit==='yojaku'?dims.totalY:item.unit==='menseki'?dims.menseki:item.unit==='maguchi'?maguchi:debaba;
+    const baseLabel=base.toFixed(2)+(item.unit==='menseki'?'m²':'m');
+    return{...item,amt,base,baseLabel,tanka:base>0?amt/base:0};
+  }).filter(r=>r.amt>0);
   if(!rows.length){document.getElementById('imp-preview').style.display='none';return;}
   document.getElementById('imp-preview').style.display='block';
-  document.getElementById('imp-preview-content').innerHTML=rows.map(r=>`<div class="tanka-row"><span class="tanka-label">${r.label}</span><span class="tanka-val">${fmt(r.amt)} ÷ ${r.base}${r.unit} = <strong style="color:var(--a)">${Math.round(r.tanka)}円/${r.unit}</strong></span></div>`).join('');
+  document.getElementById('imp-preview-content').innerHTML=rows.map(r=>`<div class="tanka-row"><span class="tanka-label">${r.name}</span><span class="tanka-val">${fmt(r.amt)} ÷ ${r.baseLabel} = <strong style="color:var(--a)">${Math.round(r.tanka)}円/${r.unit==='menseki'?'m²':'m'}</strong></span></div>`).join('');
 }
 
 function saveImport(){
@@ -685,35 +877,56 @@ function saveImport(){
   const maetaka=(parseFloat(document.getElementById('i-maetaka').value)||0)/1000;
   const tsumaC=parseInt(document.getElementById('i-tsuma').value);
   if(!maguchi||!debaba||!okutaka){alert('寸法を入力してください');return;}
-  const{totalY,menseki}=calcDims(maguchi,debaba,okutaka,maetaka,tsumaC,habaM);
+  const dims=calcDims(maguchi,debaba,okutaka,maetaka,tsumaC,habaM);
+  dims.kojihi=0;dims.maguchi=maguchi;dims.debaba=debaba;
   const items={};
-  IMP_ITEMS.forEach(item=>{const amt=parseFloat(document.getElementById('i-'+item.id).value)||0;const base=item.basis==='yojaku'?totalY:menseki;items[item.id]={amt,tanka:base>0?amt/base:0,basis:item.basis,base};});
-  imports.unshift({id:Date.now(),name:document.getElementById('i-name').value||'無題',fabricId:f.id,fabricName:f.name,maguchi,debaba,okutaka,maetaka,tsumaC,totalY,menseki,items,date:new Date().toLocaleDateString('ja-JP')});
+  master.estItems.forEach(item=>{
+    const amt=parseFloat(document.getElementById('ii_'+item.id)?.value)||0;
+    const base=item.unit==='yojaku'?dims.totalY:item.unit==='menseki'?dims.menseki:item.unit==='maguchi'?maguchi:item.unit==='debaba'?debaba:1;
+    items[item.id]={amt,tanka:base>0?amt/base:0,unit:item.unit};
+  });
+  imports.unshift({id:Date.now(),name:document.getElementById('i-name').value||'無題',fabricId:f.id,fabricName:f.name,maguchi,debaba,okutaka,maetaka,tsumaC,totalY:dims.totalY,menseki:dims.menseki,items,date:new Date().toLocaleDateString('ja-JP')});
   lsSave();alert('保存しました');resetImport();renderImpList();
 }
 
-function resetImport(){['i-name','i-maguchi','i-debaba','i-okutaka','i-maetaka','i-canvas','i-tettyo','i-tosou','i-koji','i-parts','i-gencyo','i-shokehi'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});document.getElementById('imp-preview').style.display='none';}
+function resetImport(){
+  ['i-name','i-maguchi','i-debaba','i-okutaka','i-maetaka'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  master.estItems.forEach(item=>{const el=document.getElementById('ii_'+item.id);if(el)el.value='';});
+  document.getElementById('imp-preview').style.display='none';
+}
 
 function renderImpList(){
   const el=document.getElementById('imp-list');
   if(!imports.length){el.innerHTML='<div class="empty"><div class="empty-icon">📭</div><div class="empty-text">過去案件がまだありません</div></div>';document.getElementById('avg-section').style.display='none';return;}
-  el.innerHTML=`<div style="font-size:12px;font-weight:700;color:var(--t3);margin-bottom:10px;">登録済み過去案件（${imports.length}件）</div>`+imports.map(imp=>`<div class="imp-card"><div class="imp-header"><div><div class="imp-name">${imp.name}</div><div class="imp-meta">${imp.fabricName} / 間口${Math.round(imp.maguchi*1000)}mm × 出幅${Math.round(imp.debaba*1000)}mm / ${imp.date}</div></div><button class="btn btn-sm btn-danger" onclick="delImport(${imp.id})">削除</button></div>${IMP_ITEMS.filter(item=>imp.items[item.id]&&imp.items[item.id].amt>0).map(item=>`<div class="tanka-row"><span class="tanka-label">${item.label}</span><span class="tanka-val">${Math.round(imp.items[item.id].tanka)}円/${item.unit}</span></div>`).join('')}</div>`).join('');
+  el.innerHTML=`<div style="font-size:12px;font-weight:700;color:var(--t3);margin-bottom:10px;">登録済み過去案件（${imports.length}件）</div>`+
+  imports.map(imp=>`<div class="imp-card"><div class="imp-header"><div><div class="imp-name">${imp.name}</div><div class="imp-meta">${imp.fabricName} / 間口${Math.round(imp.maguchi*1000)}mm × 出幅${Math.round(imp.debaba*1000)}mm / ${imp.date}</div></div><button class="btn btn-sm btn-danger" onclick="delImport(${imp.id})">削除</button></div>${Object.entries(imp.items||{}).filter(([,v])=>v.amt>0&&['yojaku','menseki','maguchi','debaba'].includes(v.unit)).map(([id,v])=>{const item=master.estItems.find(i=>i.id===id);return`<div class="tanka-row"><span class="tanka-label">${item?item.name:id}</span><span class="tanka-val">${Math.round(v.tanka)}円/${v.unit==='menseki'?'m²':'m'}</span></div>`;}).join('')}</div>`).join('');
   renderAvg();
 }
 
 function renderAvg(){
   const sec=document.getElementById('avg-section');
+  const measurable=['yojaku','menseki','maguchi','debaba'];
   if(imports.length<2){sec.style.display='none';return;}
-  sec.style.display='block';
   const avgs={};
-  IMP_ITEMS.forEach(item=>{const vals=imports.filter(imp=>imp.items[item.id]&&imp.items[item.id].amt>0).map(imp=>imp.items[item.id].tanka);if(vals.length)avgs[item.id]={avg:vals.reduce((a,b)=>a+b,0)/vals.length,count:vals.length,unit:item.unit,label:item.label};});
-  sec.innerHTML=`<div class="avg-box"><div class="avg-title">過去${imports.length}件の平均単価</div>${Object.entries(avgs).map(([k,v])=>`<div class="avg-row"><span class="avg-label">${v.label}（${v.count}件）</span><span class="avg-val">${Math.round(v.avg)}円/${v.unit}</span></div>`).join('')}<button class="btn btn-success" style="width:100%;margin-top:12px;" onclick="applyAvgToMaster()">この平均値でマスタを更新</button></div>`;
+  master.estItems.filter(item=>measurable.includes(item.unit)).forEach(item=>{
+    const vals=imports.filter(imp=>imp.items?.[item.id]?.amt>0).map(imp=>imp.items[item.id].tanka);
+    if(vals.length)avgs[item.id]={avg:vals.reduce((a,b)=>a+b,0)/vals.length,count:vals.length,unit:item.unit,label:item.name};
+  });
+  if(!Object.keys(avgs).length){sec.style.display='none';return;}
+  sec.style.display='block';
+  sec.innerHTML=`<div class="avg-box"><div class="avg-title">過去${imports.length}件の平均単価</div>${Object.entries(avgs).map(([k,v])=>`<div class="avg-row"><span class="avg-label">${v.label}（${v.count}件）</span><span class="avg-val">${Math.round(v.avg)}円/${v.unit==='menseki'?'m²':'m'}</span></div>`).join('')}<button class="btn btn-success" style="width:100%;margin-top:12px;" onclick="applyAvgToMaster()">この平均値でマスタを更新</button></div>`;
 }
 
 function applyAvgToMaster(){
-  if(!confirm('過去案件の平均単価でマスタを上書きしますか？'))return;
-  IMP_ITEMS.forEach(item=>{const vals=imports.filter(imp=>imp.items[item.id]&&imp.items[item.id].amt>0).map(imp=>imp.items[item.id].tanka);if(!vals.length)return;master.ranges[item.id]=[{from:0,to:9999,tanka:Math.round(vals.reduce((a,b)=>a+b,0)/vals.length)}];});
-  lsSave();alert('マスタを更新しました！');
+  if(!confirm('過去案件の平均単価でマスタの目安単価を上書きしますか？'))return;
+  const measurable=['yojaku','menseki','maguchi','debaba'];
+  master.estItems.filter(item=>measurable.includes(item.unit)).forEach(item=>{
+    const vals=imports.filter(imp=>imp.items?.[item.id]?.amt>0).map(imp=>imp.items[item.id].tanka);
+    if(!vals.length)return;
+    const avg=Math.round(vals.reduce((a,b)=>a+b,0)/vals.length);
+    item.ranges=[{from:0,to:9999,tanka:avg}];
+  });
+  lsSave();alert('マスタを更新しました！');renderMaster();calc();
 }
 function delImport(id){imports=imports.filter(i=>i.id!==id);lsSave();renderImpList();}
 
@@ -721,8 +934,7 @@ function saveCase(){
   if(!lastCalc){alert('先に寸法を入力してください');return;}
   const name=document.getElementById('cname').value||'無題案件';
   const client=document.getElementById('client').value||'';
-  const ids=['e-canvas','e-tettyo','e-tosou','e-koji','e-parts','e-gencyo','e-shokehi'];
-  const shokei=ids.reduce((s,id)=>s+(parseFloat(document.getElementById(id).value)||0),0);
+  let shokei=0;master.estItems.forEach(item=>{shokei+=(parseFloat(document.getElementById('ei_'+item.id)?.value)||0);});
   const rieki=shokei>0?(shokei-lastCalc.genka)/shokei*100:0;
   cases.unshift({id:Date.now(),name,client,shokei,rieki,date:new Date().toLocaleDateString('ja-JP'),address:currentAddr,distKm,...lastCalc});
   lsSave();alert('「'+name+'」を保存しました');
@@ -730,11 +942,10 @@ function saveCase(){
 
 function resetEst(){
   ['cname','client'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('addr-input').value='';
-  document.getElementById('addr-result').textContent='-';
+  document.getElementById('addr-input').value='';document.getElementById('addr-result').textContent='-';
   document.getElementById('dist-badge').style.display='none';
-  currentAddr='';currentPref='';distKm=null;
-  ['e-canvas','e-tettyo','e-tosou','e-koji','e-parts','e-gencyo','e-shokehi'].forEach(id=>{const el=document.getElementById(id);el.value='';el.dataset.edited='';});
+  currentAddr='';currentPref='';distKm=null;estInputs={};
+  master.estItems.forEach(item=>{const el=document.getElementById('ei_'+item.id);if(el){el.value='';delete el.dataset.edited;}});
   lastCalc=null;calc();
 }
 
@@ -744,23 +955,83 @@ function renderCases(){
   el.innerHTML=cases.map(c=>`<div class="case-card"><div class="case-header"><div><div class="case-name">${c.name}</div><div class="case-client">${c.client}${c.address?' / '+c.address:''}</div></div><div><div class="case-amount">${fmt(c.shokei)}</div><div class="case-rieki" style="color:${c.rieki>=40?'#16a34a':c.rieki>=25?'#d97706':'#dc2626'};">利益率 ${c.rieki.toFixed(1)}%</div></div></div><div class="case-meta"><span class="case-meta-item">${c.fabricName||''}</span><span class="case-meta-item">間口 ${c.maguchi?Math.round(c.maguchi*1000):'-'}mm</span><span class="case-meta-item">出幅 ${c.debaba?Math.round(c.debaba*1000):'-'}mm</span><span class="case-meta-item">要尺 ${c.totalY?c.totalY.toFixed(1):'-'}m</span>${c.distKm?'<span class="case-meta-item">'+c.distKm.toFixed(1)+'km</span>':''}<span class="case-meta-item">${c.date}</span></div></div>`).join('');
 }
 
+// ── マスタ描画 ──
 function renderMaster(){
+  document.getElementById('m-compname').value=master.companyName||'';
   document.getElementById('m-company').value=master.company;
   document.getElementById('m-ninku').value=master.ninku;
   [0,1,2,3].forEach(i=>document.getElementById('m-dist'+i).value=master.dist[i]);
-  document.getElementById('fabric-list').innerHTML=master.fabrics.map(f=>`<div class="master-item"><div><div class="master-name">${f.name}</div><div class="master-meta">${f.haba}mm巾 / 仕入 ${f.siire}円/m / 掛率 ${f.kake}%</div></div><button class="btn btn-sm btn-danger" onclick="delFabric(${f.id})">削除</button></div>`).join('');
-  document.getElementById('range-master').innerHTML=RANGE_DEFS.map(def=>`<div class="range-section"><div class="range-title"><span>${def.label} <span style="font-size:10px;font-weight:400;color:var(--t3);">円/${def.unit}</span></span><button class="btn btn-sm" onclick="addRange('${def.key}')">＋ 追加</button></div><div class="range-header"><span>以上</span><span>未満（空=上限なし）</span><span>単価（円）</span><span></span></div><div id="ranges-${def.key}">${renderRangeRows(def.key)}</div></div>`).join('');
+
+  // 生地マスタ（ドラッグ対応）
+  const fl=document.getElementById('fabric-list');
+  fl.innerHTML=master.fabrics.map(f=>`
+    <div class="master-fabric-row sortable-item" data-id="${f.id}">
+      <div class="drag-handle" title="ドラッグで並び替え">${HANDLE_SVG}</div>
+      <div style="flex:1;min-width:0;">
+        <div style="display:flex;align-items:baseline;gap:6px;margin-bottom:5px;">
+          <span style="font-size:13px;font-weight:700;color:var(--t);white-space:nowrap;overflow:visible;">${f.name}</span>
+          <span style="font-size:11px;color:var(--t3);font-family:var(--mono);flex-shrink:0;">${f.haba/10}cm巾</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+          <div style="display:flex;align-items:center;gap:3px;">
+            <span style="font-size:10px;color:var(--t3);">仕入</span>
+            <input type="number" value="${f.siire}" style="width:72px;" onchange="updateFabricField(${f.id},'siire',this.value)" title="仕入単価（円/m）">
+            <span style="font-size:10px;color:var(--t3);">円/m</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:3px;">
+            <span style="font-size:10px;color:var(--t3);">掛率</span>
+            <input type="number" value="${f.kake}" style="width:52px;" onchange="updateFabricField(${f.id},'kake',this.value)" title="掛率（%）">
+            <span style="font-size:10px;color:var(--t3);">%</span>
+          </div>
+          <button class="btn btn-sm btn-danger" onclick="delFabric(${f.id})">削除</button>
+        </div>
+      </div>
+    </div>`).join('');
+  initDrag(fl,'fabric');
+
+  // 見積項目マスタ（ドラッグ対応＋範囲マスタ）
+  const ml=document.getElementById('est-master-list');
+  ml.innerHTML=master.estItems.map(item=>`
+    <div class="master-estitem-row sortable-item" data-id="${item.id}">
+      <div class="drag-handle" title="ドラッグで並び替え">${HANDLE_SVG}</div>
+      <div class="master-estitem-body">
+        <div class="mei-name"><input type="text" value="${item.name}" onchange="updateEstItemName('${item.id}',this.value)" placeholder="項目名"></div>
+        <div class="mei-controls">
+          <select onchange="updateEstItemUnit('${item.id}',this.value)">
+            ${Object.entries(UNIT_LABELS).map(([k,v])=>`<option value="${k}"${item.unit===k?' selected':''}>${v}</option>`).join('')}
+          </select>
+          <button class="btn btn-sm btn-danger" onclick="delEstItem('${item.id}')">削除</button>
+        </div>
+        ${UNIT_RANGE[item.unit]?renderRangeSection(item):''}
+      </div>
+    </div>`).join('');
+  initDrag(ml,'estitem');
 }
 
-function renderRangeRows(key){return(master.ranges[key]||[]).map((r,i)=>`<div class="range-item"><input type="number" value="${r.from}" step="0.1" onchange="updateRange('${key}',${i},'from',this.value)"><input type="number" value="${r.to>=9999?'':r.to}" placeholder="上限なし" step="0.1" onchange="updateRange('${key}',${i},'to',this.value)"><input type="number" value="${r.tanka}" step="1" onchange="updateRange('${key}',${i},'tanka',this.value)"><button class="btn btn-sm btn-danger" onclick="delRange('${key}',${i})">削除</button></div>`).join('');}
-function updateRange(key,i,field,val){const v=parseFloat(val);if(field==='to'&&(isNaN(v)||val===''))master.ranges[key][i].to=9999;else master.ranges[key][i][field]=isNaN(v)?0:v;lsSave();}
-function addRange(key){const rs=master.ranges[key];rs.push({from:rs.length?rs[rs.length-1].to>=9999?rs[rs.length-1].from+10:rs[rs.length-1].to:0,to:9999,tanka:0});lsSave();document.getElementById('ranges-'+key).innerHTML=renderRangeRows(key);}
-function delRange(key,i){if(master.ranges[key].length<=1){alert('最低1行必要です');return;}master.ranges[key].splice(i,1);lsSave();document.getElementById('ranges-'+key).innerHTML=renderRangeRows(key);}
-function saveM(){master.company=document.getElementById('m-company').value;master.ninku=parseFloat(document.getElementById('m-ninku').value)||30000;master.dist=[0,1,2,3].map(i=>parseFloat(document.getElementById('m-dist'+i).value)||0);lsSave();}
-function addFabric(){const name=document.getElementById('m-fname').value.trim();const haba=parseFloat(document.getElementById('m-fhaba').value);const siire=parseFloat(document.getElementById('m-fsiire').value);const kake=parseFloat(document.getElementById('m-fkake').value)||70;if(!name||!haba||!siire){alert('全項目を入力してください');return;}master.fabrics.push({id:master.nextId++,name,haba,siire,kake});lsSave();['m-fname','m-fhaba','m-fsiire'].forEach(id=>document.getElementById(id).value='');renderMaster();buildFabricSel();}
-function delFabric(id){if(master.fabrics.length<=1){alert('最低1つ必要です');return;}master.fabrics=master.fabrics.filter(f=>f.id!==id);lsSave();renderMaster();buildFabricSel();}
+function renderRangeSection(item){
+  const unitLabel=item.unit==='menseki'?'m²':'m';
+  return`<div style="margin-top:8px;background:var(--g);border:1px solid var(--b);border-radius:var(--rs);padding:8px 10px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+      <span style="font-size:10px;font-weight:700;color:var(--t3);">範囲別単価（${unitLabel}あたり）</span>
+      <button class="btn btn-sm" onclick="addRange('${item.id}')">＋ 追加</button>
+    </div>
+    <div class="range-hdr"><span>以上</span><span>未満（空=上限なし）</span><span>単価（円/${unitLabel}）</span><span></span></div>
+    ${(item.ranges||[]).map((r,ri)=>`
+      <div class="range-row">
+        <input type="number" value="${r.from}" step="0.1" onchange="updateRange('${item.id}',${ri},'from',this.value)">
+        <input type="number" value="${r.to>=9999?'':r.to}" placeholder="上限なし" step="0.1" onchange="updateRange('${item.id}',${ri},'to',this.value)">
+        <input type="number" value="${r.tanka}" step="1" onchange="updateRange('${item.id}',${ri},'tanka',this.value)">
+        <button class="btn btn-sm btn-danger" onclick="delRange('${item.id}',${ri})">削除</button>
+      </div>`).join('')}
+  </div>`;
+}
 
-lsLoad();renderRecentAddr();buildFabricSel();
+function updateFabricField(id,field,val){const f=master.fabrics.find(f=>f.id===id);if(f){f[field]=parseFloat(val)||0;lsSave();calc();}}
+function addFabric(){const name=document.getElementById('m-fname').value.trim();const habaCm=parseFloat(document.getElementById('m-fhaba').value);const siire=parseFloat(document.getElementById('m-fsiire').value);const kake=parseFloat(document.getElementById('m-fkake').value)||70;if(!name||!habaCm||!siire){alert('全項目を入力してください');return;}const haba=habaCm*10;master.fabrics.push({id:master.nextFabricId++,name,haba,siire,kake});lsSave();['m-fname','m-fhaba','m-fsiire'].forEach(id=>document.getElementById(id).value='');document.getElementById('fabric-add-form').style.display='none';document.getElementById('fabric-add-btn').textContent='＋ 生地を追加';renderMaster();buildFabricSel();}
+function delFabric(id){if(master.fabrics.length<=1){alert('最低1つ必要です');return;}master.fabrics=master.fabrics.filter(f=>f.id!==id);lsSave();renderMaster();buildFabricSel();}
+function saveM(){master.companyName=document.getElementById('m-compname').value;master.company=document.getElementById('m-company').value;master.ninku=parseFloat(document.getElementById('m-ninku').value)||30000;master.dist=[0,1,2,3].map(i=>parseFloat(document.getElementById('m-dist'+i).value)||0);lsSave();}
+
+lsLoad();renderRecentAddr();buildEstItemsList();buildFabricSel();
 </script>
 </body>
 </html>
