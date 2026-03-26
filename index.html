@@ -11,22 +11,26 @@
 :root{
   --h:#1e293b;--h2:#334155;--h3:#475569;
   --a:#f97316;--ad:#ea580c;--abg:#fff7ed;--ab:#fed7aa;
-  --w:#ffffff;--g:#f8fafc;--g2:#f1f5f9;
+  --w:#fff;--g:#f8fafc;--g2:#f1f5f9;
   --b:#e2e8f0;--b2:#cbd5e1;
   --t:#1e293b;--t2:#475569;--t3:#94a3b8;
   --green:#16a34a;--gbg:#f0fdf4;--gb:#bbf7d0;
   --red:#dc2626;--blue:#2563eb;--bluebg:#eff6ff;--blueb:#bfdbfe;
   --mono:'DM Mono',monospace;--sans:'Noto Sans JP',sans-serif;
-  --r:10px;--rs:6px;--hh:52px;--nh:42px;--fh:68px;
+  --r:10px;--rs:6px;--hh:52px;--nh:42px;
+  --fbar-h:64px; /* PC フローティングバー高さ */
+  --fbar-sp-h:68px; /* SP フローティングバー高さ */
 }
 body{font-family:var(--sans);background:var(--g);color:var(--t);font-size:14px;line-height:1.6;min-height:100dvh;}
 
+/* ── Header ── */
 .header{height:var(--hh);background:var(--h);display:flex;align-items:center;padding:0 20px;gap:10px;position:sticky;top:0;z-index:100;}
 .logo-mark{width:28px;height:28px;background:var(--a);border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;font-weight:500;color:#fff;flex-shrink:0;}
 .logo-text{font-family:var(--mono);font-size:12px;font-weight:500;color:#fff;letter-spacing:.06em;}
 .logo-sub{font-size:10px;color:var(--h3);margin-left:6px;display:none;}
 @media(min-width:600px){.logo-sub{display:inline;}}
 
+/* ── Nav ── */
 .nav{height:var(--nh);background:var(--w);border-bottom:1px solid var(--b);display:flex;position:sticky;top:var(--hh);z-index:99;overflow-x:auto;scrollbar-width:none;}
 .nav::-webkit-scrollbar{display:none;}
 .nav-tab{flex-shrink:0;display:flex;align-items:center;padding:0 18px;font-size:12px;font-weight:500;color:var(--t3);cursor:pointer;border-bottom:2px solid transparent;transition:color .15s,border-color .15s;white-space:nowrap;}
@@ -34,56 +38,126 @@ body{font-family:var(--sans);background:var(--g);color:var(--t);font-size:14px;l
 .nav-tab.active{color:var(--a);border-bottom-color:var(--a);}
 .panel{display:none;}.panel.active{display:block;}
 
+/* ══════════════════════
+   フローティング合計バー（PC / SP共通）
+══════════════════════ */
+.float-bar{
+  position:fixed;bottom:0;left:0;right:0;
+  background:var(--h);border-top:1px solid var(--h2);
+  z-index:200;
+  display:flex;align-items:center;
+  padding:0 20px;gap:0;
+}
+
+/* PC: 高さ64px・横並び詳細表示 */
 @media(min-width:768px){
-  .est-layout{display:grid;grid-template-columns:1fr 1fr;height:calc(100dvh - var(--hh) - var(--nh));overflow:hidden;}
-  .est-left{overflow-y:auto;padding:20px;border-right:1px solid var(--b);}
-  .est-right{overflow-y:auto;padding:20px;background:var(--g2);}
-  .float-bar{display:none !important;}
-  .pc-total{display:block;}
-  .pc-save-row{display:flex;gap:10px;margin-top:14px;}
-  .pc-save-row .btn{flex:1;}
-  .sp-bottom-pad{display:none;}
+  .float-bar{height:var(--fbar-h);}
+  .fbar-total{display:flex;flex-direction:column;justify-content:center;padding-right:20px;border-right:1px solid var(--h2);margin-right:0;flex-shrink:0;}
+  .fbar-total .fl{font-size:10px;color:var(--h3);margin-bottom:2px;}
+  .fbar-total .fa{font-size:24px;font-weight:700;font-family:var(--mono);color:var(--a);line-height:1.1;}
+  .fbar-details{display:flex;gap:0;flex:1;}
+  .fbar-item{display:flex;flex-direction:column;justify-content:center;padding:0 20px;border-right:1px solid var(--h2);}
+  .fbar-item .fl{font-size:10px;color:var(--h3);margin-bottom:2px;}
+  .fbar-item .fv{font-size:14px;font-weight:600;font-family:var(--mono);color:var(--t3);}
+  .fbar-rieki{display:flex;flex-direction:column;justify-content:center;padding:0 20px;}
+  .fbar-rieki .fl{font-size:10px;color:var(--h3);margin-bottom:2px;}
+  .fbar-rieki .fv{font-size:18px;font-weight:700;font-family:var(--mono);}
+  .fbar-pbar{height:4px;background:var(--h2);border-radius:2px;overflow:hidden;margin-top:4px;width:80px;}
+  .fbar-pbar-fill{height:100%;border-radius:2px;transition:width .4s,background .3s;}
+  .fbar-actions{margin-left:auto;display:flex;gap:10px;flex-shrink:0;}
+  /* SP専用要素を非表示 */
+  .fbar-sp-only{display:none;}
+}
+
+/* SP: 高さ68px・シンプル表示 */
+@media(max-width:767px){
+  .float-bar{height:var(--fbar-sp-h);padding:0 16px;gap:12px;}
+  .fbar-total{flex:1;}
+  .fbar-total .fl{font-size:10px;color:var(--h3);margin-bottom:1px;}
+  .fbar-total .fa{font-size:22px;font-weight:700;font-family:var(--mono);color:var(--a);line-height:1.1;}
+  .fbar-details{display:none;}
+  .fbar-rieki{display:none;}
+  .fbar-actions{flex-shrink:0;}
+  .fbar-sp-only{display:block;}
+  .fbar-sp-rieki{font-size:11px;font-family:var(--mono);font-weight:500;margin-top:1px;}
+}
+
+/* ── コンテンツ下部パディング（バー高さ分） ── */
+.est-body{
+  padding:20px;
+  max-width:660px;
+  margin:0 auto;
+  padding-bottom:calc(var(--fbar-h) + 24px);
 }
 @media(max-width:767px){
-  .est-layout{display:block;}
-  .est-left,.est-right{padding:14px;}
-  .pc-total{display:none;}
-  .pc-save-row{display:none;}
-  .float-bar{display:flex;position:fixed;bottom:0;left:0;right:0;height:var(--fh);background:var(--h);border-top:1px solid var(--h2);padding:0 16px;align-items:center;gap:12px;z-index:200;}
-  .float-info{flex:1;}
-  .float-label{font-size:10px;color:var(--h3);margin-bottom:1px;}
-  .float-amount{font-size:22px;font-weight:700;font-family:var(--mono);color:var(--a);line-height:1.1;}
-  .float-rieki{font-size:11px;font-family:var(--mono);font-weight:500;}
-  .float-save{padding:10px 18px;border-radius:var(--rs);background:var(--a);border:none;color:#fff;font-size:13px;font-weight:700;cursor:pointer;flex-shrink:0;}
-  .float-save:active{opacity:.85;}
-  .sp-bottom-pad{height:calc(var(--fh) + 16px);}
+  .est-body{padding:14px;padding-bottom:calc(var(--fbar-sp-h) + 20px);}
 }
 
-.card{background:var(--w);border:1px solid var(--b);border-radius:var(--r);padding:18px;margin-bottom:14px;}
+/* ══════════════════════
+   アコーディオン
+══════════════════════ */
+.acc{border-radius:var(--r);overflow:hidden;margin-bottom:10px;transition:border-color .2s;}
+.acc:last-child{margin-bottom:0;}
+
+/* 状態：完了（緑） */
+.acc.done{border:1px solid var(--gb);}
+.acc.done .acc-hd{background:var(--gbg);cursor:pointer;}
+.acc.done .acc-hd:hover{filter:brightness(.97);}
+.acc-num-done{width:22px;height:22px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0;}
+.acc-title-done{font-size:13px;font-weight:500;color:#15803d;flex:1;}
+.acc-summary{font-size:11px;color:var(--green);opacity:.85;}
+.acc-chevron{font-size:11px;color:var(--gb);margin-left:6px;}
+
+/* 状態：開いている（オレンジ） */
+.acc.open{border:2px solid var(--a);}
+.acc.open .acc-hd{background:var(--abg);}
+.acc-num-open{width:22px;height:22px;border-radius:50%;background:var(--a);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0;}
+.acc-title-open{font-size:13px;font-weight:600;color:var(--ad);flex:1;}
+.acc-badge-open{font-size:10px;color:var(--ad);background:rgba(249,115,22,.12);border-radius:99px;padding:2px 8px;font-weight:500;}
+
+/* 状態：未着手（グレー） */
+.acc.todo{border:1px solid var(--b);opacity:.5;}
+.acc.todo .acc-hd{background:var(--g);}
+.acc-num-todo{width:22px;height:22px;border-radius:50%;background:var(--b);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;color:var(--t3);flex-shrink:0;}
+.acc-title-todo{font-size:13px;color:var(--t3);flex:1;}
+
+.acc-hd{display:flex;align-items:center;gap:10px;padding:12px 16px;}
+.acc-body{padding:16px 18px;border-top:1px solid;}
+.acc.done .acc-body{border-color:var(--gb);background:var(--w);}
+.acc.open .acc-body{border-color:var(--ab);background:var(--w);}
+
+/* ── 進捗バー ── */
+.progress-bar-wrap{background:var(--w);border-bottom:1px solid var(--b);padding:10px 20px;position:sticky;top:calc(var(--hh) + var(--nh));z-index:98;}
+.progress-bar-inner{max-width:660px;margin:0 auto;display:flex;gap:0;}
+.pb-step{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;}
+.pb-step::after{content:'';position:absolute;top:9px;left:50%;right:-50%;height:2px;background:var(--b);z-index:0;}
+.pb-step:last-child::after{display:none;}
+.pb-dot{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;position:relative;z-index:1;transition:all .2s;}
+.pb-dot.done{background:var(--green);color:#fff;}
+.pb-dot.active{background:var(--a);color:#fff;box-shadow:0 0 0 3px rgba(249,115,22,.2);}
+.pb-dot.todo{background:var(--b);color:var(--t3);}
+.pb-label{font-size:9px;font-weight:500;}
+.pb-dot.done + .pb-label,.pb-dot.done~.pb-label{color:var(--green);}
+.pb-dot.active + .pb-label,.pb-dot.active~.pb-label{color:var(--a);}
+.pb-dot.todo + .pb-label,.pb-dot.todo~.pb-label{color:var(--t3);}
+.pb-step::after{background:var(--b);}
+.pb-step.done::after{background:var(--green);}
+
+/* ── Cards / Fields ── */
+.card{background:var(--w);border:1px solid var(--b);border-radius:var(--r);padding:14px 16px;margin-bottom:12px;}
 .card:last-child{margin-bottom:0;}
-.card-title{font-size:11px;font-weight:700;color:var(--t3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
-.card-title::before{content:'';width:3px;height:13px;background:var(--a);border-radius:2px;flex-shrink:0;}
+.card-title{font-size:11px;font-weight:700;color:var(--t3);letter-spacing:.07em;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:7px;}
+.card-title::before{content:'';width:3px;height:12px;background:var(--a);border-radius:2px;flex-shrink:0;}
 .card-sub{font-size:10px;font-weight:400;color:var(--t3);margin-left:4px;text-transform:none;letter-spacing:0;}
-
-.result-header{background:var(--h);border-radius:var(--r);padding:18px 20px;margin-bottom:14px;}
-.result-amount-label{font-size:10px;color:var(--h3);margin-bottom:4px;letter-spacing:.04em;}
-.result-amount{font-size:30px;font-weight:700;font-family:var(--mono);color:var(--a);line-height:1.15;}
-.result-subrow{display:flex;justify-content:space-between;margin-top:6px;padding-top:6px;border-top:1px solid var(--h2);font-size:12px;}
-.result-subrow .rl{color:var(--h3);}
-.result-subrow .rv{font-family:var(--mono);color:var(--h3);}
-.profit-section{margin-top:10px;padding-top:10px;border-top:1px solid var(--h2);}
-.profit-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
-.profit-label{font-size:11px;color:var(--h3);}
-.profit-val{font-family:var(--mono);font-size:17px;font-weight:700;}
-.pbar-bg{height:7px;background:var(--h2);border-radius:4px;overflow:hidden;}
-.pbar-fill{height:100%;border-radius:4px;transition:width .4s,background .3s;}
-
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
-@media(max-width:480px){.g3{grid-template-columns:1fr 1fr;}.g3 .f:last-child{grid-column:1/-1;}}
-
 .f{display:flex;flex-direction:column;gap:4px;}
 .f label{font-size:11px;font-weight:500;color:var(--t2);}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;}
+@media(max-width:480px){
+  .g3{grid-template-columns:1fr 1fr;}.g3 .f:last-child{grid-column:1/-1;}
+  .g4{grid-template-columns:1fr 1fr;}
+}
 input[type="text"],input[type="number"],select{
   background:var(--g);border:1px solid var(--b);border-radius:var(--rs);
   color:var(--t);padding:8px 11px;font-size:13px;font-family:var(--sans);
@@ -102,19 +176,31 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .nagare-box{display:flex;align-items:center;gap:5px;padding:8px 11px;background:var(--g);border:1px solid var(--b);border-radius:var(--rs);font-size:13px;color:var(--t3);font-family:var(--mono);}
 .nagare-val{color:#0ea5e9;font-weight:500;}
 
-.metrics2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
-.metrics3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
-.metric{background:var(--g);border:1px solid var(--b);border-radius:var(--rs);padding:10px 12px;}
+/* ── 要尺ボックス ── */
+.yojaku-box{background:var(--gbg);border:1px solid var(--gb);border-radius:var(--r);padding:12px 14px;margin-top:14px;}
+.yojaku-box-title{font-size:10px;font-weight:700;color:var(--green);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;}
+.yojaku-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px;}
+@media(max-width:480px){.yojaku-grid{grid-template-columns:1fr 1fr;}}
+.yojaku-tile{text-align:center;}
+.yojaku-tile .yl{font-size:10px;color:var(--green);opacity:.8;margin-bottom:2px;}
+.yojaku-tile .yv{font-size:17px;font-weight:700;font-family:var(--mono);color:#15803d;}
+.yojaku-tile .ys{font-size:9px;color:var(--green);opacity:.6;margin-top:1px;}
+
+/* ── メトリクス（小） ── */
+.metrics2{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.metrics3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.metric{background:var(--g);border:1px solid var(--b);border-radius:var(--rs);padding:9px 11px;}
 .metric.accent{background:var(--abg);border-color:var(--ab);}
 .metric.green{background:var(--gbg);border-color:var(--gb);}
-.m-label{font-size:10px;color:var(--t3);font-weight:500;margin-bottom:3px;}
+.m-label{font-size:10px;color:var(--t3);font-weight:500;margin-bottom:2px;}
 .metric.accent .m-label{color:var(--ad);}
 .metric.green .m-label{color:var(--green);}
-.m-val{font-size:18px;font-weight:700;font-family:var(--mono);color:var(--t);}
+.m-val{font-size:17px;font-weight:700;font-family:var(--mono);color:var(--t);}
 .metric.accent .m-val{color:var(--ad);}
 .metric.green .m-val{color:var(--green);}
-.m-sub{font-size:10px;color:var(--t3);margin-top:2px;}
+.m-sub{font-size:10px;color:var(--t3);margin-top:1px;}
 
+/* ── 見積項目行 ── */
 .item-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--b);gap:8px;}
 .item-row:last-child{border-bottom:none;}
 .item-label{font-size:12px;color:var(--t2);flex-shrink:0;display:flex;align-items:center;gap:5px;}
@@ -124,22 +210,17 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .badge-g{background:var(--gbg);color:var(--green);}
 .badge-gray{background:var(--g2);color:var(--t2);}
 .badge-p{background:#f3e8ff;color:#7c3aed;}
-.item-row input[type="number"]{width:112px;text-align:right;font-family:var(--mono);font-size:13px;font-weight:500;}
-@media(max-width:400px){.item-row input[type="number"]{width:90px;}}
+.item-row input[type="number"]{width:110px;text-align:right;font-family:var(--mono);font-size:13px;font-weight:500;}
+@media(max-width:400px){.item-row input[type="number"]{width:88px;}}
 
-.est-item-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--b);gap:8px;}
-.est-item-row:last-child{border-bottom:none;}
-.est-item-left{display:flex;align-items:center;gap:6px;min-width:0;flex:1;}
-.est-item-name{font-size:12px;color:var(--t2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.est-item-row input[type="number"]{width:112px;text-align:right;font-family:var(--mono);font-size:13px;font-weight:500;flex-shrink:0;}
-@media(max-width:400px){.est-item-row input[type="number"]{width:90px;}}
+/* ── 原価内訳 ── */
+.genka-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--b);font-size:12px;}
+.genka-row:last-child{border-bottom:none;}
+.genka-label{color:var(--t2);}
+.genka-val{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--t);}
 
-.result-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--b);}
-.result-item:last-child{border-bottom:none;}
-.ri-label{font-size:12px;color:var(--t2);}
-.ri-val{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--t);}
-
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 16px;border-radius:var(--rs);font-size:13px;font-weight:500;cursor:pointer;border:1px solid var(--b2);background:var(--w);color:var(--t);transition:background .15s;white-space:nowrap;}
+/* ── ボタン ── */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 16px;border-radius:var(--rs);font-size:13px;font-weight:500;cursor:pointer;border:1px solid var(--b2);background:var(--w);color:var(--t);transition:background .15s;white-space:nowrap;font-family:var(--sans);}
 .btn:hover{background:var(--g2);}
 .btn:active{transform:scale(.98);}
 .btn-primary{background:var(--a);border-color:var(--a);color:#fff;}
@@ -150,7 +231,13 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .btn-sm{padding:4px 9px;font-size:11px;}
 .btn-row{display:flex;gap:8px;}
 .btn-row .btn{flex:1;}
+.fbar-save{padding:10px 22px;border-radius:var(--rs);background:var(--a);border:none;color:#fff;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--sans);white-space:nowrap;}
+.fbar-save:hover{background:var(--ad);}
+.fbar-save:active{transform:scale(.97);}
+.fbar-reset{padding:10px 14px;border-radius:var(--rs);background:transparent;border:1px solid var(--h2);color:var(--h3);font-size:12px;cursor:pointer;font-family:var(--sans);white-space:nowrap;}
+.fbar-reset:hover{background:var(--h2);}
 
+/* ── サジェスト ── */
 .suggest-wrap{position:relative;}
 .suggest-list{position:absolute;top:calc(100% + 3px);left:0;right:0;background:var(--w);border:1px solid var(--b2);border-radius:var(--rs);z-index:300;max-height:200px;overflow-y:auto;display:none;box-shadow:0 4px 16px rgba(0,0,0,.1);}
 .suggest-list.show{display:block;}
@@ -163,47 +250,33 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .chip:hover{border-color:var(--a);color:var(--a);}
 .empty-hint{font-size:11px;color:var(--t3);}
 .dist-badge{display:inline-flex;font-size:11px;font-family:var(--mono);padding:4px 10px;border-radius:99px;background:var(--bluebg);color:var(--blue);border:1px solid var(--blueb);margin-top:7px;}
+.divider{height:1px;background:var(--b);margin:12px 0;}
 
-/* 範囲マスタ */
-.range-section{margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--b);}
-.range-section:last-child{border-bottom:none;margin-bottom:0;}
-.range-title{font-size:12px;font-weight:700;margin-bottom:7px;display:flex;justify-content:space-between;align-items:center;}
+/* ── ドラッグハンドル ── */
+.drag-handle{width:24px;height:32px;display:flex;align-items:center;justify-content:center;cursor:grab;color:var(--t3);flex-shrink:0;border-radius:4px;touch-action:none;}
+.drag-handle:hover{color:var(--t2);background:var(--g2);}
+.drag-handle svg{width:13px;height:13px;}
+.sortable-item.dragging{opacity:.4;}
+
+/* ── マスタ ── */
+.master-fabric-row{display:flex;align-items:flex-start;gap:8px;padding:10px 0;border-bottom:1px solid var(--b);}
+.master-fabric-row:last-child{border-bottom:none;}
+.master-estitem-row{display:flex;align-items:flex-start;gap:8px;padding:10px 0;border-bottom:1px solid var(--b);}
+.master-estitem-row:last-child{border-bottom:none;}
+.master-estitem-body{flex:1;min-width:0;}
+.mei-name input{font-weight:700;font-size:13px;background:transparent;border:none;border-bottom:1px solid var(--b);border-radius:0;padding:2px 0;width:100%;outline:none;font-family:var(--sans);}
+.mei-name input:focus{border-bottom-color:var(--a);}
+.mei-controls{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;}
+.mei-controls select{font-size:11px;padding:4px 24px 4px 7px;width:auto;}
 .range-hdr{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:5px;padding:0 0 3px;}
 .range-hdr span{font-size:10px;color:var(--t3);}
 .range-row{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:5px;align-items:center;padding:5px 0;border-bottom:1px solid var(--b);}
 .range-row:last-child{border-bottom:none;}
 .range-row input{font-size:12px;}
-
-/* ドラッグ並び替え */
-.drag-handle{width:28px;height:36px;display:flex;align-items:center;justify-content:center;cursor:grab;color:var(--t3);flex-shrink:0;border-radius:4px;touch-action:none;}
-.drag-handle:hover{color:var(--t2);background:var(--g2);}
-.drag-handle:active{cursor:grabbing;}
-.drag-handle svg{width:14px;height:14px;display:block;}
-.sortable-item{transition:background .1s;}
-.sortable-item.dragging{opacity:.4;}
-.sortable-item.drag-over{background:var(--abg);border-color:var(--ab);}
-
-/* マスタリスト行 */
-.master-fabric-row{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--b);}
-.master-fabric-row:last-child{border-bottom:none;}
-.master-fabric-info{flex:1;min-width:0;}
-.mf-name{font-size:13px;font-weight:700;word-break:break-all;white-space:normal;line-height:1.4;}
-.mf-meta{font-size:11px;color:var(--t3);font-family:var(--mono);margin-top:2px;}
-.master-fabric-inputs{display:flex;gap:5px;align-items:center;flex-shrink:0;}
-.master-fabric-inputs input{width:80px;font-size:12px;text-align:right;}
-
-.master-estitem-row{display:flex;align-items:flex-start;gap:8px;padding:10px 0;border-bottom:1px solid var(--b);}
-.master-estitem-row:last-child{border-bottom:none;}
-.master-estitem-body{flex:1;min-width:0;}
-.mei-name input{font-weight:700;font-size:13px;background:transparent;border:none;border-bottom:1px solid var(--b);border-radius:0;padding:2px 0;width:100%;outline:none;}
-.mei-name input:focus{border-bottom-color:var(--a);}
-.mei-controls{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap;}
-.mei-controls select{font-size:11px;padding:4px 24px 4px 7px;width:auto;}
-.mei-controls input[type="number"]{width:90px;font-size:11px;}
-
 .add-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:8px;margin-bottom:8px;}
 @media(max-width:480px){.add-grid{grid-template-columns:1fr 1fr;}.add-grid .f:first-child{grid-column:1/-1;}}
 
+/* ── 他パネル ── */
 .page-wrap{padding:20px;max-width:720px;margin:0 auto;}
 .case-card{background:var(--w);border:1px solid var(--b);border-radius:var(--r);padding:14px 16px;margin-bottom:10px;transition:border-color .15s,transform .15s;}
 .case-card:hover{border-color:var(--b2);transform:translateY(-1px);}
@@ -230,10 +303,14 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 .avg-val{font-family:var(--mono);font-weight:700;color:var(--green);}
 .preview-box{background:var(--g);border:1px solid var(--b);border-left:3px solid var(--a);border-radius:0 var(--rs) var(--rs) 0;padding:10px 12px;margin-top:10px;}
 .preview-title{font-size:10px;color:var(--a);font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin-bottom:7px;}
-.divider{height:1px;background:var(--b);margin:14px 0;}
 .empty{text-align:center;padding:40px 20px;color:var(--t3);}
 .empty-icon{font-size:36px;opacity:.35;margin-bottom:10px;}
 .empty-text{font-size:13px;}
+
+/* ── アコーディオンアニメ ── */
+.acc-body-wrap{overflow:hidden;transition:max-height .28s cubic-bezier(.4,0,.2,1),opacity .2s;}
+.acc-body-wrap.closed{max-height:0;opacity:0;}
+.acc-body-wrap.open{max-height:2000px;opacity:1;}
 </style>
 </head>
 <body>
@@ -253,131 +330,154 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 
 <!-- ══ 見積作成 ══ -->
 <div class="panel active" id="panel-est">
-  <div class="est-layout">
-    <div class="est-left">
-      <div class="card">
-        <div class="card-title">案件情報</div>
-        <div class="g2" style="margin-bottom:10px;">
-          <div class="f"><label>案件名</label><input type="text" id="cname" placeholder="山田商店 テント張替"></div>
-          <div class="f"><label>お客様名</label><input type="text" id="client" placeholder="山田太郎"></div>
-        </div>
-        <div class="f">
-          <label>現場所在地</label>
-          <div class="recent-chips" id="addr-recent"></div>
-          <div class="suggest-wrap">
-            <input type="text" id="addr-input" placeholder="市区町村を入力（例：堺市北区、伏見区）" oninput="onAddrInput()" autocomplete="off">
-            <div class="suggest-list" id="suggest-list"></div>
-          </div>
-          <div style="display:flex;align-items:center;gap:8px;margin-top:7px;">
-            <span id="addr-result" style="font-size:12px;color:var(--t3);flex:1;">-</span>
-            <button class="btn btn-sm" onclick="calcDist()">📍 距離を計算</button>
-          </div>
-          <div id="dist-badge" class="dist-badge" style="display:none;"></div>
-        </div>
-      </div>
 
-      <div class="card">
-        <div class="card-title">生地・寸法 <span class="card-sub">mm入力</span></div>
-        <div class="f" style="margin-bottom:12px;">
-          <label>生地</label>
-          <select id="fabric" class="fabric-sel" onchange="calc()"></select>
-        </div>
-        <div class="g3" style="margin-bottom:10px;">
-          <div class="f"><label>間口</label><div class="mm-wrap"><input type="number" id="maguchi" value="3600" step="1" min="0" oninput="calc()"><span class="mm-unit">mm</span></div></div>
-          <div class="f"><label>出幅</label><div class="mm-wrap"><input type="number" id="debaba" value="3000" step="1" min="0" oninput="calc()"><span class="mm-unit">mm</span></div></div>
-          <div class="f"><label>奥高</label><div class="mm-wrap"><input type="number" id="okutaka" value="2000" step="1" min="0" oninput="calc()"><span class="mm-unit">mm</span></div></div>
-        </div>
-        <div class="g3" style="margin-bottom:14px;">
-          <div class="f"><label>前高</label><div class="mm-wrap"><input type="number" id="maetaka" value="1000" step="1" min="0" oninput="calc()"><span class="mm-unit">mm</span></div></div>
-          <div class="f"><label>妻</label>
-            <select id="tsuma" onchange="calc()">
-              <option value="2">左右あり</option><option value="1">片側のみ</option><option value="0">なし</option>
-            </select>
-          </div>
-          <div class="f"><label>流れ（自動）</label>
-            <div class="nagare-box">流れ <span class="nagare-val" id="nagare">-</span> mm</div>
-          </div>
-        </div>
-        <div style="border-top:1px solid var(--b);padding-top:14px;">
-          <div style="font-size:11px;font-weight:700;color:var(--t3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;">要尺・面積</div>
-          <div class="metrics2" style="margin-bottom:10px;">
-            <div class="metric accent"><div class="m-label">主（間口）要尺</div><div class="m-val"><span id="r-omote">-</span> m</div><div class="m-sub" id="r-os">-</div></div>
-            <div class="metric accent"><div class="m-label">妻要尺</div><div class="m-val"><span id="r-tsuma">-</span> m</div><div class="m-sub" id="r-ts">-</div></div>
-          </div>
-          <div class="metrics3">
-            <div class="metric"><div class="m-label">合計要尺</div><div class="m-val"><span id="r-yojaku">-</span> m</div></div>
-            <div class="metric"><div class="m-label">面積</div><div class="m-val"><span id="r-menseki">-</span> m²</div></div>
-            <div class="metric green"><div class="m-label">流れ寸</div><div class="m-val"><span id="r-nagare">-</span> mm</div></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-title">施工人工</div>
-        <div class="g2">
-          <div class="f"><label>人数</label>
-            <select id="workers" onchange="calc()">
-              <option value="1">1人</option><option value="2" selected>2人</option><option value="3">3人</option><option value="4">4人</option>
-            </select>
-          </div>
-          <div class="f"><label>作業時間</label>
-            <select id="worktime" onchange="calc()">
-              <option value="0.5">半日</option><option value="1" selected>1日</option><option value="2">2日</option><option value="3">3日</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-title">見積項目 <span class="card-sub">マスタ目安から自動入力・手修正可</span></div>
-        <div id="est-items-list"></div>
-      </div>
-
-      <div class="sp-bottom-pad"></div>
-    </div>
-
-    <div class="est-right">
-      <div class="pc-total">
-        <div class="result-header">
-          <div class="result-amount-label">合計（税込）</div>
-          <div class="result-amount" id="pc-total">¥0</div>
-          <div class="result-subrow"><span class="rl">小計（税抜）</span><span class="rv" id="pc-shokei">¥0</span></div>
-          <div class="result-subrow" style="border-top:none;margin-top:2px;padding-top:2px;"><span class="rl">消費税（10%）</span><span class="rv" id="pc-tax">¥0</span></div>
-          <div class="profit-section">
-            <div class="profit-hd"><span class="profit-label">利益率（原価 vs 小計）</span><span class="profit-val" id="pc-rieki">-</span></div>
-            <div class="pbar-bg"><div class="pbar-fill" id="pc-pbar" style="width:0%"></div></div>
-          </div>
-        </div>
-        <div class="pc-save-row">
-          <button class="btn btn-primary" onclick="saveCase()">💾 案件を保存</button>
-          <button class="btn" onclick="resetEst()">↩ リセット</button>
-        </div>
-      </div>
-      <div class="card" style="margin-top:14px;">
-        <div class="card-title">原価内訳</div>
-        <div class="result-item"><span class="ri-label">生地原価</span><span class="ri-val" id="r-genka-fabric">-</span></div>
-        <div class="result-item"><span class="ri-label">施工費（原価）</span><span class="ri-val" id="r-genka-koji">-</span></div>
-        <div class="result-item" style="border-top:1px solid var(--b2);margin-top:4px;padding-top:12px;">
-          <span class="ri-label" style="font-weight:700;">原価合計</span>
-          <span class="ri-val" style="font-weight:700;font-size:15px;" id="r-genka-total">-</span>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-title">見積項目サマリ</div>
-        <div id="pc-summary-list"></div>
-      </div>
-    </div>
+  <!-- 進捗バー -->
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-inner" id="progress-bar"></div>
   </div>
 
-  <div class="float-bar">
-    <div class="float-info">
-      <div class="float-label">合計（税込）</div>
-      <div class="float-amount" id="sp-total">¥0</div>
-      <div class="float-rieki" id="sp-rieki">-</div>
+  <div class="est-body">
+
+    <!-- S1: 案件情報 -->
+    <div class="acc" id="acc-1" data-step="1">
+      <div class="acc-hd" id="acc-hd-1" onclick="toggleAcc(1)">
+        <div id="acc-num-1" class="acc-num-open">1</div>
+        <span id="acc-title-1" class="acc-title-open">案件情報</span>
+        <span id="acc-badge-1" class="acc-badge-open">入力中</span>
+      </div>
+      <div class="acc-body-wrap open" id="acc-body-1">
+        <div class="acc-body">
+          <div class="g2" style="margin-bottom:10px;">
+            <div class="f"><label>案件名</label><input type="text" id="cname" placeholder="山田商店 テント張替" oninput="updateSummary()"></div>
+            <div class="f"><label>お客様名</label><input type="text" id="client" placeholder="山田太郎"></div>
+          </div>
+          <div class="f">
+            <label>現場所在地</label>
+            <div class="recent-chips" id="addr-recent"></div>
+            <div class="suggest-wrap">
+              <input type="text" id="addr-input" placeholder="市区町村を入力（例：堺市北区）" oninput="onAddrInput()" autocomplete="off">
+              <div class="suggest-list" id="suggest-list"></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;margin-top:7px;">
+              <span id="addr-result" style="font-size:12px;color:var(--t3);flex:1;">-</span>
+              <button class="btn btn-sm" onclick="calcDist()">📍 距離を計算</button>
+            </div>
+            <div id="dist-badge" class="dist-badge" style="display:none;"></div>
+          </div>
+          <div class="btn-row" style="margin-top:14px;">
+            <button class="btn btn-primary" onclick="nextStep(1)">次：生地・寸法 →</button>
+          </div>
+        </div>
+      </div>
     </div>
-    <button class="float-save" onclick="saveCase()">💾 保存</button>
-  </div>
-</div>
+
+    <!-- S2: 生地・寸法 -->
+    <div class="acc todo" id="acc-2" data-step="2">
+      <div class="acc-hd" id="acc-hd-2" onclick="toggleAcc(2)">
+        <div id="acc-num-2" class="acc-num-todo">2</div>
+        <span id="acc-title-2" class="acc-title-todo">生地・寸法</span>
+      </div>
+      <div class="acc-body-wrap closed" id="acc-body-2">
+        <div class="acc-body">
+          <div class="f" style="margin-bottom:12px;"><label>生地</label><select id="fabric" class="fabric-sel" onchange="calc()"></select></div>
+          <div class="g3" style="margin-bottom:10px;">
+            <div class="f"><label>間口</label><div class="mm-wrap"><input type="number" id="maguchi" value="3600" step="1" min="0" oninput="calc()"><span class="mm-unit">mm</span></div></div>
+            <div class="f"><label>出幅</label><div class="mm-wrap"><input type="number" id="debaba" value="3000" step="1" min="0" oninput="calc()"><span class="mm-unit">mm</span></div></div>
+            <div class="f"><label>奥高</label><div class="mm-wrap"><input type="number" id="okutaka" value="2000" step="1" min="0" oninput="calc()"><span class="mm-unit">mm</span></div></div>
+          </div>
+          <div class="g3" style="margin-bottom:0;">
+            <div class="f"><label>前高</label><div class="mm-wrap"><input type="number" id="maetaka" value="1000" step="1" min="0" oninput="calc()"><span class="mm-unit">mm</span></div></div>
+            <div class="f"><label>妻</label>
+              <select id="tsuma" onchange="calc()">
+                <option value="2">左右あり</option><option value="1">片側のみ</option><option value="0">なし</option>
+              </select>
+            </div>
+            <div class="f"><label>流れ（自動）</label><div class="nagare-box">流れ <span class="nagare-val" id="nagare">-</span> mm</div></div>
+          </div>
+          <!-- 要尺ボックス（寸法直下） -->
+          <div class="yojaku-box">
+            <div class="yojaku-box-title">要尺・面積（自動計算）</div>
+            <div class="yojaku-grid">
+              <div class="yojaku-tile"><div class="yl">主（間口）要尺</div><div class="yv"><span id="r-omote">-</span> m</div><div class="ys" id="r-os">-</div></div>
+              <div class="yojaku-tile"><div class="yl">妻要尺</div><div class="yv"><span id="r-tsuma">-</span> m</div><div class="ys" id="r-ts">-</div></div>
+              <div class="yojaku-tile"><div class="yl">合計要尺</div><div class="yv"><span id="r-yojaku">-</span> m</div></div>
+              <div class="yojaku-tile"><div class="yl">面積</div><div class="yv"><span id="r-menseki">-</span> m²</div></div>
+            </div>
+          </div>
+          <div class="g2" style="margin-top:14px;">
+            <div class="f"><label>人数</label>
+              <select id="workers" onchange="calc()">
+                <option value="1">1人</option><option value="2" selected>2人</option><option value="3">3人</option><option value="4">4人</option>
+              </select>
+            </div>
+            <div class="f"><label>作業時間</label>
+              <select id="worktime" onchange="calc()">
+                <option value="0.5">半日</option><option value="1" selected>1日</option><option value="2">2日</option><option value="3">3日</option>
+              </select>
+            </div>
+          </div>
+          <div class="btn-row" style="margin-top:14px;">
+            <button class="btn" onclick="prevStep(2)">← 戻る</button>
+            <button class="btn btn-primary" onclick="nextStep(2)">次：見積項目 →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- S3: 見積項目 -->
+    <div class="acc todo" id="acc-3" data-step="3">
+      <div class="acc-hd" id="acc-hd-3" onclick="toggleAcc(3)">
+        <div id="acc-num-3" class="acc-num-todo">3</div>
+        <span id="acc-title-3" class="acc-title-todo">見積項目</span>
+      </div>
+      <div class="acc-body-wrap closed" id="acc-body-3">
+        <div class="acc-body">
+          <div id="est-items-list"></div>
+          <div style="margin-top:12px;">
+            <button class="btn btn-sm" id="est-add-btn" onclick="toggleEstAddMenu()" style="width:100%;">＋ 項目を追加</button>
+            <div id="est-add-menu" style="display:none;margin-top:8px;background:var(--g);border:1px solid var(--b);border-radius:var(--r);overflow:hidden;">
+              <div style="padding:8px 12px;font-size:10px;font-weight:700;color:var(--t3);letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid var(--b);">マスタから追加</div>
+              <div id="est-add-menu-list"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <!-- S4: 合計確認 -->
+    <div class="acc todo" id="acc-4" data-step="4">
+      <div class="acc-hd" id="acc-hd-4" onclick="toggleAcc(4)">
+        <div id="acc-num-4" class="acc-num-todo">4</div>
+        <span id="acc-title-4" class="acc-title-todo">合計確認</span>
+      </div>
+      <div class="acc-body-wrap closed" id="acc-body-4">
+        <div class="acc-body">
+          <!-- 原価内訳 -->
+          <div class="card" style="margin-bottom:12px;">
+            <div class="card-title">原価内訳</div>
+            <div class="genka-row"><span class="genka-label">生地原価</span><span class="genka-val" id="r-genka-fabric">-</span></div>
+            <div class="genka-row"><span class="genka-label">施工費（原価）</span><span class="genka-val" id="r-genka-koji">-</span></div>
+            <div class="genka-row" style="border-top:1px solid var(--b2);margin-top:4px;padding-top:10px;">
+              <span class="genka-label" style="font-weight:700;">原価合計</span>
+              <span class="genka-val" style="font-weight:700;font-size:14px;" id="r-genka-total">-</span>
+            </div>
+          </div>
+          <!-- 見積サマリ -->
+          <div class="card">
+            <div class="card-title">見積項目サマリ</div>
+            <div id="summary-list"></div>
+          </div>
+          <div class="btn-row" style="margin-top:14px;">
+            <button class="btn" onclick="prevStep(4)">← 戻る</button>
+            <button class="btn" onclick="resetEst()">↩ リセット</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /est-body -->
+</div><!-- /panel-est -->
 
 <!-- ══ 過去案件 ══ -->
 <div class="panel" id="panel-imp">
@@ -403,12 +503,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
       <div style="font-size:12px;font-weight:700;color:var(--t2);margin-bottom:10px;">各項目の実績金額（税抜）</div>
       <div id="imp-items-list"></div>
     </div>
-    <div id="imp-preview" style="display:none;">
-      <div class="preview-box">
-        <div class="preview-title">割り出し結果</div>
-        <div id="imp-preview-content"></div>
-      </div>
-    </div>
+    <div id="imp-preview" style="display:none;"><div class="preview-box"><div class="preview-title">割り出し結果</div><div id="imp-preview-content"></div></div></div>
     <div class="btn-row" style="margin-top:14px;">
       <button class="btn btn-primary" onclick="saveImport()">💾 この案件を保存</button>
       <button class="btn" onclick="resetImport()">↩ リセット</button>
@@ -434,8 +529,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 <!-- ══ マスタ ══ -->
 <div class="panel" id="panel-master">
   <div class="page-wrap">
-
-    <div class="card">
+    <div class="card" style="margin-bottom:14px;">
       <div class="card-title">自社情報</div>
       <div class="g2" style="margin-bottom:10px;">
         <div class="f"><label>会社名</label><input type="text" id="m-compname" placeholder="○○テント店" oninput="saveM()"></div>
@@ -448,10 +542,10 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
           <div class="suggest-list" id="company-suggest-list"></div>
         </div>
       </div>
-      <div style="font-size:11px;color:var(--t3);">都道府県を基準に距離を概算計算します。本番環境では市区町村レベルの精度で計算されます。</div>
+      <div style="font-size:11px;color:var(--t3);margin-bottom:12px;">都道府県を基準に距離を概算計算します。</div>
+      <button class="btn btn-primary btn-sm" onclick="applyMasterToEst('company')" style="width:100%;">✓ 更新して見積に適用</button>
     </div>
-
-    <div class="card">
+    <div class="card" style="margin-bottom:14px;">
       <div class="card-title">生地マスタ <span class="card-sub">ドラッグで並び替え</span></div>
       <div id="fabric-list"></div>
       <div class="divider"></div>
@@ -470,9 +564,10 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
           <button class="btn btn-sm" onclick="toggleAddForm('fabric')" style="flex:1;">キャンセル</button>
         </div>
       </div>
+      <div class="divider"></div>
+      <button class="btn btn-primary btn-sm" onclick="applyMasterToEst('fabric')" style="width:100%;">✓ 更新して見積に適用</button>
     </div>
-
-    <div class="card">
+    <div class="card" style="margin-bottom:14px;">
       <div class="card-title">見積項目マスタ <span class="card-sub">ドラッグで並び替え・範囲別単価設定可</span></div>
       <div id="est-master-list"></div>
       <div class="divider"></div>
@@ -497,16 +592,56 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
           <button class="btn btn-sm" onclick="toggleAddForm('estitem')" style="flex:1;">キャンセル</button>
         </div>
       </div>
+      <div class="divider"></div>
+      <button class="btn btn-primary btn-sm" onclick="applyMasterToEst('estitem')" style="width:100%;">✓ 更新して見積に適用</button>
     </div>
-
     <div class="card">
       <div class="card-title">諸経費マスタ（距離別）</div>
       <div class="item-row"><div class="item-label">〜10km</div><input type="number" id="m-dist0" style="width:120px;text-align:right;" oninput="saveM()"></div>
       <div class="item-row"><div class="item-label">10〜30km</div><input type="number" id="m-dist1" style="width:120px;text-align:right;" oninput="saveM()"></div>
       <div class="item-row"><div class="item-label">30〜50km</div><input type="number" id="m-dist2" style="width:120px;text-align:right;" oninput="saveM()"></div>
       <div class="item-row"><div class="item-label">50km〜</div><input type="number" id="m-dist3" style="width:120px;text-align:right;" oninput="saveM()"></div>
+      <div class="divider"></div>
+      <button class="btn btn-primary btn-sm" onclick="applyMasterToEst('dist')" style="width:100%;">✓ 更新して見積に適用</button>
     </div>
+  </div>
+</div>
 
+<!-- ══ フローティング合計バー（PC/SP共通） ══ -->
+<div class="float-bar" id="float-bar" style="display:none;">
+  <!-- 合計（税込） -->
+  <div class="fbar-total">
+    <div class="fl">合計（税込）</div>
+    <div class="fa" id="fbar-total">¥0</div>
+  </div>
+  <!-- PC詳細（小計・消費税・原価合計・利益率） -->
+  <div class="fbar-details">
+    <div class="fbar-item">
+      <div class="fl">小計（税抜）</div>
+      <div class="fv" id="fbar-shokei">¥0</div>
+    </div>
+    <div class="fbar-item">
+      <div class="fl">消費税（10%）</div>
+      <div class="fv" id="fbar-tax">¥0</div>
+    </div>
+    <div class="fbar-item">
+      <div class="fl">原価合計</div>
+      <div class="fv" id="fbar-genka">¥0</div>
+    </div>
+    <div class="fbar-rieki">
+      <div class="fl">利益率</div>
+      <div class="fv" id="fbar-rieki">-</div>
+      <div class="fbar-pbar"><div class="fbar-pbar-fill" id="fbar-pbar" style="width:0%"></div></div>
+    </div>
+  </div>
+  <!-- SP: 利益率 -->
+  <div class="fbar-sp-only">
+    <div class="fbar-sp-rieki" id="fbar-sp-rieki">-</div>
+  </div>
+  <!-- 保存・リセット -->
+  <div class="fbar-actions">
+    <button class="fbar-reset" onclick="resetEst()">↩</button>
+    <button class="fbar-save" onclick="saveCase()">💾 保存</button>
   </div>
 </div>
 
@@ -516,78 +651,102 @@ const LOCATIONS=[['札幌市中央区','北海道'],['札幌市北区','北海�
 
 const UNIT_LABELS={yojaku:'m（要尺）',menseki:'m²（面積）',maguchi:'m（間口）',debaba:'m（出幅）',shiki:'式（固定）',ninku:'人工'};
 const UNIT_BADGE={yojaku:'badge-o',menseki:'badge-b',maguchi:'badge-p',debaba:'badge-p',shiki:'badge-gray',ninku:'badge-g'};
-const UNIT_RANGE={yojaku:true,menseki:true,maguchi:true,debaba:true}; // 範囲設定可能な単位
-
+const UNIT_RANGE={yojaku:true,menseki:true,maguchi:true,debaba:true};
 const HANDLE_SVG=`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="3" y1="5" x2="13" y2="5"/><line x1="3" y1="8" x2="13" y2="8"/><line x1="3" y1="11" x2="13" y2="11"/></svg>`;
+const STEP_LABELS=['案件情報','生地・寸法','見積項目','合計確認'];
 
 const DEFAULT_EST_ITEMS=[
-  {id:'ei1',name:'キャンバス加工費',unit:'yojaku',ranges:[{from:0,to:9999,tanka:500}]},
-  {id:'ei2',name:'古材撤去及び処分費',unit:'menseki',ranges:[{from:0,to:10,tanka:800},{from:10,to:9999,tanka:600}]},
-  {id:'ei3',name:'塗装費',unit:'menseki',ranges:[{from:0,to:9999,tanka:0}]},
-  {id:'ei4',name:'現場取付施工費',unit:'ninku',ranges:[{from:0,to:9999,tanka:1}]},
-  {id:'ei5',name:'取付付属部品',unit:'menseki',ranges:[{from:0,to:10,tanka:300},{from:10,to:9999,tanka:250}]},
-  {id:'ei6',name:'現調採寸費',unit:'menseki',ranges:[{from:0,to:10,tanka:200},{from:10,to:9999,tanka:150}]},
-  {id:'ei7',name:'諸経費',unit:'shiki',ranges:[{from:0,to:9999,tanka:5000}]},
+  {id:'ei1',name:'キャンバス加工費',unit:'yojaku',ranges:[{from:0,to:9999,tanka:500}],template:true},
+  {id:'ei2',name:'古材撤去及び処分費',unit:'menseki',ranges:[{from:0,to:10,tanka:800},{from:10,to:9999,tanka:600}],template:true},
+  {id:'ei3',name:'塗装費',unit:'menseki',ranges:[{from:0,to:9999,tanka:0}],template:false},
+  {id:'ei4',name:'現場取付施工費',unit:'ninku',ranges:[{from:0,to:9999,tanka:1}],template:true},
+  {id:'ei5',name:'取付付属部品',unit:'menseki',ranges:[{from:0,to:10,tanka:300},{from:10,to:9999,tanka:250}],template:true},
+  {id:'ei6',name:'現調採寸費',unit:'menseki',ranges:[{from:0,to:10,tanka:200},{from:10,to:9999,tanka:150}],template:true},
+  {id:'ei7',name:'諸経費',unit:'shiki',ranges:[{from:0,to:9999,tanka:5000}],template:true},
 ];
 
-let master={
-  companyName:'',company:'',ninku:30000,
-  fabrics:[
-    {id:1,name:'帝人 シャガール',haba:1200,siire:900,kake:70},
-    {id:2,name:'帝人 ニューパスティ',haba:940,siire:750,kake:70},
-    {id:3,name:'帝人 テトロン',haba:940,siire:650,kake:70},
-    {id:4,name:'ダイニック レガード',haba:1540,siire:1100,kake:70},
-  ],
-  nextFabricId:5,
-  estItems:JSON.parse(JSON.stringify(DEFAULT_EST_ITEMS)),
-  nextItemId:100,
-  dist:[5000,10000,20000,30000],
-  recentAddr:[],
-};
+let master={companyName:'',company:'',ninku:30000,fabrics:[{id:1,name:'帝人 シャガール',haba:1200,siire:900,kake:70},{id:2,name:'帝人 ニューパスティ',haba:940,siire:750,kake:70},{id:3,name:'帝人 テトロン',haba:940,siire:650,kake:70},{id:4,name:'ダイニック レガード',haba:1540,siire:1100,kake:70}],nextFabricId:5,estItems:JSON.parse(JSON.stringify(DEFAULT_EST_ITEMS)),nextItemId:100,dist:[5000,10000,20000,30000],recentAddr:[]};
 let cases=[],imports=[],lastCalc=null,distKm=null,currentAddr='',currentPref='',sugIdx=-1;
 let estInputs={};
+// アコーディオン状態：open / closed（どこでも自由に開閉）
+let accOpen={1:true,2:false,3:false,4:false};
+// 見積画面の項目リスト（マスタとは独立・並び替え削除可能）
+let estActiveItems=[];  // [{masterId, value, edited}]
+let estItemDrag={el:null,ph:null,sy:0};
 
 function lsLoad(){try{const d=JSON.parse(localStorage.getItem('taq_m3'));if(d)master={...master,...d};}catch(e){}try{const d=JSON.parse(localStorage.getItem('taq_c3'));if(d)cases=d;}catch(e){}try{const d=JSON.parse(localStorage.getItem('taq_i3'));if(d)imports=d;}catch(e){}}
 function lsSave(){try{localStorage.setItem('taq_m3',JSON.stringify(master));}catch(e){}try{localStorage.setItem('taq_c3',JSON.stringify(cases));}catch(e){}try{localStorage.setItem('taq_i3',JSON.stringify(imports));}catch(e){}}
 
-function sw(t){['est','imp','cases','master'].forEach((id,i)=>{document.querySelectorAll('.nav-tab')[i].classList.toggle('active',id===t);document.getElementById('panel-'+id).classList.toggle('active',id===t);});if(t==='master')renderMaster();if(t==='cases')renderCases();if(t==='imp'){buildImpItemsList();renderImpList();}}
+function sw(t){
+  ['est','imp','cases','master'].forEach((id,i)=>{
+    document.querySelectorAll('.nav-tab')[i].classList.toggle('active',id===t);
+    document.getElementById('panel-'+id).classList.toggle('active',id===t);
+  });
+  const bar=document.getElementById('float-bar');
+  bar.style.display=(t==='est')?'flex':'none';
+  if(t==='master')renderMaster();
+  if(t==='cases')renderCases();
+  if(t==='imp'){buildImpItemsList();renderImpList();}
+}
+
+// ── アコーディオン制御 ──
+function renderAccState(){
+  for(let s=1;s<=4;s++){
+    const acc=document.getElementById('acc-'+s);
+    const bodyWrap=document.getElementById('acc-body-'+s);
+    const num=document.getElementById('acc-num-'+s);
+    const title=document.getElementById('acc-title-'+s);
+    const badge=document.getElementById('acc-badge-'+s);
+    const isOpen=accOpen[s];
+    // スタイル：開いているかどうかだけで決まる（todo/done廃止）
+    acc.className='acc '+(isOpen?'open':'done');
+    bodyWrap.className='acc-body-wrap '+(isOpen?'open':'closed');
+    if(isOpen){
+      num.className='acc-num-open';num.textContent=s;
+      title.className='acc-title-open';title.textContent=STEP_LABELS[s-1];
+      if(badge){badge.className='acc-badge-open';badge.textContent='▲';}
+    }else{
+      num.className='acc-num-done';num.textContent=s;
+      title.className='acc-title-done';title.textContent=STEP_LABELS[s-1];
+      if(badge){badge.className='acc-chevron';badge.textContent='▼';}
+    }
+  }
+  renderProgressBar();
+}
+
+function toggleAcc(step){
+  accOpen[step]=!accOpen[step];
+  renderAccState();
+  if(accOpen[step]){
+    setTimeout(()=>{
+      const el=document.getElementById('acc-'+step);
+      if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+    },80);
+  }
+}
+
+function renderProgressBar(){
+  const pb=document.getElementById('progress-bar');if(!pb)return;
+  pb.innerHTML=STEP_LABELS.map((lbl,i)=>{
+    const s=i+1;
+    const isOpen=accOpen[s];
+    return`<div class="pb-step"><div class="pb-dot ${isOpen?'active':'todo'}">${s}</div><div class="pb-label">${lbl}</div></div>`;
+  }).join('');
+}
 
 // ── サジェスト ──
-// 会社住所サジェスト（マスタ用）
-function onCompanyAddrInput(){
-  const q=document.getElementById('m-company').value.trim();
-  const list=document.getElementById('company-suggest-list');
-  if(q.length<1){list.classList.remove('show');return;}
-  const hits=LOCATIONS.filter(([n])=>n.includes(q)).slice(0,10);
-  if(!hits.length){list.classList.remove('show');return;}
-  list.innerHTML=hits.map(([n,p])=>`<div class="suggest-item" data-n="${n}" data-p="${p}" onmousedown="selCompanySug('${n}','${p}')">${n}<span class="suggest-pref">${p}</span></div>`).join('');
-  list.classList.add('show');
-}
-function selCompanySug(n,p){
-  document.getElementById('m-company').value=p+' '+n;
-  document.getElementById('company-suggest-list').classList.remove('show');
-  saveM();
-}
-document.addEventListener('click',e=>{
-  if(!e.target.closest('#m-company')&&!e.target.closest('#company-suggest-list'))
-    document.getElementById('company-suggest-list')?.classList.remove('show');
-});
-
-// 折りたたみ
-function toggleAddForm(type){
-  const form=document.getElementById(type+'-add-form');
-  const btn=document.getElementById(type+'-add-btn');
-  const open=form.style.display==='none';
-  form.style.display=open?'block':'none';
-  btn.textContent=open?'▲ 閉じる':(type==='fabric'?'＋ 生地を追加':'＋ 項目を追加');
-}
-
-function onAddrInput(){const q=document.getElementById('addr-input').value.trim();const list=document.getElementById('suggest-list');if(q.length<1){list.classList.remove('show');return;}const hits=LOCATIONS.filter(([n])=>n.includes(q)).slice(0,10);if(!hits.length){list.classList.remove('show');return;}sugIdx=-1;list.innerHTML=hits.map(([n,p])=>`<div class="suggest-item" data-n="${n}" data-p="${p}" onmousedown="selSug('${n}','${p}')">${n}<span class="suggest-pref">${p}</span></div>`).join('');list.classList.add('show');}
-document.addEventListener('keydown',e=>{const list=document.getElementById('suggest-list');if(!list.classList.contains('show'))return;const items=list.querySelectorAll('.suggest-item');if(e.key==='ArrowDown'){e.preventDefault();sugIdx=Math.min(sugIdx+1,items.length-1);items.forEach((el,i)=>el.classList.toggle('act',i===sugIdx));}else if(e.key==='ArrowUp'){e.preventDefault();sugIdx=Math.max(sugIdx-1,0);items.forEach((el,i)=>el.classList.toggle('act',i===sugIdx));}else if(e.key==='Enter'&&sugIdx>=0){const el=items[sugIdx];selSug(el.dataset.n,el.dataset.p);}else if(e.key==='Escape')list.classList.remove('show');});
-document.addEventListener('click',e=>{if(!e.target.closest('.suggest-wrap'))document.getElementById('suggest-list').classList.remove('show');});
+function onAddrInput(){const q=document.getElementById('addr-input').value.trim();const list=document.getElementById('suggest-list');if(q.length<1){list.classList.remove('show');return;}const hits=LOCATIONS.filter(([n])=>n.includes(q)).slice(0,10);if(!hits.length){list.classList.remove('show');return;}list.innerHTML=hits.map(([n,p])=>`<div class="suggest-item" onmousedown="selSug('${n}','${p}')">${n}<span class="suggest-pref">${p}</span></div>`).join('');list.classList.add('show');}
 function selSug(n,p){currentAddr=n;currentPref=p;document.getElementById('addr-input').value=n;document.getElementById('suggest-list').classList.remove('show');document.getElementById('addr-result').textContent=p+' '+n;distKm=null;document.getElementById('dist-badge').style.display='none';}
 function selectChip(a){currentAddr=a;currentPref=extractPref(a)||'';document.getElementById('addr-input').value=a;document.getElementById('addr-result').textContent=currentPref?currentPref+' '+a:a;distKm=null;document.getElementById('dist-badge').style.display='none';}
-function renderRecentAddr(){const el=document.getElementById('addr-recent');if(!master.recentAddr||!master.recentAddr.length){el.innerHTML='<span class="empty-hint">最近使った住所はありません</span>';return;}el.innerHTML=master.recentAddr.slice(0,8).map(a=>`<div class="chip" onclick="selectChip('${a}')">${a}</div>`).join('');}
+function renderRecentAddr(){const el=document.getElementById('addr-recent');if(!el)return;if(!master.recentAddr?.length){el.innerHTML='<span class="empty-hint">最近使った住所はありません</span>';return;}el.innerHTML=master.recentAddr.slice(0,8).map(a=>`<div class="chip" onclick="selectChip('${a}')">${a}</div>`).join('');}
+function onCompanyAddrInput(){const q=document.getElementById('m-company').value.trim();const list=document.getElementById('company-suggest-list');if(q.length<1){list.classList.remove('show');return;}const hits=LOCATIONS.filter(([n])=>n.includes(q)).slice(0,10);if(!hits.length){list.classList.remove('show');return;}list.innerHTML=hits.map(([n,p])=>`<div class="suggest-item" onmousedown="selCompanySug('${n}','${p}')">${n}<span class="suggest-pref">${p}</span></div>`).join('');list.classList.add('show');}
+function selCompanySug(n,p){document.getElementById('m-company').value=p+' '+n;document.getElementById('company-suggest-list').classList.remove('show');saveM();}
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.suggest-wrap')&&!e.target.closest('#m-company')&&!e.target.closest('#company-suggest-list'))
+    document.querySelectorAll('.suggest-list').forEach(l=>l.classList.remove('show'));
+  if(!e.target.closest('#est-add-btn')&&!e.target.closest('#est-add-menu'))
+    document.getElementById('est-add-menu').style.display='none';
+});
 function extractPref(s){return Object.keys(PREF_COORDS).find(p=>s.startsWith(p))||null;}
 function haversine(la1,lo1,la2,lo2){const R=6371,dL=(la2-la1)*Math.PI/180,dO=(lo2-lo1)*Math.PI/180,a=Math.sin(dL/2)**2+Math.cos(la1*Math.PI/180)*Math.cos(la2*Math.PI/180)*Math.sin(dO/2)**2;return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));}
 
@@ -595,35 +754,26 @@ async function calcDist(){
   const iv=document.getElementById('addr-input').value.trim();
   if(!iv){alert('現場所在地を入力してください');return;}
   if(!master.company){alert('マスタに会社所在地を登録してください');return;}
-  const badge=document.getElementById('dist-badge');
-  badge.style.display='inline-flex';badge.textContent='計算中...';
+  const badge=document.getElementById('dist-badge');badge.style.display='inline-flex';badge.textContent='計算中...';
   try{
     const[r1,r2]=await Promise.all([fetch('https://nominatim.openstreetmap.org/search?q='+encodeURIComponent(master.company)+'&format=json&limit=1&countrycodes=jp').then(r=>r.json()),fetch('https://nominatim.openstreetmap.org/search?q='+encodeURIComponent(iv)+'&format=json&limit=1&countrycodes=jp').then(r=>r.json())]);
-    if(!r1.length||!r2.length)throw new Error('住所が見つかりません');
+    if(!r1.length||!r2.length)throw new Error();
     distKm=haversine(+r1[0].lat,+r1[0].lon,+r2[0].lat,+r2[0].lon);
-    badge.textContent='📍 '+distKm.toFixed(1)+'km → 諸経費目安 ¥'+getShokehi().toLocaleString();
+    badge.textContent='📍 '+distKm.toFixed(1)+'km → 諸経費 ¥'+getShokehi().toLocaleString();
   }catch(e){
     const toPref=currentPref||extractPref(iv),fromPref=extractPref(master.company);
     if(!fromPref||!toPref){badge.textContent='住所を認識できません';return;}
-    const[la1,lo1]=PREF_COORDS[fromPref],[la2,lo2]=PREF_COORDS[toPref];
-    distKm=haversine(la1,lo1,la2,lo2);
+    distKm=haversine(...PREF_COORDS[fromPref],...PREF_COORDS[toPref]);
     badge.textContent='📍 約'+Math.round(distKm)+'km（都道府県概算）→ ¥'+getShokehi().toLocaleString();
   }
   if(!currentAddr)currentAddr=iv;
-  master.recentAddr=(master.recentAddr||[]).filter(a=>a!==currentAddr);
-  master.recentAddr.unshift(currentAddr);master.recentAddr=master.recentAddr.slice(0,10);
+  master.recentAddr=(master.recentAddr||[]).filter(a=>a!==currentAddr);master.recentAddr.unshift(currentAddr);master.recentAddr=master.recentAddr.slice(0,10);
   lsSave();renderRecentAddr();
-  const shItem=master.estItems.find(it=>it.unit==='shiki');
-  if(shItem){const el=document.getElementById('ei_'+shItem.id);if(el&&!estInputs[shItem.id]?.edited){el.value=getShokehi();calcTotal();}}
+  // 諸経費（式）を自動更新
+  const shItem=estActiveItems.find(it=>it.unit==='shiki');
+  if(shItem&&!shItem.edited){shItem.value=getShokehi();renderEstActiveItems();calcTotal();}
 }
-function getShokehi(){const d=distKm===null?0:distKm;if(d<10)return master.dist[0];if(d<30)return master.dist[1];if(d<50)return master.dist[2];return master.dist[3];}
-
-// ── 範囲から単価取得 ──
-function getRangeTankaByVal(ranges,val){
-  if(!ranges||!ranges.length)return 0;
-  for(const r of ranges){if(val>=r.from&&val<r.to)return r.tanka;}
-  return ranges[ranges.length-1].tanka;
-}
+function getShokehi(){const d=distKm??0;if(d<10)return master.dist[0];if(d<30)return master.dist[1];if(d<50)return master.dist[2];return master.dist[3];}
 
 // ── 計算 ──
 function calcDims(maguchi,debaba,okutaka,maetaka,tsumaC,habaM){
@@ -634,48 +784,142 @@ function calcDims(maguchi,debaba,okutaka,maetaka,tsumaC,habaM){
   const tsumaY=tsumaOne*tsumaC;
   return{nagare,tachi,mHaba,omote,tsumaOne,tsumaY,totalY:omote+tsumaY,menseki:maguchi*debaba};
 }
-
-function getAutoVal(item,dims){
-  const{totalY,menseki,kojihi,maguchi,debaba}=dims;
-  if(item.unit==='yojaku')return Math.round(totalY*getRangeTankaByVal(item.ranges,totalY));
-  if(item.unit==='menseki')return Math.round(menseki*getRangeTankaByVal(item.ranges,menseki));
-  if(item.unit==='maguchi')return Math.round(maguchi*getRangeTankaByVal(item.ranges,maguchi));
-  if(item.unit==='debaba')return Math.round(debaba*getRangeTankaByVal(item.ranges,debaba));
-  if(item.unit==='ninku')return Math.round(kojihi);
-  if(item.unit==='shiki')return Math.round(getRangeTankaByVal(item.ranges,0));
-  return 0;
-}
-
-function buildFabricSel(){['fabric','i-fabric'].forEach(sid=>{const sel=document.getElementById(sid);if(!sel)return;const cur=sel.value;sel.innerHTML='';master.fabrics.forEach(f=>{const o=document.createElement('option');o.value=f.id;o.textContent=f.name+' ('+(f.haba/10)+'cm巾)';sel.appendChild(o);});if(cur)sel.value=cur;});calc();}
-function getF(sid='fabric'){const id=parseInt(document.getElementById(sid).value);return master.fabrics.find(f=>f.id===id)||master.fabrics[0];}
+function getRangeTankaByVal(ranges,val){if(!ranges?.length)return 0;for(const r of ranges){if(val>=r.from&&val<r.to)return r.tanka;}return ranges[ranges.length-1].tanka;}
+function getAutoVal(item,dims){const{totalY,menseki,kojihi,maguchi,debaba}=dims;if(item.unit==='yojaku')return Math.round(totalY*getRangeTankaByVal(item.ranges,totalY));if(item.unit==='menseki')return Math.round(menseki*getRangeTankaByVal(item.ranges,menseki));if(item.unit==='maguchi')return Math.round(maguchi*getRangeTankaByVal(item.ranges,maguchi));if(item.unit==='debaba')return Math.round(debaba*getRangeTankaByVal(item.ranges,debaba));if(item.unit==='ninku')return Math.round(kojihi);if(item.unit==='shiki')return Math.round(getRangeTankaByVal(item.ranges,0));return 0;}
 function fmt(n){return '¥'+Math.round(n).toLocaleString();}
 
-function buildEstItemsList(){
-  const el=document.getElementById('est-items-list');if(!el)return;
-  el.innerHTML=master.estItems.map(item=>`
-    <div class="est-item-row">
-      <div class="est-item-left">
-        <span class="est-item-name">${item.name}</span>
-        <span class="badge ${UNIT_BADGE[item.unit]}">${UNIT_LABELS[item.unit]}</span>
-      </div>
-      <input type="number" id="ei_${item.id}" placeholder="0" oninput="onEstInput('${item.id}',this)">
-    </div>`).join('');
-  master.estItems.forEach(item=>{const el=document.getElementById('ei_'+item.id);if(el&&estInputs[item.id]){el.value=estInputs[item.id].val;if(estInputs[item.id].edited)el.dataset.edited='1';}});
+function buildFabricSel(){['fabric','i-fabric'].forEach(sid=>{const sel=document.getElementById(sid);if(!sel)return;const cur=sel.value;sel.innerHTML='';master.fabrics.forEach(f=>{const o=document.createElement('option');o.value=f.id;o.textContent=f.name+' ('+(f.haba/10)+'cm巾)';sel.appendChild(o);});if(cur)sel.value=cur;});calc();}
+function getF(sid){const id=parseInt(document.getElementById(sid)?.value);return master.fabrics.find(f=>f.id===id)||master.fabrics[0];}
+
+// ══════════════════════════════════════
+// 見積項目（画面上の動的リスト）
+// ══════════════════════════════════════
+
+// 初回ロード：テンプレートチェックがついた項目だけ表示
+function initEstActiveItems(){
+  if(estActiveItems.length>0)return; // 既に初期化済みならスキップ
+  estActiveItems=master.estItems.filter(m=>m.template).map(m=>({
+    uid:Date.now()+Math.random(),
+    masterId:m.id,
+    name:m.name,
+    unit:m.unit,
+    ranges:m.ranges,
+    value:0,
+    edited:false,
+  }));
 }
 
-function onEstInput(id,el){if(!estInputs[id])estInputs[id]={};estInputs[id].val=el.value;estInputs[id].edited=true;calcTotal();}
-
-function buildImpItemsList(){
-  const el=document.getElementById('imp-items-list');if(!el)return;
-  el.innerHTML=master.estItems.map(item=>`
-    <div class="item-row">
-      <div class="item-label">${item.name} <span class="badge ${UNIT_BADGE[item.unit]}">${UNIT_LABELS[item.unit]}</span></div>
-      <input type="number" id="ii_${item.id}" placeholder="0" oninput="calcImpPreview()">
+function renderEstActiveItems(){
+  const el=document.getElementById('est-items-list');if(!el)return;
+  if(!estActiveItems.length){
+    el.innerHTML='<div style="text-align:center;padding:20px;color:var(--t3);font-size:12px;">項目がありません。下の「＋ 項目を追加」から追加してください。</div>';
+    calcTotal();return;
+  }
+  el.innerHTML=estActiveItems.map((item,idx)=>`
+    <div class="est-active-row sortable-item" data-idx="${idx}" style="display:flex;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid var(--b);">
+      <div class="drag-handle" data-area="est-active">${HANDLE_SVG}</div>
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:12px;color:var(--t2);margin-bottom:2px;display:flex;align-items:center;gap:5px;">
+          ${item.name}
+          <span class="badge ${UNIT_BADGE[item.unit]||'badge-gray'}">${UNIT_LABELS[item.unit]||item.unit}</span>
+        </div>
+      </div>
+      <input type="number" value="${item.value||0}" placeholder="0"
+        style="width:110px;text-align:right;font-family:var(--mono);font-size:13px;font-weight:500;background:var(--g);border:1px solid var(--b);border-radius:var(--rs);padding:7px 10px;outline:none;-moz-appearance:textfield;appearance:textfield;"
+        onfocus="this.style.borderColor='var(--a)';this.style.background='var(--w)'"
+        onblur="this.style.borderColor='var(--b)';this.style.background='var(--g)'"
+        oninput="onActiveItemInput(${idx},this.value)">
+      <button onclick="removeActiveItem(${idx})"
+        style="width:28px;height:28px;border:none;background:transparent;color:var(--t3);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;border-radius:4px;flex-shrink:0;"
+        onmouseenter="this.style.background='#fef2f2';this.style.color='var(--red)'"
+        onmouseleave="this.style.background='transparent';this.style.color='var(--t3)'">×</button>
     </div>`).join('');
+  // ドラッグ初期化
+  initEstActiveDrag();
+  calcTotal();
+}
+
+function onActiveItemInput(idx,val){
+  estActiveItems[idx].value=parseFloat(val)||0;
+  estActiveItems[idx].edited=true;
+  calcTotal();
+}
+function removeActiveItem(idx){
+  estActiveItems.splice(idx,1);
+  renderEstActiveItems();
+}
+
+// マスタから項目を追加するメニュー
+function toggleEstAddMenu(){
+  const menu=document.getElementById('est-add-menu');
+  const isOpen=menu.style.display!=='none';
+  if(isOpen){menu.style.display='none';return;}
+  // メニューリストを構築
+  const list=document.getElementById('est-add-menu-list');
+  list.innerHTML=master.estItems.map(m=>`
+    <div onclick="addActiveItemFromMaster('${m.id}')"
+      style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--b);cursor:pointer;font-size:12px;"
+      onmouseenter="this.style.background='var(--abg)'"
+      onmouseleave="this.style.background='transparent'">
+      <span style="color:var(--t2);">${m.name}</span>
+      <span class="badge ${UNIT_BADGE[m.unit]||'badge-gray'}">${UNIT_LABELS[m.unit]||m.unit}</span>
+    </div>`).join('');
+  menu.style.display='block';
+}
+
+function addActiveItemFromMaster(masterId){
+  const m=master.estItems.find(i=>i.id===masterId);if(!m)return;
+  const dims=lastCalc?{totalY:lastCalc.totalY,menseki:lastCalc.menseki,kojihi:lastCalc.kojihi,maguchi:lastCalc.maguchi,debaba:lastCalc.debaba}:{totalY:0,menseki:0,kojihi:0,maguchi:0,debaba:0};
+  const autoVal=lastCalc?getAutoVal(m,dims):0;
+  estActiveItems.push({uid:Date.now()+Math.random(),masterId:m.id,name:m.name,unit:m.unit,ranges:m.ranges,value:autoVal,edited:false});
+  document.getElementById('est-add-menu').style.display='none';
+  renderEstActiveItems();
+}
+
+// 見積項目のドラッグ並び替え
+function initEstActiveDrag(){
+  const container=document.getElementById('est-items-list');
+  let dragEl=null,placeholder=null,startY=0;
+  function getItems(){return Array.from(container.querySelectorAll('.sortable-item'));}
+  function onStart(e,el){
+    dragEl=el;dragEl.classList.add('dragging');
+    placeholder=document.createElement('div');
+    placeholder.style.cssText=`height:${dragEl.offsetHeight}px;background:var(--abg);border:1px dashed var(--ab);border-radius:var(--rs);`;
+    startY=e.touches?e.touches[0].clientY:e.clientY;
+    document.addEventListener('mousemove',onMove);document.addEventListener('mouseup',onEnd);
+    document.addEventListener('touchmove',onMove,{passive:false});document.addEventListener('touchend',onEnd);
+  }
+  function onMove(e){
+    if(!dragEl)return;e.preventDefault();
+    const cy=e.touches?e.touches[0].clientY:e.clientY;
+    const dy=cy-startY;
+    dragEl.style.cssText=`transform:translateY(${dy}px);z-index:999;position:relative;`;
+    const items=getItems().filter(i=>i!==dragEl);
+    const rect=dragEl.getBoundingClientRect();
+    const midY=rect.top+rect.height/2+dy;
+    let target=null;
+    for(const it of items){const r=it.getBoundingClientRect();if(midY<r.top+r.height/2){target=it;break;}}
+    if(target)container.insertBefore(placeholder,target);else container.appendChild(placeholder);
+  }
+  function onEnd(){
+    if(!dragEl)return;
+    dragEl.classList.remove('dragging');dragEl.style.cssText='';
+    if(placeholder?.parentNode){container.insertBefore(dragEl,placeholder);placeholder.remove();}
+    const newOrder=getItems().map(el=>parseInt(el.dataset.idx));
+    const newItems=newOrder.map(i=>estActiveItems[i]).filter(Boolean);
+    estActiveItems.length=0;newItems.forEach(i=>estActiveItems.push(i));
+    dragEl=null;placeholder=null;
+    document.removeEventListener('mousemove',onMove);document.removeEventListener('mouseup',onEnd);
+    document.removeEventListener('touchmove',onMove);document.removeEventListener('touchend',onEnd);
+    renderEstActiveItems();
+  }
+  container.addEventListener('mousedown',e=>{const h=e.target.closest('.drag-handle[data-area="est-active"]');if(h){const item=h.closest('.sortable-item');if(item)onStart(e,item);}});
+  container.addEventListener('touchstart',e=>{const h=e.target.closest('.drag-handle[data-area="est-active"]');if(h){const item=h.closest('.sortable-item');if(item)onStart(e,item);}},{passive:false});
 }
 
 function calc(){
-  const f=getF();const habaM=f.haba/1000;
+  if(!document.getElementById('fabric'))return;
+  const f=getF('fabric');if(!f)return;const habaM=f.haba/1000;
   const maguchi=(parseFloat(document.getElementById('maguchi').value)||0)/1000;
   const debaba=(parseFloat(document.getElementById('debaba').value)||0)/1000;
   const okutaka=(parseFloat(document.getElementById('okutaka').value)||0)/1000;
@@ -687,351 +931,213 @@ function calc(){
   const{nagare,tachi,mHaba,omote,tsumaOne,tsumaY,totalY,menseki}=dims;
   const kojihi=workers*wtime*master.ninku;
   dims.kojihi=kojihi;dims.maguchi=maguchi;dims.debaba=debaba;
-  const fabricCost=f.siire*totalY;
-  const genka=fabricCost+kojihi;
-
-  document.getElementById('nagare').textContent=Math.round(nagare*1000);
-  document.getElementById('r-nagare').textContent=Math.round(nagare*1000);
-  document.getElementById('r-omote').textContent=omote.toFixed(2);
-  document.getElementById('r-os').textContent='裁ち寸 '+tachi.toFixed(2)+'m × '+mHaba+'巾';
-  document.getElementById('r-tsuma').textContent=tsumaY.toFixed(2);
-  document.getElementById('r-ts').textContent=tsumaC>0?'片側 '+tsumaOne.toFixed(2)+'m × '+tsumaC:'なし';
-  document.getElementById('r-yojaku').textContent=totalY.toFixed(2);
-  document.getElementById('r-menseki').textContent=menseki.toFixed(2);
-  document.getElementById('r-genka-fabric').textContent=fmt(fabricCost);
-  document.getElementById('r-genka-koji').textContent=fmt(kojihi);
-  document.getElementById('r-genka-total').textContent=fmt(genka);
-
-  master.estItems.forEach(item=>{
-    const el=document.getElementById('ei_'+item.id);if(!el)return;
-    if(!estInputs[item.id]?.edited){
-      const auto=getAutoVal(item,dims);
-      el.value=auto;
-      if(!estInputs[item.id])estInputs[item.id]={};
-      estInputs[item.id].val=auto;
+  const fabricCost=f.siire*totalY,genka=fabricCost+kojihi;
+  const s=id=>document.getElementById(id);
+  s('nagare').textContent=Math.round(nagare*1000);
+  s('r-omote').textContent=omote.toFixed(2);
+  s('r-os').textContent='裁ち寸 '+tachi.toFixed(2)+'m × '+mHaba+'巾';
+  s('r-tsuma').textContent=tsumaY.toFixed(2);
+  s('r-ts').textContent=tsumaC>0?'片側 '+tsumaOne.toFixed(2)+'m × '+tsumaC:'なし';
+  s('r-yojaku').textContent=totalY.toFixed(2);
+  s('r-menseki').textContent=(Math.floor(menseki*100)/100).toFixed(2);
+  s('r-genka-fabric').textContent=fmt(fabricCost);
+  s('r-genka-koji').textContent=fmt(kojihi);
+  s('r-genka-total').textContent=fmt(genka);
+  // 未編集の項目を自動更新
+  estActiveItems.forEach(item=>{
+    if(!item.edited){
+      const m=master.estItems.find(i=>i.id===item.masterId)||item;
+      item.value=getAutoVal({...m,ranges:item.ranges},dims);
     }
   });
-
+  renderEstActiveItems();
   lastCalc={maguchi,debaba,okutaka,maetaka,tsumaC,nagare,tachi,mHaba,omote,tsumaY,totalY,menseki,kojihi,fabricId:f.id,fabricName:f.name,workers,wtime,genka};
-  calcTotal();
 }
 
 function calcTotal(){
-  let shokei=0;
-  master.estItems.forEach(item=>{shokei+=(parseFloat(document.getElementById('ei_'+item.id)?.value)||0);});
+  const shokei=estActiveItems.reduce((s,item)=>s+(item.value||0),0);
   const tax=shokei*.1,total=shokei+tax;
   const genka=lastCalc?lastCalc.genka:0;
   const rieki=shokei>0?(shokei-genka)/shokei*100:0;
   const rColor=rieki>=40?'#4ade80':rieki>=25?'#facc15':'#f87171';
-
-  document.getElementById('pc-total').textContent=fmt(total);
-  document.getElementById('pc-shokei').textContent=fmt(shokei);
-  document.getElementById('pc-tax').textContent=fmt(tax);
-  const pcR=document.getElementById('pc-rieki'),pcBar=document.getElementById('pc-pbar');
-  pcR.textContent=rieki.toFixed(1)+'%';pcR.style.color=rColor;
-  pcBar.style.width=Math.max(0,Math.min(100,rieki))+'%';pcBar.style.background=rColor;
-  document.getElementById('sp-total').textContent=fmt(total);
-  const spR=document.getElementById('sp-rieki');
-  spR.textContent='利益率 '+rieki.toFixed(1)+'%';spR.style.color=rColor;
-
-  const sumEl=document.getElementById('pc-summary-list');
-  if(sumEl){sumEl.innerHTML=master.estItems.map(item=>`<div class="result-item"><span class="ri-label">${item.name}</span><span class="ri-val">${fmt(parseFloat(document.getElementById('ei_'+item.id)?.value)||0)}</span></div>`).join('');}
+  const s=id=>document.getElementById(id);
+  s('fbar-total').textContent=fmt(total);
+  s('fbar-shokei').textContent=fmt(shokei);
+  s('fbar-tax').textContent=fmt(tax);
+  s('fbar-genka').textContent=fmt(genka);
+  s('fbar-rieki').textContent=rieki.toFixed(1)+'%';s('fbar-rieki').style.color=rColor;
+  s('fbar-pbar').style.width=Math.max(0,Math.min(100,rieki))+'%';s('fbar-pbar').style.background=rColor;
+  s('fbar-sp-rieki').textContent='利益率 '+rieki.toFixed(1)+'%';s('fbar-sp-rieki').style.color=rColor;
+  // S4サマリ更新
+  const sumList=s('summary-list');
+  if(sumList){sumList.innerHTML=estActiveItems.map(item=>`<div class="genka-row"><span class="genka-label">${item.name}</span><span class="genka-val">${fmt(item.value||0)}</span></div>`).join('');}
 }
-
-// ── 見積項目マスタ操作 ──
-function addEstItem(){
-  const name=document.getElementById('m-iname').value.trim();
-  const unit=document.getElementById('m-iunit').value;
-  const tanka=parseFloat(document.getElementById('m-itanka').value)||0;
-  if(!name){alert('項目名を入力してください');return;}
-  const id='ei'+(master.nextItemId++);
-  master.estItems.push({id,name,unit,ranges:[{from:0,to:9999,tanka}]});
-  lsSave();
-  ['m-iname','m-itanka'].forEach(i=>document.getElementById(i).value='');
-  document.getElementById('estitem-add-form').style.display='none';
-  document.getElementById('estitem-add-btn').textContent='＋ 項目を追加';
-  renderMaster();buildEstItemsList();buildImpItemsList();calc();
-}
-
-function delEstItem(id){
-  if(master.estItems.length<=1){alert('最低1項目必要です');return;}
-  master.estItems=master.estItems.filter(i=>i.id!==id);
-  delete estInputs[id];
-  lsSave();renderMaster();buildEstItemsList();buildImpItemsList();calc();
-}
-
-function updateEstItemName(id,val){const item=master.estItems.find(i=>i.id===id);if(item){item.name=val;lsSave();buildEstItemsList();buildImpItemsList();}}
-function updateEstItemUnit(id,val){const item=master.estItems.find(i=>i.id===id);if(item){item.unit=val;lsSave();renderMaster();buildEstItemsList();buildImpItemsList();calc();}}
-function addRange(itemId){const item=master.estItems.find(i=>i.id===itemId);if(!item)return;const last=item.ranges[item.ranges.length-1];const from=last.to>=9999?last.from+10:last.to;item.ranges.push({from,to:9999,tanka:0});lsSave();renderMaster();}
-function delRange(itemId,ri){const item=master.estItems.find(i=>i.id===itemId);if(!item||item.ranges.length<=1){alert('最低1行必要です');return;}item.ranges.splice(ri,1);lsSave();renderMaster();}
-function updateRange(itemId,ri,field,val){const item=master.estItems.find(i=>i.id===itemId);if(!item)return;const v=parseFloat(val);if(field==='to'&&(isNaN(v)||val===''))item.ranges[ri].to=9999;else item.ranges[ri][field]=isNaN(v)?0:v;lsSave();calc();}
-
-// ── ドラッグ並び替え（マウス＆タッチ両対応） ──
-let dragSrc=null,dragList=null,dragType=null;
-
-function initDrag(container,type){
-  let dragEl=null,placeholder=null,startY=0,offsetY=0;
-
-  function getItems(){return Array.from(container.querySelectorAll('.sortable-item'));}
-  function getIdx(el){return getItems().indexOf(el);}
-
-  function onDragStart(e,el){
-    dragEl=el;
-    dragEl.classList.add('dragging');
-    placeholder=document.createElement('div');
-    placeholder.style.cssText=`height:${dragEl.offsetHeight}px;background:var(--abg);border:1px dashed var(--ab);border-radius:var(--rs);margin:2px 0;`;
-    startY=e.touches?e.touches[0].clientY:e.clientY;
-    offsetY=0;
-    document.addEventListener('mousemove',onMove);
-    document.addEventListener('mouseup',onEnd);
-    document.addEventListener('touchmove',onMove,{passive:false});
-    document.addEventListener('touchend',onEnd);
-  }
-
-  function onMove(e){
-    if(!dragEl)return;
-    e.preventDefault();
-    const clientY=e.touches?e.touches[0].clientY:e.clientY;
-    offsetY=clientY-startY;
-    dragEl.style.transform=`translateY(${offsetY}px)`;
-    dragEl.style.zIndex='999';
-    dragEl.style.position='relative';
-    // ドロップ位置検出
-    const items=getItems().filter(i=>i!==dragEl);
-    const rect=dragEl.getBoundingClientRect();
-    const midY=rect.top+rect.height/2+offsetY;
-    let target=null;
-    for(const it of items){
-      const r=it.getBoundingClientRect();
-      if(midY<r.top+r.height/2){target=it;break;}
-    }
-    if(target){container.insertBefore(placeholder,target);}
-    else{container.appendChild(placeholder);}
-  }
-
-  function onEnd(){
-    if(!dragEl)return;
-    dragEl.classList.remove('dragging');
-    dragEl.style.transform='';dragEl.style.zIndex='';dragEl.style.position='';
-    if(placeholder&&placeholder.parentNode){
-      container.insertBefore(dragEl,placeholder);
-      placeholder.remove();
-    }
-    // 新しい順序をmasterに反映
-    const newOrder=getItems().map(el=>el.dataset.id);
-    if(type==='fabric'){
-      master.fabrics=newOrder.map(id=>master.fabrics.find(f=>String(f.id)===id)).filter(Boolean);
-    }else if(type==='estitem'){
-      master.estItems=newOrder.map(id=>master.estItems.find(i=>i.id===id)).filter(Boolean);
-    }
-    lsSave();buildEstItemsList();buildImpItemsList();buildFabricSel();calc();
-    dragEl=null;placeholder=null;
-    document.removeEventListener('mousemove',onMove);
-    document.removeEventListener('mouseup',onEnd);
-    document.removeEventListener('touchmove',onMove);
-    document.removeEventListener('touchend',onEnd);
-  }
-
-  // ハンドルにイベント付与
-  container.addEventListener('mousedown',e=>{
-    const handle=e.target.closest('.drag-handle');
-    if(!handle)return;
-    const item=handle.closest('.sortable-item');
-    if(item)onDragStart(e,item);
-  });
-  container.addEventListener('touchstart',e=>{
-    const handle=e.target.closest('.drag-handle');
-    if(!handle)return;
-    const item=handle.closest('.sortable-item');
-    if(item)onDragStart(e,item);
-  },{passive:false});
-}
-
-// ── インポート ──
-function calcImpPreview(){
-  const f=getF('i-fabric');const habaM=f.haba/1000;
-  const maguchi=(parseFloat(document.getElementById('i-maguchi').value)||0)/1000;
-  const debaba=(parseFloat(document.getElementById('i-debaba').value)||0)/1000;
-  const okutaka=(parseFloat(document.getElementById('i-okutaka').value)||0)/1000;
-  const maetaka=(parseFloat(document.getElementById('i-maetaka').value)||0)/1000;
-  const tsumaC=parseInt(document.getElementById('i-tsuma').value);
-  if(!maguchi||!debaba||!okutaka){document.getElementById('imp-preview').style.display='none';return;}
-  const dims=calcDims(maguchi,debaba,okutaka,maetaka,tsumaC,habaM);
-  dims.kojihi=0;dims.maguchi=maguchi;dims.debaba=debaba;
-  const rows=master.estItems.filter(item=>['yojaku','menseki','maguchi','debaba'].includes(item.unit)).map(item=>{
-    const amt=parseFloat(document.getElementById('ii_'+item.id)?.value)||0;
-    const base=item.unit==='yojaku'?dims.totalY:item.unit==='menseki'?dims.menseki:item.unit==='maguchi'?maguchi:debaba;
-    const baseLabel=base.toFixed(2)+(item.unit==='menseki'?'m²':'m');
-    return{...item,amt,base,baseLabel,tanka:base>0?amt/base:0};
-  }).filter(r=>r.amt>0);
-  if(!rows.length){document.getElementById('imp-preview').style.display='none';return;}
-  document.getElementById('imp-preview').style.display='block';
-  document.getElementById('imp-preview-content').innerHTML=rows.map(r=>`<div class="tanka-row"><span class="tanka-label">${r.name}</span><span class="tanka-val">${fmt(r.amt)} ÷ ${r.baseLabel} = <strong style="color:var(--a)">${Math.round(r.tanka)}円/${r.unit==='menseki'?'m²':'m'}</strong></span></div>`).join('');
-}
-
-function saveImport(){
-  const f=getF('i-fabric');const habaM=f.haba/1000;
-  const maguchi=(parseFloat(document.getElementById('i-maguchi').value)||0)/1000;
-  const debaba=(parseFloat(document.getElementById('i-debaba').value)||0)/1000;
-  const okutaka=(parseFloat(document.getElementById('i-okutaka').value)||0)/1000;
-  const maetaka=(parseFloat(document.getElementById('i-maetaka').value)||0)/1000;
-  const tsumaC=parseInt(document.getElementById('i-tsuma').value);
-  if(!maguchi||!debaba||!okutaka){alert('寸法を入力してください');return;}
-  const dims=calcDims(maguchi,debaba,okutaka,maetaka,tsumaC,habaM);
-  dims.kojihi=0;dims.maguchi=maguchi;dims.debaba=debaba;
-  const items={};
-  master.estItems.forEach(item=>{
-    const amt=parseFloat(document.getElementById('ii_'+item.id)?.value)||0;
-    const base=item.unit==='yojaku'?dims.totalY:item.unit==='menseki'?dims.menseki:item.unit==='maguchi'?maguchi:item.unit==='debaba'?debaba:1;
-    items[item.id]={amt,tanka:base>0?amt/base:0,unit:item.unit};
-  });
-  imports.unshift({id:Date.now(),name:document.getElementById('i-name').value||'無題',fabricId:f.id,fabricName:f.name,maguchi,debaba,okutaka,maetaka,tsumaC,totalY:dims.totalY,menseki:dims.menseki,items,date:new Date().toLocaleDateString('ja-JP')});
-  lsSave();alert('保存しました');resetImport();renderImpList();
-}
-
-function resetImport(){
-  ['i-name','i-maguchi','i-debaba','i-okutaka','i-maetaka'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
-  master.estItems.forEach(item=>{const el=document.getElementById('ii_'+item.id);if(el)el.value='';});
-  document.getElementById('imp-preview').style.display='none';
-}
-
-function renderImpList(){
-  const el=document.getElementById('imp-list');
-  if(!imports.length){el.innerHTML='<div class="empty"><div class="empty-icon">📭</div><div class="empty-text">過去案件がまだありません</div></div>';document.getElementById('avg-section').style.display='none';return;}
-  el.innerHTML=`<div style="font-size:12px;font-weight:700;color:var(--t3);margin-bottom:10px;">登録済み過去案件（${imports.length}件）</div>`+
-  imports.map(imp=>`<div class="imp-card"><div class="imp-header"><div><div class="imp-name">${imp.name}</div><div class="imp-meta">${imp.fabricName} / 間口${Math.round(imp.maguchi*1000)}mm × 出幅${Math.round(imp.debaba*1000)}mm / ${imp.date}</div></div><button class="btn btn-sm btn-danger" onclick="delImport(${imp.id})">削除</button></div>${Object.entries(imp.items||{}).filter(([,v])=>v.amt>0&&['yojaku','menseki','maguchi','debaba'].includes(v.unit)).map(([id,v])=>{const item=master.estItems.find(i=>i.id===id);return`<div class="tanka-row"><span class="tanka-label">${item?item.name:id}</span><span class="tanka-val">${Math.round(v.tanka)}円/${v.unit==='menseki'?'m²':'m'}</span></div>`;}).join('')}</div>`).join('');
-  renderAvg();
-}
-
-function renderAvg(){
-  const sec=document.getElementById('avg-section');
-  const measurable=['yojaku','menseki','maguchi','debaba'];
-  if(imports.length<2){sec.style.display='none';return;}
-  const avgs={};
-  master.estItems.filter(item=>measurable.includes(item.unit)).forEach(item=>{
-    const vals=imports.filter(imp=>imp.items?.[item.id]?.amt>0).map(imp=>imp.items[item.id].tanka);
-    if(vals.length)avgs[item.id]={avg:vals.reduce((a,b)=>a+b,0)/vals.length,count:vals.length,unit:item.unit,label:item.name};
-  });
-  if(!Object.keys(avgs).length){sec.style.display='none';return;}
-  sec.style.display='block';
-  sec.innerHTML=`<div class="avg-box"><div class="avg-title">過去${imports.length}件の平均単価</div>${Object.entries(avgs).map(([k,v])=>`<div class="avg-row"><span class="avg-label">${v.label}（${v.count}件）</span><span class="avg-val">${Math.round(v.avg)}円/${v.unit==='menseki'?'m²':'m'}</span></div>`).join('')}<button class="btn btn-success" style="width:100%;margin-top:12px;" onclick="applyAvgToMaster()">この平均値でマスタを更新</button></div>`;
-}
-
-function applyAvgToMaster(){
-  if(!confirm('過去案件の平均単価でマスタの目安単価を上書きしますか？'))return;
-  const measurable=['yojaku','menseki','maguchi','debaba'];
-  master.estItems.filter(item=>measurable.includes(item.unit)).forEach(item=>{
-    const vals=imports.filter(imp=>imp.items?.[item.id]?.amt>0).map(imp=>imp.items[item.id].tanka);
-    if(!vals.length)return;
-    const avg=Math.round(vals.reduce((a,b)=>a+b,0)/vals.length);
-    item.ranges=[{from:0,to:9999,tanka:avg}];
-  });
-  lsSave();alert('マスタを更新しました！');renderMaster();calc();
-}
-function delImport(id){imports=imports.filter(i=>i.id!==id);lsSave();renderImpList();}
 
 function saveCase(){
   if(!lastCalc){alert('先に寸法を入力してください');return;}
   const name=document.getElementById('cname').value||'無題案件';
   const client=document.getElementById('client').value||'';
-  let shokei=0;master.estItems.forEach(item=>{shokei+=(parseFloat(document.getElementById('ei_'+item.id)?.value)||0);});
+  const shokei=estActiveItems.reduce((s,i)=>s+(i.value||0),0);
   const rieki=shokei>0?(shokei-lastCalc.genka)/shokei*100:0;
   cases.unshift({id:Date.now(),name,client,shokei,rieki,date:new Date().toLocaleDateString('ja-JP'),address:currentAddr,distKm,...lastCalc});
   lsSave();alert('「'+name+'」を保存しました');
 }
 
 function resetEst(){
-  ['cname','client'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('addr-input').value='';document.getElementById('addr-result').textContent='-';
+  ['cname','client','addr-input'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('addr-result').textContent='-';
   document.getElementById('dist-badge').style.display='none';
-  currentAddr='';currentPref='';distKm=null;estInputs={};
-  master.estItems.forEach(item=>{const el=document.getElementById('ei_'+item.id);if(el){el.value='';delete el.dataset.edited;}});
-  lastCalc=null;calc();
+  currentAddr='';currentPref='';distKm=null;lastCalc=null;
+  estActiveItems=[];
+  accOpen={1:true,2:false,3:false,4:false};
+  renderAccState();
+  initEstActiveItems();
+  renderEstActiveItems();
+  calc();
 }
 
+// ── 過去案件 ──
+function buildImpItemsList(){
+  const el=document.getElementById('imp-items-list');if(!el)return;
+  el.innerHTML=master.estItems.map(item=>`
+    <div class="item-row">
+      <div class="item-label">${item.name} <span class="badge ${UNIT_BADGE[item.unit]}">${UNIT_LABELS[item.unit]}</span></div>
+      <input type="number" id="ii_${item.id}" placeholder="0" oninput="calcImpPreview()">
+    </div>`).join('');
+}
+function calcImpPreview(){
+  const f=getF('i-fabric');if(!f)return;const habaM=f.haba/1000;
+  const maguchi=(parseFloat(document.getElementById('i-maguchi').value)||0)/1000;
+  const debaba=(parseFloat(document.getElementById('i-debaba').value)||0)/1000;
+  const okutaka=(parseFloat(document.getElementById('i-okutaka').value)||0)/1000;
+  const maetaka=(parseFloat(document.getElementById('i-maetaka').value)||0)/1000;
+  const tsumaC=parseInt(document.getElementById('i-tsuma').value);
+  if(!maguchi||!debaba||!okutaka){document.getElementById('imp-preview').style.display='none';return;}
+  const dims=calcDims(maguchi,debaba,okutaka,maetaka,tsumaC,habaM);dims.kojihi=0;dims.maguchi=maguchi;dims.debaba=debaba;
+  const rows=master.estItems.filter(i=>['yojaku','menseki','maguchi','debaba'].includes(i.unit)).map(item=>{
+    const amt=parseFloat(document.getElementById('ii_'+item.id)?.value)||0;
+    const base=item.unit==='yojaku'?dims.totalY:item.unit==='menseki'?dims.menseki:item.unit==='maguchi'?maguchi:debaba;
+    return{...item,amt,base:base.toFixed(2),baseU:item.unit==='menseki'?'m²':'m',tanka:base>0?amt/base:0};
+  }).filter(r=>r.amt>0);
+  if(!rows.length){document.getElementById('imp-preview').style.display='none';return;}
+  document.getElementById('imp-preview').style.display='block';
+  document.getElementById('imp-preview-content').innerHTML=rows.map(r=>`<div class="tanka-row"><span class="tanka-label">${r.name}</span><span class="tanka-val">${fmt(r.amt)} ÷ ${r.base}${r.baseU} = <strong style="color:var(--a)">${Math.round(r.tanka)}円/${r.baseU}</strong></span></div>`).join('');
+}
+function saveImport(){
+  const f=getF('i-fabric');if(!f)return;const habaM=f.haba/1000;
+  const maguchi=(parseFloat(document.getElementById('i-maguchi').value)||0)/1000;
+  const debaba=(parseFloat(document.getElementById('i-debaba').value)||0)/1000;
+  const okutaka=(parseFloat(document.getElementById('i-okutaka').value)||0)/1000;
+  const maetaka=(parseFloat(document.getElementById('i-maetaka').value)||0)/1000;
+  const tsumaC=parseInt(document.getElementById('i-tsuma').value);
+  if(!maguchi||!debaba||!okutaka){alert('寸法を入力してください');return;}
+  const dims=calcDims(maguchi,debaba,okutaka,maetaka,tsumaC,habaM);dims.kojihi=0;dims.maguchi=maguchi;dims.debaba=debaba;
+  const items={};master.estItems.forEach(item=>{const amt=parseFloat(document.getElementById('ii_'+item.id)?.value)||0;const base=item.unit==='yojaku'?dims.totalY:item.unit==='menseki'?dims.menseki:item.unit==='maguchi'?maguchi:item.unit==='debaba'?debaba:1;items[item.id]={amt,tanka:base>0?amt/base:0,unit:item.unit};});
+  imports.unshift({id:Date.now(),name:document.getElementById('i-name').value||'無題',fabricId:f.id,fabricName:f.name,maguchi,debaba,okutaka,maetaka,tsumaC,totalY:dims.totalY,menseki:dims.menseki,items,date:new Date().toLocaleDateString('ja-JP')});
+  lsSave();alert('保存しました');resetImport();renderImpList();
+}
+function resetImport(){['i-name','i-maguchi','i-debaba','i-okutaka','i-maetaka'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});master.estItems.forEach(item=>{const el=document.getElementById('ii_'+item.id);if(el)el.value='';});document.getElementById('imp-preview').style.display='none';}
+function renderImpList(){
+  const el=document.getElementById('imp-list');if(!el)return;
+  if(!imports.length){el.innerHTML='<div class="empty"><div class="empty-icon">📭</div><div class="empty-text">過去案件がまだありません</div></div>';document.getElementById('avg-section').style.display='none';return;}
+  el.innerHTML=`<div style="font-size:12px;font-weight:700;color:var(--t3);margin-bottom:10px;">登録済み（${imports.length}件）</div>`+imports.map(imp=>`<div class="imp-card"><div class="imp-header"><div><div class="imp-name">${imp.name}</div><div class="imp-meta">${imp.fabricName} / 間口${Math.round(imp.maguchi*1000)}mm × 出幅${Math.round(imp.debaba*1000)}mm / ${imp.date}</div></div><button class="btn btn-sm btn-danger" onclick="delImport(${imp.id})">削除</button></div>${Object.entries(imp.items||{}).filter(([,v])=>v.amt>0&&['yojaku','menseki','maguchi','debaba'].includes(v.unit)).map(([id,v])=>{const item=master.estItems.find(i=>i.id===id);return`<div class="tanka-row"><span class="tanka-label">${item?item.name:id}</span><span class="tanka-val">${Math.round(v.tanka)}円/${v.unit==='menseki'?'m²':'m'}</span></div>`;}).join('')}</div>`).join('');
+  renderAvg();
+}
+function renderAvg(){
+  const sec=document.getElementById('avg-section');const measurable=['yojaku','menseki','maguchi','debaba'];
+  if(imports.length<2){sec.style.display='none';return;}
+  const avgs={};master.estItems.filter(i=>measurable.includes(i.unit)).forEach(item=>{const vals=imports.filter(imp=>imp.items?.[item.id]?.amt>0).map(imp=>imp.items[item.id].tanka);if(vals.length)avgs[item.id]={avg:vals.reduce((a,b)=>a+b,0)/vals.length,count:vals.length,unit:item.unit,label:item.name};});
+  if(!Object.keys(avgs).length){sec.style.display='none';return;}
+  sec.style.display='block';
+  sec.innerHTML=`<div class="avg-box"><div class="avg-title">過去${imports.length}件の平均単価</div>${Object.entries(avgs).map(([k,v])=>`<div class="avg-row"><span class="avg-label">${v.label}（${v.count}件）</span><span class="avg-val">${Math.round(v.avg)}円/${v.unit==='menseki'?'m²':'m'}</span></div>`).join('')}<button class="btn btn-success" style="width:100%;margin-top:12px;" onclick="applyAvgToMaster()">この平均値でマスタを更新</button></div>`;
+}
+function applyAvgToMaster(){if(!confirm('過去案件の平均単価でマスタを上書きしますか？'))return;const measurable=['yojaku','menseki','maguchi','debaba'];master.estItems.filter(i=>measurable.includes(i.unit)).forEach(item=>{const vals=imports.filter(imp=>imp.items?.[item.id]?.amt>0).map(imp=>imp.items[item.id].tanka);if(!vals.length)return;item.ranges=[{from:0,to:9999,tanka:Math.round(vals.reduce((a,b)=>a+b,0)/vals.length)}];});lsSave();alert('マスタを更新しました！');renderMaster();calc();}
+function delImport(id){imports=imports.filter(i=>i.id!==id);lsSave();renderImpList();}
+
+// ── 案件一覧 ──
 function renderCases(){
   const el=document.getElementById('cases-list');
   if(!cases.length){el.innerHTML='<div class="empty"><div class="empty-icon">🗂</div><div class="empty-text">保存済みの案件がありません</div></div>';return;}
   el.innerHTML=cases.map(c=>`<div class="case-card"><div class="case-header"><div><div class="case-name">${c.name}</div><div class="case-client">${c.client}${c.address?' / '+c.address:''}</div></div><div><div class="case-amount">${fmt(c.shokei)}</div><div class="case-rieki" style="color:${c.rieki>=40?'#16a34a':c.rieki>=25?'#d97706':'#dc2626'};">利益率 ${c.rieki.toFixed(1)}%</div></div></div><div class="case-meta"><span class="case-meta-item">${c.fabricName||''}</span><span class="case-meta-item">間口 ${c.maguchi?Math.round(c.maguchi*1000):'-'}mm</span><span class="case-meta-item">出幅 ${c.debaba?Math.round(c.debaba*1000):'-'}mm</span><span class="case-meta-item">要尺 ${c.totalY?c.totalY.toFixed(1):'-'}m</span>${c.distKm?'<span class="case-meta-item">'+c.distKm.toFixed(1)+'km</span>':''}<span class="case-meta-item">${c.date}</span></div></div>`).join('');
 }
 
-// ── マスタ描画 ──
+// ── マスタ ──
 function renderMaster(){
   document.getElementById('m-compname').value=master.companyName||'';
   document.getElementById('m-company').value=master.company;
   document.getElementById('m-ninku').value=master.ninku;
   [0,1,2,3].forEach(i=>document.getElementById('m-dist'+i).value=master.dist[i]);
-
-  // 生地マスタ（ドラッグ対応）
+  const HANDLE=`<div class="drag-handle">${HANDLE_SVG}</div>`;
   const fl=document.getElementById('fabric-list');
-  fl.innerHTML=master.fabrics.map(f=>`
-    <div class="master-fabric-row sortable-item" data-id="${f.id}">
-      <div class="drag-handle" title="ドラッグで並び替え">${HANDLE_SVG}</div>
-      <div style="flex:1;min-width:0;">
-        <div style="display:flex;align-items:baseline;gap:6px;margin-bottom:5px;">
-          <span style="font-size:13px;font-weight:700;color:var(--t);white-space:nowrap;overflow:visible;">${f.name}</span>
-          <span style="font-size:11px;color:var(--t3);font-family:var(--mono);flex-shrink:0;">${f.haba/10}cm巾</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
-          <div style="display:flex;align-items:center;gap:3px;">
-            <span style="font-size:10px;color:var(--t3);">仕入</span>
-            <input type="number" value="${f.siire}" style="width:72px;" onchange="updateFabricField(${f.id},'siire',this.value)" title="仕入単価（円/m）">
-            <span style="font-size:10px;color:var(--t3);">円/m</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:3px;">
-            <span style="font-size:10px;color:var(--t3);">掛率</span>
-            <input type="number" value="${f.kake}" style="width:52px;" onchange="updateFabricField(${f.id},'kake',this.value)" title="掛率（%）">
-            <span style="font-size:10px;color:var(--t3);">%</span>
-          </div>
-          <button class="btn btn-sm btn-danger" onclick="delFabric(${f.id})">削除</button>
-        </div>
-      </div>
-    </div>`).join('');
+  fl.innerHTML=master.fabrics.map(f=>`<div class="master-fabric-row sortable-item" data-id="${f.id}">${HANDLE}<div style="flex:1;min-width:0;"><div style="display:flex;align-items:baseline;gap:6px;margin-bottom:5px;"><span style="font-size:13px;font-weight:700;color:var(--t);">${f.name}</span><span style="font-size:11px;color:var(--t3);font-family:var(--mono);">${f.haba/10}cm巾</span></div><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><div style="display:flex;align-items:center;gap:3px;"><span style="font-size:10px;color:var(--t3);">仕入</span><input type="number" value="${f.siire}" style="width:72px;" onchange="updateFabricField(${f.id},'siire',this.value)"><span style="font-size:10px;color:var(--t3);">円/m</span></div><div style="display:flex;align-items:center;gap:3px;"><span style="font-size:10px;color:var(--t3);">掛率</span><input type="number" value="${f.kake}" style="width:52px;" onchange="updateFabricField(${f.id},'kake',this.value)"><span style="font-size:10px;color:var(--t3);">%</span></div><button class="btn btn-sm btn-danger" onclick="delFabric(${f.id})">削除</button></div></div></div>`).join('');
   initDrag(fl,'fabric');
-
-  // 見積項目マスタ（ドラッグ対応＋範囲マスタ）
   const ml=document.getElementById('est-master-list');
-  ml.innerHTML=master.estItems.map(item=>`
-    <div class="master-estitem-row sortable-item" data-id="${item.id}">
-      <div class="drag-handle" title="ドラッグで並び替え">${HANDLE_SVG}</div>
-      <div class="master-estitem-body">
-        <div class="mei-name"><input type="text" value="${item.name}" onchange="updateEstItemName('${item.id}',this.value)" placeholder="項目名"></div>
-        <div class="mei-controls">
-          <select onchange="updateEstItemUnit('${item.id}',this.value)">
-            ${Object.entries(UNIT_LABELS).map(([k,v])=>`<option value="${k}"${item.unit===k?' selected':''}>${v}</option>`).join('')}
-          </select>
-          <button class="btn btn-sm btn-danger" onclick="delEstItem('${item.id}')">削除</button>
-        </div>
-        ${UNIT_RANGE[item.unit]?renderRangeSection(item):''}
-      </div>
-    </div>`).join('');
+  ml.innerHTML=master.estItems.map(item=>`<div class="master-estitem-row sortable-item" data-id="${item.id}">${HANDLE}<div class="master-estitem-body"><div class="mei-name"><input type="text" value="${item.name}" onchange="updateEstItemName('${item.id}',this.value)" placeholder="項目名"></div><div class="mei-controls"><select onchange="updateEstItemUnit('${item.id}',this.value)">${Object.entries(UNIT_LABELS).map(([k,v])=>`<option value="${k}"${item.unit===k?' selected':''}>${v}</option>`).join('')}</select><label style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--t2);cursor:pointer;padding:3px 0;"><input type="checkbox" ${item.template?'checked':''} onchange="updateEstItemTemplate('${item.id}',this.checked)" style="width:auto;accent-color:var(--a);">テンプレに表示</label><button class="btn btn-sm btn-danger" onclick="delEstItem('${item.id}')">削除</button></div>${UNIT_RANGE[item.unit]?renderRangeSection(item):''}</div></div>`).join('');
   initDrag(ml,'estitem');
 }
+function renderRangeSection(item){const ul=item.unit==='menseki'?'m²':'m';return`<div style="margin-top:8px;background:var(--g);border:1px solid var(--b);border-radius:var(--rs);padding:8px 10px;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;"><span style="font-size:10px;font-weight:700;color:var(--t3);">範囲別単価（${ul}あたり）</span><button class="btn btn-sm" onclick="addRange('${item.id}')">＋ 追加</button></div><div class="range-hdr"><span>以上</span><span>未満（空=上限なし）</span><span>単価（円/${ul}）</span><span></span></div>${(item.ranges||[]).map((r,ri)=>`<div class="range-row"><input type="number" value="${r.from}" step="0.1" onchange="updateRange('${item.id}',${ri},'from',this.value)"><input type="number" value="${r.to>=9999?'':r.to}" placeholder="上限なし" step="0.1" onchange="updateRange('${item.id}',${ri},'to',this.value)"><input type="number" value="${r.tanka}" step="1" onchange="updateRange('${item.id}',${ri},'tanka',this.value)"><button class="btn btn-sm btn-danger" onclick="delRange('${item.id}',${ri})">削除</button></div>`).join('')}</div>`;}
 
-function renderRangeSection(item){
-  const unitLabel=item.unit==='menseki'?'m²':'m';
-  return`<div style="margin-top:8px;background:var(--g);border:1px solid var(--b);border-radius:var(--rs);padding:8px 10px;">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-      <span style="font-size:10px;font-weight:700;color:var(--t3);">範囲別単価（${unitLabel}あたり）</span>
-      <button class="btn btn-sm" onclick="addRange('${item.id}')">＋ 追加</button>
-    </div>
-    <div class="range-hdr"><span>以上</span><span>未満（空=上限なし）</span><span>単価（円/${unitLabel}）</span><span></span></div>
-    ${(item.ranges||[]).map((r,ri)=>`
-      <div class="range-row">
-        <input type="number" value="${r.from}" step="0.1" onchange="updateRange('${item.id}',${ri},'from',this.value)">
-        <input type="number" value="${r.to>=9999?'':r.to}" placeholder="上限なし" step="0.1" onchange="updateRange('${item.id}',${ri},'to',this.value)">
-        <input type="number" value="${r.tanka}" step="1" onchange="updateRange('${item.id}',${ri},'tanka',this.value)">
-        <button class="btn btn-sm btn-danger" onclick="delRange('${item.id}',${ri})">削除</button>
-      </div>`).join('')}
-  </div>`;
+function initDrag(container,type){
+  let dragEl=null,placeholder=null,startY=0;
+  function getItems(){return Array.from(container.querySelectorAll('.sortable-item'));}
+  function onStart(e,el){dragEl=el;dragEl.classList.add('dragging');placeholder=document.createElement('div');placeholder.style.cssText=`height:${dragEl.offsetHeight}px;background:var(--abg);border:1px dashed var(--ab);border-radius:var(--rs);margin:2px 0;`;startY=e.touches?e.touches[0].clientY:e.clientY;document.addEventListener('mousemove',onMove);document.addEventListener('mouseup',onEnd);document.addEventListener('touchmove',onMove,{passive:false});document.addEventListener('touchend',onEnd);}
+  function onMove(e){if(!dragEl)return;e.preventDefault();const cy=e.touches?e.touches[0].clientY:e.clientY;const dy=cy-startY;dragEl.style.cssText=`transform:translateY(${dy}px);z-index:999;position:relative;`;const items=getItems().filter(i=>i!==dragEl);const rect=dragEl.getBoundingClientRect();const midY=rect.top+rect.height/2+dy;let target=null;for(const it of items){const r=it.getBoundingClientRect();if(midY<r.top+r.height/2){target=it;break;}}if(target)container.insertBefore(placeholder,target);else container.appendChild(placeholder);}
+  function onEnd(){if(!dragEl)return;dragEl.classList.remove('dragging');dragEl.style.cssText='';if(placeholder?.parentNode){container.insertBefore(dragEl,placeholder);placeholder.remove();}const newOrder=getItems().map(el=>el.dataset.id);if(type==='fabric')master.fabrics=newOrder.map(id=>master.fabrics.find(f=>String(f.id)===id)).filter(Boolean);else if(type==='estitem')master.estItems=newOrder.map(id=>master.estItems.find(i=>i.id===id)).filter(Boolean);lsSave();buildImpItemsList();buildFabricSel();dragEl=null;placeholder=null;document.removeEventListener('mousemove',onMove);document.removeEventListener('mouseup',onEnd);document.removeEventListener('touchmove',onMove);document.removeEventListener('touchend',onEnd);}
+  container.addEventListener('mousedown',e=>{const h=e.target.closest('.drag-handle');if(h&&!h.dataset.area){const item=h.closest('.sortable-item');if(item)onStart(e,item);}});
+  container.addEventListener('touchstart',e=>{const h=e.target.closest('.drag-handle');if(h&&!h.dataset.area){const item=h.closest('.sortable-item');if(item)onStart(e,item);}},{passive:false});
 }
 
 function updateFabricField(id,field,val){const f=master.fabrics.find(f=>f.id===id);if(f){f[field]=parseFloat(val)||0;lsSave();calc();}}
-function addFabric(){const name=document.getElementById('m-fname').value.trim();const habaCm=parseFloat(document.getElementById('m-fhaba').value);const siire=parseFloat(document.getElementById('m-fsiire').value);const kake=parseFloat(document.getElementById('m-fkake').value)||70;if(!name||!habaCm||!siire){alert('全項目を入力してください');return;}const haba=habaCm*10;master.fabrics.push({id:master.nextFabricId++,name,haba,siire,kake});lsSave();['m-fname','m-fhaba','m-fsiire'].forEach(id=>document.getElementById(id).value='');document.getElementById('fabric-add-form').style.display='none';document.getElementById('fabric-add-btn').textContent='＋ 生地を追加';renderMaster();buildFabricSel();}
+function addFabric(){const name=document.getElementById('m-fname').value.trim();const habaCm=parseFloat(document.getElementById('m-fhaba').value);const siire=parseFloat(document.getElementById('m-fsiire').value);const kake=parseFloat(document.getElementById('m-fkake').value)||70;if(!name||!habaCm||!siire){alert('全項目を入力してください');return;}master.fabrics.push({id:master.nextFabricId++,name,haba:habaCm*10,siire,kake});lsSave();['m-fname','m-fhaba','m-fsiire'].forEach(id=>document.getElementById(id).value='');document.getElementById('fabric-add-form').style.display='none';document.getElementById('fabric-add-btn').textContent='＋ 生地を追加';renderMaster();buildFabricSel();}
 function delFabric(id){if(master.fabrics.length<=1){alert('最低1つ必要です');return;}master.fabrics=master.fabrics.filter(f=>f.id!==id);lsSave();renderMaster();buildFabricSel();}
+function addEstItem(){const name=document.getElementById('m-iname').value.trim();const unit=document.getElementById('m-iunit').value;const tanka=parseFloat(document.getElementById('m-itanka').value)||0;if(!name){alert('項目名を入力してください');return;}const id='ei'+(master.nextItemId++);master.estItems.push({id,name,unit,ranges:[{from:0,to:9999,tanka}],template:false});lsSave();['m-iname','m-itanka'].forEach(i=>document.getElementById(i).value='');document.getElementById('estitem-add-form').style.display='none';document.getElementById('estitem-add-btn').textContent='＋ 項目を追加';renderMaster();buildImpItemsList();}
+function delEstItem(id){if(master.estItems.length<=1){alert('最低1項目必要です');return;}master.estItems=master.estItems.filter(i=>i.id!==id);lsSave();renderMaster();buildImpItemsList();}
+function updateEstItemName(id,val){const item=master.estItems.find(i=>i.id===id);if(item){item.name=val;lsSave();buildImpItemsList();}}
+function updateEstItemUnit(id,val){const item=master.estItems.find(i=>i.id===id);if(item){item.unit=val;lsSave();renderMaster();buildImpItemsList();calc();}}
+function updateEstItemTemplate(id,val){const item=master.estItems.find(i=>i.id===id);if(item){item.template=val;lsSave();}}
+function addRange(itemId){const item=master.estItems.find(i=>i.id===itemId);if(!item)return;const last=item.ranges[item.ranges.length-1];item.ranges.push({from:last.to>=9999?last.from+10:last.to,to:9999,tanka:0});lsSave();renderMaster();}
+function delRange(itemId,ri){const item=master.estItems.find(i=>i.id===itemId);if(!item||item.ranges.length<=1){alert('最低1行必要です');return;}item.ranges.splice(ri,1);lsSave();renderMaster();}
+function updateRange(itemId,ri,field,val){const item=master.estItems.find(i=>i.id===itemId);if(!item)return;const v=parseFloat(val);if(field==='to'&&(isNaN(v)||val===''))item.ranges[ri].to=9999;else item.ranges[ri][field]=isNaN(v)?0:v;lsSave();calc();}
 function saveM(){master.companyName=document.getElementById('m-compname').value;master.company=document.getElementById('m-company').value;master.ninku=parseFloat(document.getElementById('m-ninku').value)||30000;master.dist=[0,1,2,3].map(i=>parseFloat(document.getElementById('m-dist'+i).value)||0);lsSave();}
 
-lsLoad();renderRecentAddr();buildEstItemsList();buildFabricSel();
+// マスタの内容を見積に適用
+function applyMasterToEst(type){
+  saveM();
+  if(type==='company'||type==='fabric'||type==='estitem'||type==='dist'){
+    // 見積項目の自動計算値を更新（編集済みでないもの）
+    if(lastCalc){
+      const dims={totalY:lastCalc.totalY,menseki:lastCalc.menseki,kojihi:lastCalc.kojihi,maguchi:lastCalc.maguchi,debaba:lastCalc.debaba};
+      estActiveItems.forEach(item=>{
+        const m=master.estItems.find(i=>i.id===item.masterId);
+        if(m&&!item.edited){
+          item.ranges=m.ranges;item.unit=m.unit;item.name=m.name;
+          item.value=getAutoVal(m,dims);
+        }
+      });
+    }
+    // 生地セレクトを再構築
+    buildFabricSel();
+    // 見積項目リストを再描画
+    renderEstActiveItems();
+    calcTotal();
+  }
+  // 完了トースト
+  const toast=document.createElement('div');
+  toast.textContent='✓ 見積に適用しました';
+  toast.style.cssText='position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#1e293b;color:#fff;padding:10px 20px;border-radius:99px;font-size:12px;z-index:500;pointer-events:none;font-family:var(--sans);border:1px solid #334155;';
+  document.body.appendChild(toast);
+  setTimeout(()=>toast.remove(),2000);
+}
+function toggleAddForm(type){const form=document.getElementById(type+'-add-form');const btn=document.getElementById(type+'-add-btn');const open=form.style.display==='none';form.style.display=open?'block':'none';btn.textContent=open?'▲ 閉じる':(type==='fabric'?'＋ 生地を追加':'＋ 項目を追加');}
+
+// ── 初期化 ──
+lsLoad();
+renderRecentAddr();
+initEstActiveItems();
+renderEstActiveItems();
+buildFabricSel();
+renderAccState();
+document.getElementById('float-bar').style.display='flex';
 </script>
 </body>
 </html>
