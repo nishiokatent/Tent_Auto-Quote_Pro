@@ -24,14 +24,14 @@
 body{font-family:var(--sans);background:var(--g);color:var(--t);font-size:14px;line-height:1.6;min-height:100dvh;}
 
 /* ── Header ── */
-.header{height:var(--hh);background:var(--h);display:flex;align-items:center;padding:0 20px;gap:10px;position:sticky;top:0;z-index:100;}
+.header{height:var(--hh);background:var(--h);display:flex;align-items:center;justify-content:center;padding:0 20px;gap:10px;position:sticky;top:0;z-index:100;}
 .logo-mark{width:28px;height:28px;background:var(--a);border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;font-weight:500;color:#fff;flex-shrink:0;}
 .logo-text{font-family:var(--mono);font-size:12px;font-weight:500;color:#fff;letter-spacing:.06em;}
 .logo-sub{font-size:10px;color:var(--h3);margin-left:6px;display:none;}
 @media(min-width:600px){.logo-sub{display:inline;}}
 
 /* ── Nav ── */
-.nav{height:var(--nh);background:var(--w);border-bottom:1px solid var(--b);display:flex;position:sticky;top:var(--hh);z-index:99;overflow-x:auto;scrollbar-width:none;}
+.nav{height:var(--nh);background:var(--w);border-bottom:1px solid var(--b);display:flex;justify-content:center;position:sticky;top:var(--hh);z-index:99;overflow-x:auto;scrollbar-width:none;}
 .nav::-webkit-scrollbar{display:none;}
 .nav-tab{flex-shrink:0;display:flex;align-items:center;padding:0 18px;font-size:12px;font-weight:500;color:var(--t3);cursor:pointer;border-bottom:2px solid transparent;transition:color .15s,border-color .15s;white-space:nowrap;}
 .nav-tab:hover{color:var(--t2);}
@@ -44,34 +44,38 @@ body{font-family:var(--sans);background:var(--g);color:var(--t);font-size:14px;l
 .float-bar{
   position:fixed;bottom:0;left:0;right:0;
   background:var(--h);border-top:1px solid var(--h2);
-  z-index:200;
-  display:flex;align-items:center;
-  padding:0 20px;gap:0;
+  z-index:200;display:flex;align-items:center;justify-content:center;
+}
+.fbar-inner{
+  width:100%;max-width:660px;
+  display:flex;align-items:center;gap:0;
+  padding:0 16px;
 }
 
-/* PC: 高さ64px・横並び詳細表示 */
+/* PC: 高さ68px・中央寄せ横並び */
 @media(min-width:768px){
   .float-bar{height:var(--fbar-h);}
-  .fbar-total{display:flex;flex-direction:column;justify-content:center;padding-right:20px;border-right:1px solid var(--h2);margin-right:0;flex-shrink:0;}
-  .fbar-total .fl{font-size:10px;color:var(--h3);margin-bottom:2px;}
-  .fbar-total .fa{font-size:24px;font-weight:700;font-family:var(--mono);color:var(--a);line-height:1.1;}
-  .fbar-details{display:flex;gap:0;flex:1;}
-  .fbar-item{display:flex;flex-direction:column;justify-content:center;padding:0 20px;border-right:1px solid var(--h2);}
-  .fbar-item .fl{font-size:10px;color:var(--h3);margin-bottom:2px;}
-  .fbar-item .fv{font-size:14px;font-weight:600;font-family:var(--mono);color:var(--t3);}
-  .fbar-rieki{display:flex;flex-direction:column;justify-content:center;padding:0 20px;}
-  .fbar-rieki .fl{font-size:10px;color:var(--h3);margin-bottom:2px;}
-  .fbar-rieki .fv{font-size:18px;font-weight:700;font-family:var(--mono);}
-  .fbar-pbar{height:4px;background:var(--h2);border-radius:2px;overflow:hidden;margin-top:4px;width:80px;}
+  .fbar-inner{padding:0 20px;}
+  .fbar-total{display:flex;flex-direction:column;justify-content:center;padding-right:16px;border-right:1px solid var(--h2);flex-shrink:0;}
+  .fbar-total .fl{font-size:10px;color:var(--h3);margin-bottom:1px;}
+  .fbar-total .fa{font-size:22px;font-weight:700;font-family:var(--mono);color:var(--a);line-height:1.1;}
+  .fbar-details{display:flex;flex:1;padding-left:4px;}
+  .fbar-item{display:flex;flex-direction:column;justify-content:center;padding:0 12px;border-right:1px solid var(--h2);}
+  .fbar-item .fl{font-size:9px;color:var(--h3);margin-bottom:2px;white-space:nowrap;}
+  .fbar-item .fv{font-size:13px;font-weight:600;font-family:var(--mono);color:#94a3b8;}
+  .fbar-rieki{display:flex;flex-direction:column;justify-content:center;padding:0 12px;}
+  .fbar-rieki .fl{font-size:9px;color:var(--h3);margin-bottom:2px;}
+  .fbar-rieki .fv{font-size:15px;font-weight:700;font-family:var(--mono);}
+  .fbar-pbar{height:4px;background:var(--h2);border-radius:2px;overflow:hidden;margin-top:4px;width:60px;}
   .fbar-pbar-fill{height:100%;border-radius:2px;transition:width .4s,background .3s;}
-  .fbar-actions{margin-left:auto;display:flex;gap:10px;flex-shrink:0;}
-  /* SP専用要素を非表示 */
+  .fbar-actions{margin-left:auto;display:flex;gap:8px;flex-shrink:0;}
   .fbar-sp-only{display:none;}
 }
 
-/* SP: 高さ68px・シンプル表示 */
+/* SP: 高さ68px */
 @media(max-width:767px){
-  .float-bar{height:var(--fbar-sp-h);padding:0 16px;gap:12px;}
+  .float-bar{height:var(--fbar-sp-h);}
+  .fbar-inner{padding:0 16px;gap:12px;}
   .fbar-total{flex:1;}
   .fbar-total .fl{font-size:10px;color:var(--h3);margin-bottom:1px;}
   .fbar-total .fa{font-size:22px;font-weight:700;font-family:var(--mono);color:var(--a);line-height:1.1;}
@@ -85,7 +89,7 @@ body{font-family:var(--sans);background:var(--g);color:var(--t);font-size:14px;l
 /* ── コンテンツ下部パディング（バー高さ分） ── */
 .est-body{
   padding:20px;
-  max-width:660px;
+  max-width:600px;
   margin:0 auto;
   padding-bottom:calc(var(--fbar-h) + 24px);
 }
@@ -127,8 +131,8 @@ body{font-family:var(--sans);background:var(--g);color:var(--t);font-size:14px;l
 .acc.open .acc-body{border-color:var(--ab);background:var(--w);}
 
 /* ── 進捗バー ── */
-.progress-bar-wrap{background:var(--w);border-bottom:1px solid var(--b);padding:10px 20px;position:sticky;top:calc(var(--hh) + var(--nh));z-index:98;}
-.progress-bar-inner{max-width:660px;margin:0 auto;display:flex;gap:0;}
+.progress-bar-wrap{background:var(--w);border-bottom:1px solid var(--b);padding:10px 20px;position:sticky;top:calc(var(--hh) + var(--nh));z-index:98;display:flex;justify-content:center;}
+.progress-bar-inner{max-width:600px;width:100%;display:flex;gap:0;}
 .pb-step{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;}
 .pb-step::after{content:'';position:absolute;top:9px;left:50%;right:-50%;height:2px;background:var(--b);z-index:0;}
 .pb-step:last-child::after{display:none;}
@@ -323,156 +327,111 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 
 <nav class="nav">
   <div class="nav-tab active" onclick="sw('est')">📋 見積作成</div>
-  <div class="nav-tab" onclick="sw('imp')">📥 過去案件</div>
   <div class="nav-tab" onclick="sw('cases')">🗂 案件一覧</div>
   <div class="nav-tab" onclick="sw('master')">⚙️ マスタ</div>
 </nav>
 
 <!-- ══ 見積作成 ══ -->
 <div class="panel active" id="panel-est">
-
-  <!-- 進捗バー -->
-  <div class="progress-bar-wrap">
-    <div class="progress-bar-inner" id="progress-bar"></div>
-  </div>
-
   <div class="est-body">
 
-    <!-- S1: 案件情報 -->
-    <div class="acc" id="acc-1" data-step="1">
-      <div class="acc-hd" id="acc-hd-1" onclick="toggleAcc(1)">
-        <div id="acc-num-1" class="acc-num-open">1</div>
-        <span id="acc-title-1" class="acc-title-open">案件情報</span>
-        <span id="acc-badge-1" class="acc-badge-open">入力中</span>
+    <!-- 案件情報 -->
+    <div class="card" style="margin-bottom:14px;">
+      <div class="card-title">案件情報</div>
+      <div class="g2" style="margin-bottom:10px;">
+        <div class="f"><label>案件名</label><input type="text" id="cname" placeholder="山田商店 テント張替"></div>
+        <div class="f"><label>お客様名</label><input type="text" id="client" placeholder="山田太郎"></div>
       </div>
-      <div class="acc-body-wrap open" id="acc-body-1">
-        <div class="acc-body">
-          <div class="g2" style="margin-bottom:10px;">
-            <div class="f"><label>案件名</label><input type="text" id="cname" placeholder="山田商店 テント張替" oninput="updateSummary()"></div>
-            <div class="f"><label>お客様名</label><input type="text" id="client" placeholder="山田太郎"></div>
-          </div>
-          <div class="f">
-            <label>現場所在地</label>
-            <div class="recent-chips" id="addr-recent"></div>
-            <div class="suggest-wrap">
-              <input type="text" id="addr-input" placeholder="市区町村を入力（例：堺市北区）" oninput="onAddrInput()" autocomplete="off">
-              <div class="suggest-list" id="suggest-list"></div>
-            </div>
-            <div style="display:flex;align-items:center;gap:8px;margin-top:7px;">
-              <span id="addr-result" style="font-size:12px;color:var(--t3);flex:1;">-</span>
-              <button class="btn btn-sm" onclick="calcDist()">📍 距離を計算</button>
-            </div>
-            <div id="dist-badge" class="dist-badge" style="display:none;"></div>
-          </div>
-          <div class="btn-row" style="margin-top:14px;">
-            <button class="btn btn-primary" onclick="nextStep(1)">次：生地・寸法 →</button>
-          </div>
+      <div class="f">
+        <label>現場所在地</label>
+        <div class="recent-chips" id="addr-recent"></div>
+        <div class="suggest-wrap">
+          <input type="text" id="addr-input" placeholder="市区町村を入力（例：堺市北区）" oninput="onAddrInput()" autocomplete="off">
+          <div class="suggest-list" id="suggest-list"></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:7px;">
+          <span id="addr-result" style="font-size:12px;color:var(--t3);flex:1;">-</span>
+          <button class="btn btn-sm" onclick="calcDist()">📍 距離を計算</button>
+        </div>
+        <div id="dist-badge" class="dist-badge" style="display:none;"></div>
+      </div>
+    </div>
+
+    <!-- 生地・寸法 -->
+    <div class="card" style="margin-bottom:14px;">
+      <div class="card-title">生地・寸法 <span class="card-sub">mm入力</span></div>
+      <div class="f" style="margin-bottom:12px;"><label>生地</label><select id="fabric" class="fabric-sel" onchange="calc()"></select></div>
+      <div class="g3" style="margin-bottom:10px;">
+        <div class="f"><label>間口</label><div class="mm-wrap"><input type="number" id="maguchi" value="3600" step="1" min="0" oninput="calc()"><span class="mm-unit">mm</span></div></div>
+        <div class="f"><label>出幅</label><div class="mm-wrap"><input type="number" id="debaba" value="3000" step="1" min="0" oninput="calc()"><span class="mm-unit">mm</span></div></div>
+        <div class="f"><label>奥高</label><div class="mm-wrap"><input type="number" id="okutaka" value="2000" step="1" min="0" oninput="calc()"><span class="mm-unit">mm</span></div></div>
+      </div>
+      <div class="g3" style="margin-bottom:0;">
+        <div class="f"><label>前高</label><div class="mm-wrap"><input type="number" id="maetaka" value="1000" step="1" min="0" oninput="calc()"><span class="mm-unit">mm</span></div></div>
+        <div class="f"><label>妻</label>
+          <select id="tsuma" onchange="calc()">
+            <option value="2">左右あり</option><option value="1">片側のみ</option><option value="0">なし</option>
+          </select>
+        </div>
+        <div class="f"><label>流れ（自動）</label><div class="nagare-box">流れ <span class="nagare-val" id="nagare">-</span> mm</div></div>
+      </div>
+      <div class="yojaku-box">
+        <div class="yojaku-box-title">要尺・面積（自動計算）</div>
+        <div class="yojaku-grid">
+          <div class="yojaku-tile"><div class="yl">主（間口）要尺</div><div class="yv"><span id="r-omote">-</span> m</div><div class="ys" id="r-os">-</div></div>
+          <div class="yojaku-tile"><div class="yl">妻要尺</div><div class="yv"><span id="r-tsuma">-</span> m</div><div class="ys" id="r-ts">-</div></div>
+          <div class="yojaku-tile"><div class="yl">合計要尺</div><div class="yv"><span id="r-yojaku">-</span> m</div></div>
+          <div class="yojaku-tile"><div class="yl">面積</div><div class="yv"><span id="r-menseki">-</span> m²</div></div>
         </div>
       </div>
     </div>
 
-    <!-- S2: 生地・寸法 -->
-    <div class="acc todo" id="acc-2" data-step="2">
-      <div class="acc-hd" id="acc-hd-2" onclick="toggleAcc(2)">
-        <div id="acc-num-2" class="acc-num-todo">2</div>
-        <span id="acc-title-2" class="acc-title-todo">生地・寸法</span>
-      </div>
-      <div class="acc-body-wrap closed" id="acc-body-2">
-        <div class="acc-body">
-          <div class="f" style="margin-bottom:12px;"><label>生地</label><select id="fabric" class="fabric-sel" onchange="calc()"></select></div>
-          <div class="g3" style="margin-bottom:10px;">
-            <div class="f"><label>間口</label><div class="mm-wrap"><input type="number" id="maguchi" value="3600" step="1" min="0" oninput="calc()"><span class="mm-unit">mm</span></div></div>
-            <div class="f"><label>出幅</label><div class="mm-wrap"><input type="number" id="debaba" value="3000" step="1" min="0" oninput="calc()"><span class="mm-unit">mm</span></div></div>
-            <div class="f"><label>奥高</label><div class="mm-wrap"><input type="number" id="okutaka" value="2000" step="1" min="0" oninput="calc()"><span class="mm-unit">mm</span></div></div>
-          </div>
-          <div class="g3" style="margin-bottom:0;">
-            <div class="f"><label>前高</label><div class="mm-wrap"><input type="number" id="maetaka" value="1000" step="1" min="0" oninput="calc()"><span class="mm-unit">mm</span></div></div>
-            <div class="f"><label>妻</label>
-              <select id="tsuma" onchange="calc()">
-                <option value="2">左右あり</option><option value="1">片側のみ</option><option value="0">なし</option>
-              </select>
-            </div>
-            <div class="f"><label>流れ（自動）</label><div class="nagare-box">流れ <span class="nagare-val" id="nagare">-</span> mm</div></div>
-          </div>
-          <!-- 要尺ボックス（寸法直下） -->
-          <div class="yojaku-box">
-            <div class="yojaku-box-title">要尺・面積（自動計算）</div>
-            <div class="yojaku-grid">
-              <div class="yojaku-tile"><div class="yl">主（間口）要尺</div><div class="yv"><span id="r-omote">-</span> m</div><div class="ys" id="r-os">-</div></div>
-              <div class="yojaku-tile"><div class="yl">妻要尺</div><div class="yv"><span id="r-tsuma">-</span> m</div><div class="ys" id="r-ts">-</div></div>
-              <div class="yojaku-tile"><div class="yl">合計要尺</div><div class="yv"><span id="r-yojaku">-</span> m</div></div>
-              <div class="yojaku-tile"><div class="yl">面積</div><div class="yv"><span id="r-menseki">-</span> m²</div></div>
-            </div>
-          </div>
-          <div class="g2" style="margin-top:14px;">
-            <div class="f"><label>人数</label>
-              <select id="workers" onchange="calc()">
-                <option value="1">1人</option><option value="2" selected>2人</option><option value="3">3人</option><option value="4">4人</option>
-              </select>
-            </div>
-            <div class="f"><label>作業時間</label>
-              <select id="worktime" onchange="calc()">
-                <option value="0.5">半日</option><option value="1" selected>1日</option><option value="2">2日</option><option value="3">3日</option>
-              </select>
-            </div>
-          </div>
-          <div class="btn-row" style="margin-top:14px;">
-            <button class="btn" onclick="prevStep(2)">← 戻る</button>
-            <button class="btn btn-primary" onclick="nextStep(2)">次：見積項目 →</button>
-          </div>
+    <!-- 施工人工 -->
+    <div class="card" style="margin-bottom:14px;">
+      <div class="card-title">施工人工</div>
+      <div class="g2">
+        <div class="f"><label>人数</label>
+          <select id="workers" onchange="calc()">
+            <option value="1">1人</option><option value="2" selected>2人</option><option value="3">3人</option><option value="4">4人</option>
+          </select>
+        </div>
+        <div class="f"><label>作業時間</label>
+          <select id="worktime" onchange="calc()">
+            <option value="0.5">半日</option><option value="1" selected>1日</option><option value="2">2日</option><option value="3">3日</option>
+          </select>
         </div>
       </div>
     </div>
 
-    <!-- S3: 見積項目 -->
-    <div class="acc todo" id="acc-3" data-step="3">
-      <div class="acc-hd" id="acc-hd-3" onclick="toggleAcc(3)">
-        <div id="acc-num-3" class="acc-num-todo">3</div>
-        <span id="acc-title-3" class="acc-title-todo">見積項目</span>
-      </div>
-      <div class="acc-body-wrap closed" id="acc-body-3">
-        <div class="acc-body">
-          <div id="est-items-list"></div>
-          <div style="margin-top:12px;">
-            <button class="btn btn-sm" id="est-add-btn" onclick="toggleEstAddMenu()" style="width:100%;">＋ 項目を追加</button>
-            <div id="est-add-menu" style="display:none;margin-top:8px;background:var(--g);border:1px solid var(--b);border-radius:var(--r);overflow:hidden;">
-              <div style="padding:8px 12px;font-size:10px;font-weight:700;color:var(--t3);letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid var(--b);">マスタから追加</div>
-              <div id="est-add-menu-list"></div>
-            </div>
-          </div>
+    <!-- 見積項目 -->
+    <div class="card" style="margin-bottom:14px;">
+      <div class="card-title">見積項目 <span class="card-sub">マスタ目安から自動入力・手修正可</span></div>
+      <div id="est-items-list"></div>
+      <div style="margin-top:12px;">
+        <button class="btn btn-sm" id="est-add-btn" onclick="toggleEstAddMenu()" style="width:100%;border-style:dashed;">＋ 項目を追加（マスタから）</button>
+        <div id="est-add-menu" style="display:none;margin-top:8px;background:var(--g);border:1px solid var(--b);border-radius:var(--r);overflow:hidden;">
+          <div style="padding:8px 12px;font-size:10px;font-weight:700;color:var(--t3);letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid var(--b);">マスタから追加</div>
+          <div id="est-add-menu-list"></div>
         </div>
       </div>
-    </div>
     </div>
 
-    <!-- S4: 合計確認 -->
-    <div class="acc todo" id="acc-4" data-step="4">
-      <div class="acc-hd" id="acc-hd-4" onclick="toggleAcc(4)">
-        <div id="acc-num-4" class="acc-num-todo">4</div>
-        <span id="acc-title-4" class="acc-title-todo">合計確認</span>
+    <!-- 原価内訳 -->
+    <div class="card" style="margin-bottom:14px;">
+      <div class="card-title">原価内訳</div>
+      <div class="genka-row"><span class="genka-label">生地原価</span><span class="genka-val" id="r-genka-fabric">-</span></div>
+      <div class="genka-row" style="margin-top:4px;padding-top:10px;border-top:1px solid var(--b2);">
+        <span class="genka-label" style="font-weight:700;">原価合計</span>
+        <span class="genka-val" style="font-weight:700;font-size:14px;" id="r-genka-total">-</span>
       </div>
-      <div class="acc-body-wrap closed" id="acc-body-4">
-        <div class="acc-body">
-          <!-- 原価内訳 -->
-          <div class="card" style="margin-bottom:12px;">
-            <div class="card-title">原価内訳</div>
-            <div class="genka-row"><span class="genka-label">生地原価</span><span class="genka-val" id="r-genka-fabric">-</span></div>
-            <div class="genka-row"><span class="genka-label">施工費（原価）</span><span class="genka-val" id="r-genka-koji">-</span></div>
-            <div class="genka-row" style="border-top:1px solid var(--b2);margin-top:4px;padding-top:10px;">
-              <span class="genka-label" style="font-weight:700;">原価合計</span>
-              <span class="genka-val" style="font-weight:700;font-size:14px;" id="r-genka-total">-</span>
-            </div>
-          </div>
-          <!-- 見積サマリ -->
-          <div class="card">
-            <div class="card-title">見積項目サマリ</div>
-            <div id="summary-list"></div>
-          </div>
-          <div class="btn-row" style="margin-top:14px;">
-            <button class="btn" onclick="prevStep(4)">← 戻る</button>
-            <button class="btn" onclick="resetEst()">↩ リセット</button>
-          </div>
-        </div>
+    </div>
+
+    <!-- 見積項目サマリ -->
+    <div class="card" style="margin-bottom:0;">
+      <div class="card-title">見積項目サマリ</div>
+      <div id="summary-list"></div>
+      <div class="btn-row" style="margin-top:14px;">
+        <button class="btn" onclick="resetEst()">↩ リセット</button>
       </div>
     </div>
 
@@ -480,42 +439,6 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 </div><!-- /panel-est -->
 
 <!-- ══ 過去案件 ══ -->
-<div class="panel" id="panel-imp">
-  <div class="page-wrap">
-    <div class="card">
-      <div class="card-title">過去案件を入力 <span class="card-sub">寸法と金額から単価を自動割り出し</span></div>
-      <div class="f" style="margin-bottom:10px;"><label>案件名（任意）</label><input type="text" id="i-name" placeholder="○○商店 2023年施工"></div>
-      <div class="f" style="margin-bottom:10px;"><label>生地</label><select id="i-fabric" class="fabric-sel" onchange="calcImpPreview()"></select></div>
-      <div class="g2" style="margin-bottom:10px;">
-        <div class="f"><label>間口</label><div class="mm-wrap"><input type="number" id="i-maguchi" placeholder="3600" step="1" min="0" oninput="calcImpPreview()"><span class="mm-unit">mm</span></div></div>
-        <div class="f"><label>出幅</label><div class="mm-wrap"><input type="number" id="i-debaba" placeholder="3000" step="1" min="0" oninput="calcImpPreview()"><span class="mm-unit">mm</span></div></div>
-      </div>
-      <div class="g2" style="margin-bottom:10px;">
-        <div class="f"><label>奥高</label><div class="mm-wrap"><input type="number" id="i-okutaka" placeholder="2000" step="1" min="0" oninput="calcImpPreview()"><span class="mm-unit">mm</span></div></div>
-        <div class="f"><label>前高</label><div class="mm-wrap"><input type="number" id="i-maetaka" placeholder="1000" step="1" min="0" oninput="calcImpPreview()"><span class="mm-unit">mm</span></div></div>
-      </div>
-      <div class="f" style="margin-bottom:14px;"><label>妻</label>
-        <select id="i-tsuma" onchange="calcImpPreview()">
-          <option value="2">左右あり</option><option value="1">片側のみ</option><option value="0">なし</option>
-        </select>
-      </div>
-      <div class="divider"></div>
-      <div style="font-size:12px;font-weight:700;color:var(--t2);margin-bottom:10px;">各項目の実績金額（税抜）</div>
-      <div id="imp-items-list"></div>
-    </div>
-    <div id="imp-preview" style="display:none;"><div class="preview-box"><div class="preview-title">割り出し結果</div><div id="imp-preview-content"></div></div></div>
-    <div class="btn-row" style="margin-top:14px;">
-      <button class="btn btn-primary" onclick="saveImport()">💾 この案件を保存</button>
-      <button class="btn" onclick="resetImport()">↩ リセット</button>
-    </div>
-    <div style="margin-top:20px;">
-      <div id="avg-section" style="display:none;"></div>
-      <div id="imp-list"></div>
-    </div>
-  </div>
-</div>
-
-<!-- ══ 案件一覧 ══ -->
 <div class="panel" id="panel-cases">
   <div class="page-wrap">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
@@ -526,9 +449,76 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
   </div>
 </div>
 
+<!-- セットアップモーダル -->
+<div id="setup-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:500;overflow-y:auto;padding:16px;">
+  <div style="background:var(--w);border-radius:var(--r);max-width:600px;margin:0 auto;overflow:hidden;">
+    <!-- ヘッダー -->
+    <div style="background:var(--h);padding:16px 20px;display:flex;justify-content:space-between;align-items:center;">
+      <div>
+        <div style="font-size:15px;font-weight:700;color:#fff;">🚀 初回セットアップ</div>
+        <div style="font-size:11px;color:var(--h3);margin-top:2px;" id="setup-step-label">ステップ 1 / 10</div>
+      </div>
+      <button onclick="closeSetup()" style="background:transparent;border:none;color:var(--h3);font-size:20px;cursor:pointer;padding:4px;">×</button>
+    </div>
+    <!-- 進捗バー -->
+    <div style="height:4px;background:var(--h2);">
+      <div id="setup-progress" style="height:100%;background:var(--a);transition:width .3s;width:10%;"></div>
+    </div>
+    <!-- コンテンツ -->
+    <div style="padding:20px;" id="setup-body"></div>
+    <!-- フッター -->
+    <div style="padding:14px 20px;border-top:1px solid var(--b);display:flex;gap:10px;align-items:center;">
+      <button class="btn btn-sm" id="setup-prev-btn" onclick="setupPrev()" style="display:none;">← 戻る</button>
+      <div style="flex:1;font-size:11px;color:var(--t3);" id="setup-footer-note"></div>
+      <button class="btn btn-sm" onclick="setupFinishNow()">途中で完了</button>
+      <button class="btn btn-primary" id="setup-next-btn" onclick="setupNext()">次へ →</button>
+    </div>
+  </div>
+</div>
+
+<!-- 案件詳細モーダル -->
+<div id="case-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:400;overflow-y:auto;padding:20px;">
+  <div style="background:var(--w);border-radius:var(--r);max-width:560px;margin:0 auto;overflow:hidden;">
+    <div style="background:var(--h);padding:16px 20px;display:flex;justify-content:space-between;align-items:center;">
+      <div>
+        <div style="font-size:15px;font-weight:700;color:#fff;" id="modal-title">-</div>
+        <div style="font-size:12px;color:var(--h3);margin-top:2px;" id="modal-client">-</div>
+      </div>
+      <button onclick="closeModal()" style="background:transparent;border:none;color:var(--h3);font-size:20px;cursor:pointer;padding:4px;">×</button>
+    </div>
+    <div id="modal-body" style="padding:18px 20px;"></div>
+    <div style="padding:12px 20px;border-top:1px solid var(--b);display:flex;gap:10px;">
+      <button class="btn btn-primary" onclick="loadCaseToEst()" style="flex:1;">✏️ 編集する</button>
+      <button class="btn btn-danger btn-sm" onclick="deleteCaseFromModal()">削除</button>
+      <button class="btn btn-sm" onclick="closeModal()">閉じる</button>
+    </div>
+  </div>
+</div>
+
 <!-- ══ マスタ ══ -->
 <div class="panel" id="panel-master">
   <div class="page-wrap">
+
+    <!-- サンプル見積管理（折りたたみ式） -->
+    <div class="card" style="margin-bottom:14px;">
+      <div class="card-title" onclick="toggleSampleCard()" style="cursor:pointer;user-select:none;margin-bottom:0;">
+        サンプル見積
+        <span class="card-sub">単価マスタ作成用（タップで開閉）</span>
+        <span id="sample-card-chevron" style="margin-left:auto;font-size:11px;color:var(--t3);">▼</span>
+      </div>
+      <div id="sample-card-body" style="display:none;margin-top:14px;">
+        <div style="font-size:11px;color:var(--t3);margin-bottom:12px;">見積作成タブで寸法・金額を入力して「📐 サンプル保存」。3件以上で小・中・大の3段階単価を自動生成します。</div>
+        <!-- 初回セットアップボタン -->
+        <button class="btn btn-primary" onclick="startSetup()" style="width:100%;margin-bottom:10px;">🚀 初回セットアップ（10種類の標準寸法で入力）</button>
+        <div id="sample-list-empty" style="text-align:center;padding:16px;color:var(--t3);font-size:12px;">サンプルがまだありません</div>
+        <div id="sample-list" style="display:none;"></div>
+        <div id="sample-generate-btn" style="display:none;margin-top:12px;">
+          <div class="divider"></div>
+          <button class="btn btn-primary" onclick="generateRangesFromSamples()" style="width:100%;">✨ サンプルから範囲別単価を自動生成（小・中・大）</button>
+        </div>
+      </div>
+    </div>
+
     <div class="card" style="margin-bottom:14px;">
       <div class="card-title">自社情報</div>
       <div class="g2" style="margin-bottom:10px;">
@@ -597,10 +587,22 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
     </div>
     <div class="card">
       <div class="card-title">諸経費マスタ（距離別）</div>
-      <div class="item-row"><div class="item-label">〜10km</div><input type="number" id="m-dist0" style="width:120px;text-align:right;" oninput="saveM()"></div>
-      <div class="item-row"><div class="item-label">10〜30km</div><input type="number" id="m-dist1" style="width:120px;text-align:right;" oninput="saveM()"></div>
-      <div class="item-row"><div class="item-label">30〜50km</div><input type="number" id="m-dist2" style="width:120px;text-align:right;" oninput="saveM()"></div>
-      <div class="item-row"><div class="item-label">50km〜</div><input type="number" id="m-dist3" style="width:120px;text-align:right;" oninput="saveM()"></div>
+      <div class="item-row">
+        <div style="display:flex;align-items:center;gap:4px;font-size:12px;color:var(--t2);">〜<input type="number" id="m-dist-th0" style="width:55px;text-align:center;" oninput="saveM()">km</div>
+        <input type="number" id="m-dist0" style="width:120px;text-align:right;" oninput="saveM()">
+      </div>
+      <div class="item-row">
+        <div style="display:flex;align-items:center;gap:4px;font-size:12px;color:var(--t2);"><input type="number" id="m-dist-th0-2" style="width:55px;text-align:center;" disabled>〜<input type="number" id="m-dist-th1" style="width:55px;text-align:center;" oninput="saveM()">km</div>
+        <input type="number" id="m-dist1" style="width:120px;text-align:right;" oninput="saveM()">
+      </div>
+      <div class="item-row">
+        <div style="display:flex;align-items:center;gap:4px;font-size:12px;color:var(--t2);"><input type="number" id="m-dist-th1-2" style="width:55px;text-align:center;" disabled>〜<input type="number" id="m-dist-th2" style="width:55px;text-align:center;" oninput="saveM()">km</div>
+        <input type="number" id="m-dist2" style="width:120px;text-align:right;" oninput="saveM()">
+      </div>
+      <div class="item-row">
+        <div style="display:flex;align-items:center;gap:4px;font-size:12px;color:var(--t2);"><input type="number" id="m-dist-th2-2" style="width:55px;text-align:center;" disabled>km〜</div>
+        <input type="number" id="m-dist3" style="width:120px;text-align:right;" oninput="saveM()">
+      </div>
       <div class="divider"></div>
       <button class="btn btn-primary btn-sm" onclick="applyMasterToEst('dist')" style="width:100%;">✓ 更新して見積に適用</button>
     </div>
@@ -609,6 +611,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
 
 <!-- ══ フローティング合計バー（PC/SP共通） ══ -->
 <div class="float-bar" id="float-bar" style="display:none;">
+  <div class="fbar-inner">
   <!-- 合計（税込） -->
   <div class="fbar-total">
     <div class="fl">合計（税込）</div>
@@ -621,7 +624,7 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
       <div class="fv" id="fbar-shokei">¥0</div>
     </div>
     <div class="fbar-item">
-      <div class="fl">消費税（10%）</div>
+      <div class="fl">消費税</div>
       <div class="fv" id="fbar-tax">¥0</div>
     </div>
     <div class="fbar-item">
@@ -641,8 +644,10 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
   <!-- 保存・リセット -->
   <div class="fbar-actions">
     <button class="fbar-reset" onclick="resetEst()">↩</button>
+    <button class="fbar-save" onclick="saveSample()" style="background:var(--h2);border:1px solid var(--h3);font-size:12px;padding:8px 14px;">📐 サンプル保存</button>
     <button class="fbar-save" onclick="saveCase()">💾 保存</button>
   </div>
+  </div><!-- /fbar-inner -->
 </div>
 
 <script>
@@ -665,8 +670,8 @@ const DEFAULT_EST_ITEMS=[
   {id:'ei7',name:'諸経費',unit:'shiki',ranges:[{from:0,to:9999,tanka:5000}],template:true},
 ];
 
-let master={companyName:'',company:'',ninku:30000,fabrics:[{id:1,name:'帝人 シャガール',haba:1200,siire:900,kake:70},{id:2,name:'帝人 ニューパスティ',haba:940,siire:750,kake:70},{id:3,name:'帝人 テトロン',haba:940,siire:650,kake:70},{id:4,name:'ダイニック レガード',haba:1540,siire:1100,kake:70}],nextFabricId:5,estItems:JSON.parse(JSON.stringify(DEFAULT_EST_ITEMS)),nextItemId:100,dist:[5000,10000,20000,30000],recentAddr:[]};
-let cases=[],imports=[],lastCalc=null,distKm=null,currentAddr='',currentPref='',sugIdx=-1;
+let master={companyName:'',company:'',ninku:30000,fabrics:[{id:1,name:'帝人 シャガール',haba:1200,siire:900,kake:70},{id:2,name:'帝人 ニューパスティ',haba:940,siire:750,kake:70},{id:3,name:'帝人 テトロン',haba:940,siire:650,kake:70},{id:4,name:'ダイニック レガード',haba:1540,siire:1100,kake:70}],nextFabricId:5,estItems:JSON.parse(JSON.stringify(DEFAULT_EST_ITEMS)),nextItemId:100,dist:[5000,10000,20000,30000],distTh:[10,30,50],recentAddr:[]};
+let cases=[],samples=[],lastCalc=null,distKm=null,currentAddr='',currentPref='',sugIdx=-1;
 let estInputs={};
 // アコーディオン状態：open / closed（どこでも自由に開閉）
 let accOpen={1:true,2:false,3:false,4:false};
@@ -674,65 +679,25 @@ let accOpen={1:true,2:false,3:false,4:false};
 let estActiveItems=[];  // [{masterId, value, edited}]
 let estItemDrag={el:null,ph:null,sy:0};
 
-function lsLoad(){try{const d=JSON.parse(localStorage.getItem('taq_m3'));if(d)master={...master,...d};}catch(e){}try{const d=JSON.parse(localStorage.getItem('taq_c3'));if(d)cases=d;}catch(e){}try{const d=JSON.parse(localStorage.getItem('taq_i3'));if(d)imports=d;}catch(e){}}
-function lsSave(){try{localStorage.setItem('taq_m3',JSON.stringify(master));}catch(e){}try{localStorage.setItem('taq_c3',JSON.stringify(cases));}catch(e){}try{localStorage.setItem('taq_i3',JSON.stringify(imports));}catch(e){}}
+function lsLoad(){try{const d=JSON.parse(localStorage.getItem('taq_m3'));if(d)master={...master,...d};}catch(e){}try{const d=JSON.parse(localStorage.getItem('taq_c3'));if(d)cases=d;}catch(e){}try{const d=JSON.parse(localStorage.getItem('taq_s3'));if(d)samples=d;}catch(e){}}
+function lsSave(){try{localStorage.setItem('taq_m3',JSON.stringify(master));}catch(e){}try{localStorage.setItem('taq_c3',JSON.stringify(cases));}catch(e){}try{localStorage.setItem('taq_s3',JSON.stringify(samples));}catch(e){}}
+
 
 function sw(t){
-  ['est','imp','cases','master'].forEach((id,i)=>{
+  ['est','cases','master'].forEach((id,i)=>{
     document.querySelectorAll('.nav-tab')[i].classList.toggle('active',id===t);
     document.getElementById('panel-'+id).classList.toggle('active',id===t);
   });
   const bar=document.getElementById('float-bar');
   bar.style.display=(t==='est')?'flex':'none';
-  if(t==='master')renderMaster();
+  if(t==='master'){renderMaster();renderSamples();}
   if(t==='cases')renderCases();
-  if(t==='imp'){buildImpItemsList();renderImpList();}
 }
 
-// ── アコーディオン制御 ──
-function renderAccState(){
-  for(let s=1;s<=4;s++){
-    const acc=document.getElementById('acc-'+s);
-    const bodyWrap=document.getElementById('acc-body-'+s);
-    const num=document.getElementById('acc-num-'+s);
-    const title=document.getElementById('acc-title-'+s);
-    const badge=document.getElementById('acc-badge-'+s);
-    const isOpen=accOpen[s];
-    // スタイル：開いているかどうかだけで決まる（todo/done廃止）
-    acc.className='acc '+(isOpen?'open':'done');
-    bodyWrap.className='acc-body-wrap '+(isOpen?'open':'closed');
-    if(isOpen){
-      num.className='acc-num-open';num.textContent=s;
-      title.className='acc-title-open';title.textContent=STEP_LABELS[s-1];
-      if(badge){badge.className='acc-badge-open';badge.textContent='▲';}
-    }else{
-      num.className='acc-num-done';num.textContent=s;
-      title.className='acc-title-done';title.textContent=STEP_LABELS[s-1];
-      if(badge){badge.className='acc-chevron';badge.textContent='▼';}
-    }
-  }
-  renderProgressBar();
-}
-
-function toggleAcc(step){
-  accOpen[step]=!accOpen[step];
-  renderAccState();
-  if(accOpen[step]){
-    setTimeout(()=>{
-      const el=document.getElementById('acc-'+step);
-      if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
-    },80);
-  }
-}
-
-function renderProgressBar(){
-  const pb=document.getElementById('progress-bar');if(!pb)return;
-  pb.innerHTML=STEP_LABELS.map((lbl,i)=>{
-    const s=i+1;
-    const isOpen=accOpen[s];
-    return`<div class="pb-step"><div class="pb-dot ${isOpen?'active':'todo'}">${s}</div><div class="pb-label">${lbl}</div></div>`;
-  }).join('');
-}
+// アコーディオン廃止 - シングルスクロールに変更
+function renderAccState(){}
+function toggleAcc(){}
+function renderProgressBar(){}
 
 // ── サジェスト ──
 function onAddrInput(){const q=document.getElementById('addr-input').value.trim();const list=document.getElementById('suggest-list');if(q.length<1){list.classList.remove('show');return;}const hits=LOCATIONS.filter(([n])=>n.includes(q)).slice(0,10);if(!hits.length){list.classList.remove('show');return;}list.innerHTML=hits.map(([n,p])=>`<div class="suggest-item" onmousedown="selSug('${n}','${p}')">${n}<span class="suggest-pref">${p}</span></div>`).join('');list.classList.add('show');}
@@ -773,7 +738,7 @@ async function calcDist(){
   const shItem=estActiveItems.find(it=>it.unit==='shiki');
   if(shItem&&!shItem.edited){shItem.value=getShokehi();renderEstActiveItems();calcTotal();}
 }
-function getShokehi(){const d=distKm??0;if(d<10)return master.dist[0];if(d<30)return master.dist[1];if(d<50)return master.dist[2];return master.dist[3];}
+function getShokehi(){const d=distKm??0;const th=master.distTh||[10,30,50];if(d<th[0])return master.dist[0];if(d<th[1])return master.dist[1];if(d<th[2])return master.dist[2];return master.dist[3];}
 
 // ── 計算 ──
 function calcDims(maguchi,debaba,okutaka,maetaka,tsumaC,habaM){
@@ -782,13 +747,21 @@ function calcDims(maguchi,debaba,okutaka,maetaka,tsumaC,habaM){
   const kodo=debaba>0?(okutaka-maetaka)/debaba:0,n=Math.ceil(debaba/habaM);
   let tsumaOne=0;for(let i=0;i<n;i++){const ex=Math.min((i+1)*habaM,debaba);tsumaOne+=maetaka+ex*kodo;}
   const tsumaY=tsumaOne*tsumaC;
-  return{nagare,tachi,mHaba,omote,tsumaOne,tsumaY,totalY:omote+tsumaY,menseki:maguchi*debaba};
+  // 表面積 = 主面（流れ×間口）+ 前幕（前高×間口）+ 妻面積（台形の面積×枚数）
+  const mensekiOmote=nagare*maguchi;          // 流れ × 間口
+  const mensekiMae=maetaka*maguchi;           // 前高 × 間口
+  // 妻：台形（下辺=前高、上辺=奥高、高さ=出幅）の面積
+  const mensekiTsumaOne=(maetaka+okutaka)/2*debaba;
+  const mensekiTsuma=mensekiTsumaOne*tsumaC;
+  const menseki=mensekiOmote+mensekiMae+mensekiTsuma;
+  return{nagare,tachi,mHaba,omote,tsumaOne,tsumaY,totalY:omote+tsumaY,menseki,
+    mensekiOmote,mensekiMae,mensekiTsuma};
 }
 function getRangeTankaByVal(ranges,val){if(!ranges?.length)return 0;for(const r of ranges){if(val>=r.from&&val<r.to)return r.tanka;}return ranges[ranges.length-1].tanka;}
 function getAutoVal(item,dims){const{totalY,menseki,kojihi,maguchi,debaba}=dims;if(item.unit==='yojaku')return Math.round(totalY*getRangeTankaByVal(item.ranges,totalY));if(item.unit==='menseki')return Math.round(menseki*getRangeTankaByVal(item.ranges,menseki));if(item.unit==='maguchi')return Math.round(maguchi*getRangeTankaByVal(item.ranges,maguchi));if(item.unit==='debaba')return Math.round(debaba*getRangeTankaByVal(item.ranges,debaba));if(item.unit==='ninku')return Math.round(kojihi);if(item.unit==='shiki')return Math.round(getRangeTankaByVal(item.ranges,0));return 0;}
 function fmt(n){return '¥'+Math.round(n).toLocaleString();}
 
-function buildFabricSel(){['fabric','i-fabric'].forEach(sid=>{const sel=document.getElementById(sid);if(!sel)return;const cur=sel.value;sel.innerHTML='';master.fabrics.forEach(f=>{const o=document.createElement('option');o.value=f.id;o.textContent=f.name+' ('+(f.haba/10)+'cm巾)';sel.appendChild(o);});if(cur)sel.value=cur;});calc();}
+function buildFabricSel(){['fabric'].forEach(sid=>{const sel=document.getElementById(sid);if(!sel)return;const cur=sel.value;sel.innerHTML='';master.fabrics.forEach(f=>{const o=document.createElement('option');o.value=f.id;o.textContent=f.name+' ('+(f.haba/10)+'cm巾)';sel.appendChild(o);});if(cur)sel.value=cur;});calc();}
 function getF(sid){const id=parseInt(document.getElementById(sid)?.value);return master.fabrics.find(f=>f.id===id)||master.fabrics[0];}
 
 // ══════════════════════════════════════
@@ -876,45 +849,99 @@ function addActiveItemFromMaster(masterId){
   renderEstActiveItems();
 }
 
+// ── 共通ドラッグ関数（リアルタイムDOM挿入・スクロール連動） ──
+function makeDraggable(container, onReorder){
+  let dragEl=null, ghost=null, scrollTimer=null;
+  const SCROLL_ZONE=80, SCROLL_SPEED=10;
+
+  function getItems(){ return Array.from(container.querySelectorAll('.sortable-item')); }
+  function clientY(e){ return e.touches ? e.touches[0].clientY : e.clientY; }
+
+  function onStart(e, el){
+    e.preventDefault();
+    dragEl = el;
+    const rect = el.getBoundingClientRect();
+
+    // ghost: 半透明の浮いたコピー
+    ghost = el.cloneNode(true);
+    ghost.style.cssText = `position:fixed;left:${rect.left}px;width:${rect.width}px;top:${rect.top}px;
+      opacity:.8;pointer-events:none;z-index:9999;border-radius:var(--rs);
+      background:var(--w);box-shadow:0 8px 28px rgba(0,0,0,.22);transition:none;`;
+    document.body.appendChild(ghost);
+
+    el.style.opacity='0.2';
+    el._dragOffsetY = clientY(e) - rect.top;
+
+    document.addEventListener('mousemove', onMove, {passive:false});
+    document.addEventListener('mouseup',   onEnd);
+    document.addEventListener('touchmove', onMove, {passive:false});
+    document.addEventListener('touchend',  onEnd);
+  }
+
+  function onMove(e){
+    if(!dragEl) return;
+    e.preventDefault();
+    const cy = clientY(e);
+    const newTop = cy - dragEl._dragOffsetY;
+    ghost.style.top = newTop + 'px';
+
+    // DOM挿入位置をghost中央で判定
+    const midY = newTop + ghost.offsetHeight / 2;
+    const items = getItems().filter(i => i !== dragEl);
+    let insertBefore = null;
+    for(const it of items){
+      const r = it.getBoundingClientRect();
+      if(midY < r.top + r.height/2){ insertBefore = it; break; }
+    }
+    if(insertBefore) container.insertBefore(dragEl, insertBefore);
+    else             container.appendChild(dragEl);
+
+    // スクロール連動（フローティングバー分を除く）
+    clearInterval(scrollTimer);
+    const wh = window.innerHeight;
+    const fbarH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--fbar-h'))||64;
+    const bottomBound = wh - fbarH - 16;
+    if(cy < SCROLL_ZONE)
+      scrollTimer = setInterval(()=>window.scrollBy(0,-SCROLL_SPEED), 16);
+    else if(cy > bottomBound - SCROLL_ZONE)
+      scrollTimer = setInterval(()=>window.scrollBy(0, SCROLL_SPEED), 16);
+  }
+
+  function onEnd(){
+    if(!dragEl) return;
+    clearInterval(scrollTimer);
+    ghost.remove();
+    dragEl.style.opacity = '';
+    dragEl._dragOffsetY = undefined;
+    onReorder(getItems());
+    dragEl = null; ghost = null;
+    document.removeEventListener('mousemove', onMove);
+    document.removeEventListener('mouseup',   onEnd);
+    document.removeEventListener('touchmove', onMove);
+    document.removeEventListener('touchend',  onEnd);
+  }
+
+  container.addEventListener('mousedown', e=>{
+    const h = e.target.closest('.drag-handle');
+    if(h){ const item = h.closest('.sortable-item'); if(item) onStart(e, item); }
+  });
+  container.addEventListener('touchstart', e=>{
+    const h = e.target.closest('.drag-handle');
+    if(h){ const item = h.closest('.sortable-item'); if(item) onStart(e, item); }
+  }, {passive:false});
+}
+
 // 見積項目のドラッグ並び替え
 function initEstActiveDrag(){
-  const container=document.getElementById('est-items-list');
-  let dragEl=null,placeholder=null,startY=0;
-  function getItems(){return Array.from(container.querySelectorAll('.sortable-item'));}
-  function onStart(e,el){
-    dragEl=el;dragEl.classList.add('dragging');
-    placeholder=document.createElement('div');
-    placeholder.style.cssText=`height:${dragEl.offsetHeight}px;background:var(--abg);border:1px dashed var(--ab);border-radius:var(--rs);`;
-    startY=e.touches?e.touches[0].clientY:e.clientY;
-    document.addEventListener('mousemove',onMove);document.addEventListener('mouseup',onEnd);
-    document.addEventListener('touchmove',onMove,{passive:false});document.addEventListener('touchend',onEnd);
-  }
-  function onMove(e){
-    if(!dragEl)return;e.preventDefault();
-    const cy=e.touches?e.touches[0].clientY:e.clientY;
-    const dy=cy-startY;
-    dragEl.style.cssText=`transform:translateY(${dy}px);z-index:999;position:relative;`;
-    const items=getItems().filter(i=>i!==dragEl);
-    const rect=dragEl.getBoundingClientRect();
-    const midY=rect.top+rect.height/2+dy;
-    let target=null;
-    for(const it of items){const r=it.getBoundingClientRect();if(midY<r.top+r.height/2){target=it;break;}}
-    if(target)container.insertBefore(placeholder,target);else container.appendChild(placeholder);
-  }
-  function onEnd(){
-    if(!dragEl)return;
-    dragEl.classList.remove('dragging');dragEl.style.cssText='';
-    if(placeholder?.parentNode){container.insertBefore(dragEl,placeholder);placeholder.remove();}
-    const newOrder=getItems().map(el=>parseInt(el.dataset.idx));
-    const newItems=newOrder.map(i=>estActiveItems[i]).filter(Boolean);
-    estActiveItems.length=0;newItems.forEach(i=>estActiveItems.push(i));
-    dragEl=null;placeholder=null;
-    document.removeEventListener('mousemove',onMove);document.removeEventListener('mouseup',onEnd);
-    document.removeEventListener('touchmove',onMove);document.removeEventListener('touchend',onEnd);
+  const container = document.getElementById('est-items-list');
+  if(!container) return;
+  makeDraggable(container, (orderedEls) => {
+    const newOrder = orderedEls.map(el => parseInt(el.dataset.idx));
+    const newItems = newOrder.map(i => estActiveItems[i]).filter(Boolean);
+    estActiveItems.length = 0;
+    newItems.forEach(i => estActiveItems.push(i));
     renderEstActiveItems();
-  }
-  container.addEventListener('mousedown',e=>{const h=e.target.closest('.drag-handle[data-area="est-active"]');if(h){const item=h.closest('.sortable-item');if(item)onStart(e,item);}});
-  container.addEventListener('touchstart',e=>{const h=e.target.closest('.drag-handle[data-area="est-active"]');if(h){const item=h.closest('.sortable-item');if(item)onStart(e,item);}},{passive:false});
+  });
 }
 
 function calc(){
@@ -931,7 +958,7 @@ function calc(){
   const{nagare,tachi,mHaba,omote,tsumaOne,tsumaY,totalY,menseki}=dims;
   const kojihi=workers*wtime*master.ninku;
   dims.kojihi=kojihi;dims.maguchi=maguchi;dims.debaba=debaba;
-  const fabricCost=f.siire*totalY,genka=fabricCost+kojihi;
+  const fabricCost=f.siire*totalY,genka=fabricCost; // 施工費は原価に含めない
   const s=id=>document.getElementById(id);
   s('nagare').textContent=Math.round(nagare*1000);
   s('r-omote').textContent=omote.toFixed(2);
@@ -941,9 +968,8 @@ function calc(){
   s('r-yojaku').textContent=totalY.toFixed(2);
   s('r-menseki').textContent=(Math.floor(menseki*100)/100).toFixed(2);
   s('r-genka-fabric').textContent=fmt(fabricCost);
-  s('r-genka-koji').textContent=fmt(kojihi);
   s('r-genka-total').textContent=fmt(genka);
-  // 未編集の項目を自動更新
+  // 未編集の項目を自動更新（強制的に再計算）
   estActiveItems.forEach(item=>{
     if(!item.edited){
       const m=master.estItems.find(i=>i.id===item.masterId)||item;
@@ -957,7 +983,7 @@ function calc(){
 function calcTotal(){
   const shokei=estActiveItems.reduce((s,item)=>s+(item.value||0),0);
   const tax=shokei*.1,total=shokei+tax;
-  const genka=lastCalc?lastCalc.genka:0;
+  const genka=lastCalc?lastCalc.genka:0; // 生地原価のみ
   const rieki=shokei>0?(shokei-genka)/shokei*100:0;
   const rColor=rieki>=40?'#4ade80':rieki>=25?'#facc15':'#f87171';
   const s=id=>document.getElementById(id);
@@ -973,14 +999,220 @@ function calcTotal(){
   if(sumList){sumList.innerHTML=estActiveItems.map(item=>`<div class="genka-row"><span class="genka-label">${item.name}</span><span class="genka-val">${fmt(item.value||0)}</span></div>`).join('');}
 }
 
-function saveCase(){
+
+// ── サンプル保存 ──
+function saveSample(){
   if(!lastCalc){alert('先に寸法を入力してください');return;}
-  const name=document.getElementById('cname').value||'無題案件';
-  const client=document.getElementById('client').value||'';
+  const name=document.getElementById('cname').value||('サンプル'+(samples.length+1));
   const shokei=estActiveItems.reduce((s,i)=>s+(i.value||0),0);
-  const rieki=shokei>0?(shokei-lastCalc.genka)/shokei*100:0;
-  cases.unshift({id:Date.now(),name,client,shokei,rieki,date:new Date().toLocaleDateString('ja-JP'),address:currentAddr,distKm,...lastCalc});
-  lsSave();alert('「'+name+'」を保存しました');
+  const sample={
+    id:Date.now(),name,shokei,
+    date:new Date().toLocaleDateString('ja-JP'),
+    totalY:lastCalc.totalY,menseki:lastCalc.menseki,
+    maguchi:lastCalc.maguchi,debaba:lastCalc.debaba,
+    kojihi:lastCalc.kojihi,genka:lastCalc.genka,
+    fabricName:lastCalc.fabricName,workers:lastCalc.workers,wtime:lastCalc.wtime,
+    items:estActiveItems.map(i=>({
+      masterId:i.masterId,name:i.name,unit:i.unit,
+      value:i.value||0,
+      // 各基準値に対する単価を計算
+      tanka: (() => {
+        const base = i.unit==='yojaku'?lastCalc.totalY
+          :i.unit==='menseki'?lastCalc.menseki
+          :i.unit==='maguchi'?lastCalc.maguchi
+          :i.unit==='debaba'?lastCalc.debaba
+          :i.unit==='ninku'?(lastCalc.workers*lastCalc.wtime)||1:1;
+        return base>0?(i.value||0)/base:0;
+      })()
+    }))
+  };
+  samples.unshift(sample);
+  lsSave();
+  showToast('📐 「'+name+'」をサンプルとして保存しました');
+  renderSamples();
+}
+
+function renderSamples(){
+  const el=document.getElementById('sample-list');
+  const emptyEl=document.getElementById('sample-list-empty');
+  const genBtn=document.getElementById('sample-generate-btn');
+  if(!el)return;
+  if(!samples.length){
+    el.style.display='none';
+    if(emptyEl)emptyEl.style.display='block';
+    if(genBtn)genBtn.style.display='none';
+    return;
+  }
+  if(emptyEl)emptyEl.style.display='none';
+  el.style.display='block';
+  if(genBtn)genBtn.style.display=samples.length>=3?'block':'none';
+  el.innerHTML=samples.map(s=>`
+    <div style="display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--b);">
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:13px;font-weight:700;color:var(--t);margin-bottom:3px;">${s.name}</div>
+        <div style="font-size:11px;color:var(--t3);font-family:var(--mono);">
+          ${s.fabricName||''} / 要尺 ${s.totalY?s.totalY.toFixed(1)+' m':'-'} / 面積 ${s.menseki?(Math.floor(s.menseki*100)/100).toFixed(2)+' m²':'-'}
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:5px;">
+          ${(s.items||[]).filter(i=>i.value>0).map(i=>`
+            <span style="font-size:10px;background:var(--abg);border:1px solid var(--ab);color:var(--ad);border-radius:3px;padding:1px 6px;font-family:var(--mono);">
+              ${i.name} ${fmt(i.value)}
+            </span>`).join('')}
+        </div>
+      </div>
+      <div style="text-align:right;flex-shrink:0;display:flex;flex-direction:column;gap:5px;align-items:flex-end;">
+        <div style="font-size:13px;font-weight:700;font-family:var(--mono);color:var(--a);">${fmt(s.shokei)}</div>
+        <button class="btn btn-sm" onclick="editSample('${s.id}')">編集</button>
+        <button class="btn btn-sm btn-danger" onclick="delSample('${s.id}')">削除</button>
+      </div>
+    </div>`).join('');
+}
+
+function delSample(id){
+  samples=samples.filter(s=>String(s.id)!==String(id));
+  lsSave();renderSamples();
+}
+
+// サンプル編集：セットアップモーダルを再利用
+function editSample(id){
+  const s=samples.find(x=>String(x.id)===String(id));if(!s)return;
+  // setupAnswersを1件分だけセットして単独編集モードで開く
+  setupStep=0;
+  setupEditId=id; // 編集モードフラグ
+  // 編集用の1ステップ分のanswerを作成
+  const maguchi=Math.round((s.maguchi||0)*1000);
+  const debaba=Math.round((s.debaba||0)*1000);
+  const okutaka=Math.round(((s.okutaka||0))*1000)||2000;
+  const maetaka=Math.round(((s.maetaka||0))*1000)||1000;
+  setupAnswers=[{
+    name:s.name,
+    maguchi,debaba,okutaka,maetaka,tsuma:s.tsumaC||0,
+    items: Object.fromEntries((s.items||[]).map(i=>[i.masterId||i.id,{value:i.value,tanka:i.tanka,unit:i.unit}]))
+  }];
+  renderSetupEditStep(s);
+  document.getElementById('setup-modal').style.display='block';
+  document.body.style.overflow='hidden';
+}
+
+let setupEditId=null;
+
+function renderSetupEditStep(s){
+  const f=master.fabrics.find(x=>x.name===s.fabricName)||master.fabrics[0];
+  const habaM=f?f.haba/1000:1.2;
+  const maguchi=(s.maguchi||0),debaba=(s.debaba||0);
+  const okutaka=s.okutaka||2,maetaka=s.maetaka||1,tsumaC=s.tsumaC||0;
+  const dims=calcDims(maguchi,debaba,okutaka,maetaka,tsumaC,habaM);
+  dims.maguchi=maguchi;dims.debaba=debaba;
+  const fabricCost=f?f.siire*dims.totalY:0;
+
+  document.getElementById('setup-step-label').textContent='サンプル編集';
+  document.getElementById('setup-progress').style.width='100%';
+  document.getElementById('setup-prev-btn').style.display='none';
+  document.getElementById('setup-next-btn').textContent='✓ 保存';
+  document.getElementById('setup-footer-note').textContent=s.name;
+
+  document.getElementById('setup-body').innerHTML=`
+    <div style="background:var(--abg);border:1px solid var(--ab);border-radius:var(--r);padding:14px 16px;margin-bottom:16px;">
+      <div style="font-size:13px;font-weight:700;color:var(--ad);margin-bottom:10px;">
+        <input type="text" id="su-sname" value="${s.name}" style="font-size:13px;font-weight:700;color:var(--ad);background:transparent;border:none;border-bottom:1px solid var(--ab);outline:none;width:100%;">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:8px;">
+        <div class="f"><label style="font-size:10px;">間口(mm)</label><input type="number" id="su-maguchi" value="${Math.round(maguchi*1000)}" oninput="setupUpdateDims()" style="font-family:var(--mono);font-size:13px;"></div>
+        <div class="f"><label style="font-size:10px;">出幅(mm)</label><input type="number" id="su-debaba" value="${Math.round(debaba*1000)}" oninput="setupUpdateDims()" style="font-family:var(--mono);font-size:13px;"></div>
+        <div class="f"><label style="font-size:10px;">奥高(mm)</label><input type="number" id="su-okutaka" value="${Math.round(okutaka*1000)}" oninput="setupUpdateDims()" style="font-family:var(--mono);font-size:13px;"></div>
+        <div class="f"><label style="font-size:10px;">前高(mm)</label><input type="number" id="su-maetaka" value="${Math.round(maetaka*1000)}" oninput="setupUpdateDims()" style="font-family:var(--mono);font-size:13px;"></div>
+        <div class="f"><label style="font-size:10px;">妻</label>
+          <select id="su-tsuma" onchange="setupUpdateDims()">
+            <option value="2"${tsumaC===2?' selected':''}>左右あり</option>
+            <option value="1"${tsumaC===1?' selected':''}>片側のみ</option>
+            <option value="0"${tsumaC===0?' selected':''}>なし</option>
+          </select>
+        </div>
+        <div class="f"><label style="font-size:10px;">生地</label>
+          <select id="su-fabric" onchange="setupUpdateDims()" class="fabric-sel" style="font-size:11px;">
+            ${master.fabrics.map(ff=>`<option value="${ff.id}"${ff.id===f?.id?' selected':''}>${ff.name}</option>`).join('')}
+          </select>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;" id="su-dims-result">
+        <span style="font-size:11px;background:var(--gbg);border:1px solid var(--gb);color:var(--green);border-radius:3px;padding:2px 8px;font-family:var(--mono);">要尺 ${dims.totalY.toFixed(2)}m</span>
+        <span style="font-size:11px;background:var(--gbg);border:1px solid var(--gb);color:var(--green);border-radius:3px;padding:2px 8px;font-family:var(--mono);">面積 ${(Math.floor(dims.menseki*100)/100).toFixed(2)}m²</span>
+      </div>
+    </div>
+    <div style="font-size:12px;font-weight:700;color:var(--t2);margin-bottom:10px;">各項目の金額（税抜）</div>
+    ${master.estItems.filter(i=>i.unit!=='ninku').map(item=>{
+      const saved=(s.items||[]).find(i=>(i.masterId||i.id)===item.id);
+      const val=saved?saved.value:'';
+      return`<div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--b);">
+        <div style="flex:1;font-size:12px;color:var(--t2);">${item.name} <span class="badge ${UNIT_BADGE[item.unit]||'badge-gray'}" style="font-size:9px;">${UNIT_LABELS[item.unit]||''}</span></div>
+        <input type="number" id="su-item-${item.id}" value="${val}" placeholder="0"
+          style="width:110px;text-align:right;font-family:var(--mono);font-size:13px;background:var(--g);border:1px solid var(--b);border-radius:var(--rs);padding:7px 10px;outline:none;"
+          onfocus="this.style.borderColor='var(--a)'" onblur="this.style.borderColor='var(--b)'" oninput="updateSetupSubtotal()">
+      </div>`;
+    }).join('')}
+    <div style="margin-top:10px;padding:10px 12px;background:var(--g);border-radius:var(--rs);display:flex;justify-content:space-between;font-size:12px;">
+      <span style="color:var(--t3);">小計（参考）</span>
+      <span style="font-family:var(--mono);font-weight:700;color:var(--a);" id="su-subtotal">¥0</span>
+    </div>`;
+  updateSetupSubtotal();
+}
+
+// ── サンプルから範囲別単価を自動生成（小・中・大 3段階） ──
+function generateRangesFromSamples(){
+  if(samples.length<3){alert('サンプルが3件以上必要です（小・中・大の3パターン）');return;}
+  const itemData={};
+  samples.forEach(s=>{
+    (s.items||[]).forEach(item=>{
+      if(!item.value||!item.masterId)return;
+      if(!itemData[item.masterId])itemData[item.masterId]=[];
+      const base=item.unit==='yojaku'?s.totalY
+        :item.unit==='menseki'?s.menseki
+        :item.unit==='maguchi'?s.maguchi
+        :item.unit==='debaba'?s.debaba:0;
+      if(base>0)itemData[item.masterId].push({base,tanka:item.tanka,value:item.value});
+    });
+  });
+  let updatedCount=0;
+  Object.entries(itemData).forEach(([masterId,data])=>{
+    const mi=master.estItems.find(i=>i.id===masterId);
+    if(!mi||!['yojaku','menseki','maguchi','debaba'].includes(mi.unit))return;
+    data.sort((a,b)=>a.base-b.base);
+    const n=data.length;
+    const avg=arr=>Math.round(arr.reduce((s,d)=>s+d.tanka,0)/arr.length);
+    if(n===1){
+      mi.ranges=[{from:0,to:9999,tanka:Math.round(data[0].tanka)}];
+    }else if(n===2){
+      const b=parseFloat(((data[0].base+data[1].base)/2).toFixed(1));
+      const t0=Math.round(data[0].tanka),t1=Math.round(data[1].tanka);
+      mi.ranges=Math.abs(t0-t1)/Math.max(t0,t1)>0.05
+        ?[{from:0,to:b,tanka:t0},{from:b,to:9999,tanka:t1}]
+        :[{from:0,to:9999,tanka:avg(data)}];
+    }else{
+      // 3件以上→小・中・大の3グループに等分
+      const third=Math.floor(n/3);
+      const small=data.slice(0,third);
+      const mid=data.slice(third,third*2);
+      const large=data.slice(third*2);
+      const b1=parseFloat(((small[small.length-1].base+mid[0].base)/2).toFixed(1));
+      const b2=parseFloat(((mid[mid.length-1].base+large[0].base)/2).toFixed(1));
+      const t0=avg(small),t1=avg(mid),t2=avg(large);
+      const allSame=Math.abs(t0-t2)/Math.max(t0,t2)<0.05;
+      const smSame=Math.abs(t0-t1)/Math.max(t0,t1)<0.05;
+      const mlSame=Math.abs(t1-t2)/Math.max(t1,t2)<0.05;
+      if(allSame){
+        mi.ranges=[{from:0,to:9999,tanka:avg(data)}];
+      }else if(smSame){
+        mi.ranges=[{from:0,to:b2,tanka:avg([...small,...mid])},{from:b2,to:9999,tanka:t2}];
+      }else if(mlSame){
+        mi.ranges=[{from:0,to:b1,tanka:t0},{from:b1,to:9999,tanka:avg([...mid,...large])}];
+      }else{
+        mi.ranges=[{from:0,to:b1,tanka:t0},{from:b1,to:b2,tanka:t1},{from:b2,to:9999,tanka:t2}];
+      }
+    }
+    updatedCount++;
+  });
+  lsSave();renderMaster();
+  alert(updatedCount+'項目の単価を小・中・大の3段階で設定しました！\nマスタ→見積項目マスタで確認・調整できます。');
 }
 
 function resetEst(){
@@ -988,6 +1220,9 @@ function resetEst(){
   document.getElementById('addr-result').textContent='-';
   document.getElementById('dist-badge').style.display='none';
   currentAddr='';currentPref='';distKm=null;lastCalc=null;
+  editingCaseId=null;
+  const banner=document.getElementById('editing-banner');
+  if(banner)banner.style.display='none';
   estActiveItems=[];
   accOpen={1:true,2:false,3:false,4:false};
   renderAccState();
@@ -996,70 +1231,193 @@ function resetEst(){
   calc();
 }
 
-// ── 過去案件 ──
-function buildImpItemsList(){
-  const el=document.getElementById('imp-items-list');if(!el)return;
-  el.innerHTML=master.estItems.map(item=>`
-    <div class="item-row">
-      <div class="item-label">${item.name} <span class="badge ${UNIT_BADGE[item.unit]}">${UNIT_LABELS[item.unit]}</span></div>
-      <input type="number" id="ii_${item.id}" placeholder="0" oninput="calcImpPreview()">
-    </div>`).join('');
-}
-function calcImpPreview(){
-  const f=getF('i-fabric');if(!f)return;const habaM=f.haba/1000;
-  const maguchi=(parseFloat(document.getElementById('i-maguchi').value)||0)/1000;
-  const debaba=(parseFloat(document.getElementById('i-debaba').value)||0)/1000;
-  const okutaka=(parseFloat(document.getElementById('i-okutaka').value)||0)/1000;
-  const maetaka=(parseFloat(document.getElementById('i-maetaka').value)||0)/1000;
-  const tsumaC=parseInt(document.getElementById('i-tsuma').value);
-  if(!maguchi||!debaba||!okutaka){document.getElementById('imp-preview').style.display='none';return;}
-  const dims=calcDims(maguchi,debaba,okutaka,maetaka,tsumaC,habaM);dims.kojihi=0;dims.maguchi=maguchi;dims.debaba=debaba;
-  const rows=master.estItems.filter(i=>['yojaku','menseki','maguchi','debaba'].includes(i.unit)).map(item=>{
-    const amt=parseFloat(document.getElementById('ii_'+item.id)?.value)||0;
-    const base=item.unit==='yojaku'?dims.totalY:item.unit==='menseki'?dims.menseki:item.unit==='maguchi'?maguchi:debaba;
-    return{...item,amt,base:base.toFixed(2),baseU:item.unit==='menseki'?'m²':'m',tanka:base>0?amt/base:0};
-  }).filter(r=>r.amt>0);
-  if(!rows.length){document.getElementById('imp-preview').style.display='none';return;}
-  document.getElementById('imp-preview').style.display='block';
-  document.getElementById('imp-preview-content').innerHTML=rows.map(r=>`<div class="tanka-row"><span class="tanka-label">${r.name}</span><span class="tanka-val">${fmt(r.amt)} ÷ ${r.base}${r.baseU} = <strong style="color:var(--a)">${Math.round(r.tanka)}円/${r.baseU}</strong></span></div>`).join('');
-}
-function saveImport(){
-  const f=getF('i-fabric');if(!f)return;const habaM=f.haba/1000;
-  const maguchi=(parseFloat(document.getElementById('i-maguchi').value)||0)/1000;
-  const debaba=(parseFloat(document.getElementById('i-debaba').value)||0)/1000;
-  const okutaka=(parseFloat(document.getElementById('i-okutaka').value)||0)/1000;
-  const maetaka=(parseFloat(document.getElementById('i-maetaka').value)||0)/1000;
-  const tsumaC=parseInt(document.getElementById('i-tsuma').value);
-  if(!maguchi||!debaba||!okutaka){alert('寸法を入力してください');return;}
-  const dims=calcDims(maguchi,debaba,okutaka,maetaka,tsumaC,habaM);dims.kojihi=0;dims.maguchi=maguchi;dims.debaba=debaba;
-  const items={};master.estItems.forEach(item=>{const amt=parseFloat(document.getElementById('ii_'+item.id)?.value)||0;const base=item.unit==='yojaku'?dims.totalY:item.unit==='menseki'?dims.menseki:item.unit==='maguchi'?maguchi:item.unit==='debaba'?debaba:1;items[item.id]={amt,tanka:base>0?amt/base:0,unit:item.unit};});
-  imports.unshift({id:Date.now(),name:document.getElementById('i-name').value||'無題',fabricId:f.id,fabricName:f.name,maguchi,debaba,okutaka,maetaka,tsumaC,totalY:dims.totalY,menseki:dims.menseki,items,date:new Date().toLocaleDateString('ja-JP')});
-  lsSave();alert('保存しました');resetImport();renderImpList();
-}
-function resetImport(){['i-name','i-maguchi','i-debaba','i-okutaka','i-maetaka'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});master.estItems.forEach(item=>{const el=document.getElementById('ii_'+item.id);if(el)el.value='';});document.getElementById('imp-preview').style.display='none';}
-function renderImpList(){
-  const el=document.getElementById('imp-list');if(!el)return;
-  if(!imports.length){el.innerHTML='<div class="empty"><div class="empty-icon">📭</div><div class="empty-text">過去案件がまだありません</div></div>';document.getElementById('avg-section').style.display='none';return;}
-  el.innerHTML=`<div style="font-size:12px;font-weight:700;color:var(--t3);margin-bottom:10px;">登録済み（${imports.length}件）</div>`+imports.map(imp=>`<div class="imp-card"><div class="imp-header"><div><div class="imp-name">${imp.name}</div><div class="imp-meta">${imp.fabricName} / 間口${Math.round(imp.maguchi*1000)}mm × 出幅${Math.round(imp.debaba*1000)}mm / ${imp.date}</div></div><button class="btn btn-sm btn-danger" onclick="delImport(${imp.id})">削除</button></div>${Object.entries(imp.items||{}).filter(([,v])=>v.amt>0&&['yojaku','menseki','maguchi','debaba'].includes(v.unit)).map(([id,v])=>{const item=master.estItems.find(i=>i.id===id);return`<div class="tanka-row"><span class="tanka-label">${item?item.name:id}</span><span class="tanka-val">${Math.round(v.tanka)}円/${v.unit==='menseki'?'m²':'m'}</span></div>`;}).join('')}</div>`).join('');
-  renderAvg();
-}
-function renderAvg(){
-  const sec=document.getElementById('avg-section');const measurable=['yojaku','menseki','maguchi','debaba'];
-  if(imports.length<2){sec.style.display='none';return;}
-  const avgs={};master.estItems.filter(i=>measurable.includes(i.unit)).forEach(item=>{const vals=imports.filter(imp=>imp.items?.[item.id]?.amt>0).map(imp=>imp.items[item.id].tanka);if(vals.length)avgs[item.id]={avg:vals.reduce((a,b)=>a+b,0)/vals.length,count:vals.length,unit:item.unit,label:item.name};});
-  if(!Object.keys(avgs).length){sec.style.display='none';return;}
-  sec.style.display='block';
-  sec.innerHTML=`<div class="avg-box"><div class="avg-title">過去${imports.length}件の平均単価</div>${Object.entries(avgs).map(([k,v])=>`<div class="avg-row"><span class="avg-label">${v.label}（${v.count}件）</span><span class="avg-val">${Math.round(v.avg)}円/${v.unit==='menseki'?'m²':'m'}</span></div>`).join('')}<button class="btn btn-success" style="width:100%;margin-top:12px;" onclick="applyAvgToMaster()">この平均値でマスタを更新</button></div>`;
-}
-function applyAvgToMaster(){if(!confirm('過去案件の平均単価でマスタを上書きしますか？'))return;const measurable=['yojaku','menseki','maguchi','debaba'];master.estItems.filter(i=>measurable.includes(i.unit)).forEach(item=>{const vals=imports.filter(imp=>imp.items?.[item.id]?.amt>0).map(imp=>imp.items[item.id].tanka);if(!vals.length)return;item.ranges=[{from:0,to:9999,tanka:Math.round(vals.reduce((a,b)=>a+b,0)/vals.length)}];});lsSave();alert('マスタを更新しました！');renderMaster();calc();}
-function delImport(id){imports=imports.filter(i=>i.id!==id);lsSave();renderImpList();}
+// ══════════════════════════════
+// 過去案件
+// ══════════════════════════════
 
 // ── 案件一覧 ──
+let currentModalCaseId=null;
+let editingCaseId=null; // 編集中の案件ID（nullなら新規）
 function renderCases(){
   const el=document.getElementById('cases-list');
   if(!cases.length){el.innerHTML='<div class="empty"><div class="empty-icon">🗂</div><div class="empty-text">保存済みの案件がありません</div></div>';return;}
-  el.innerHTML=cases.map(c=>`<div class="case-card"><div class="case-header"><div><div class="case-name">${c.name}</div><div class="case-client">${c.client}${c.address?' / '+c.address:''}</div></div><div><div class="case-amount">${fmt(c.shokei)}</div><div class="case-rieki" style="color:${c.rieki>=40?'#16a34a':c.rieki>=25?'#d97706':'#dc2626'};">利益率 ${c.rieki.toFixed(1)}%</div></div></div><div class="case-meta"><span class="case-meta-item">${c.fabricName||''}</span><span class="case-meta-item">間口 ${c.maguchi?Math.round(c.maguchi*1000):'-'}mm</span><span class="case-meta-item">出幅 ${c.debaba?Math.round(c.debaba*1000):'-'}mm</span><span class="case-meta-item">要尺 ${c.totalY?c.totalY.toFixed(1):'-'}m</span>${c.distKm?'<span class="case-meta-item">'+c.distKm.toFixed(1)+'km</span>':''}<span class="case-meta-item">${c.date}</span></div></div>`).join('');
+  el.innerHTML=cases.map(c=>`
+    <div class="case-card" onclick="openCaseModal(${c.id})" style="cursor:pointer;">
+      <div class="case-header">
+        <div>
+          <div class="case-name">${c.name}</div>
+          <div class="case-client">${c.client||''}${c.address?' / '+c.address:''}</div>
+        </div>
+        <div>
+          <div class="case-amount">${fmt(c.shokei)}</div>
+          <div class="case-rieki" style="color:${c.rieki>=40?'#16a34a':c.rieki>=25?'#d97706':'#dc2626'};">利益率 ${c.rieki.toFixed(1)}%</div>
+        </div>
+      </div>
+      <div class="case-meta">
+        <span class="case-meta-item">${c.fabricName||''}</span>
+        <span class="case-meta-item">間口 ${c.maguchi?Math.round(c.maguchi*1000):'-'}mm</span>
+        <span class="case-meta-item">出幅 ${c.debaba?Math.round(c.debaba*1000):'-'}mm</span>
+        <span class="case-meta-item">要尺 ${c.totalY?c.totalY.toFixed(1):'-'}m</span>
+        ${c.distKm?`<span class="case-meta-item">${c.distKm.toFixed(1)}km</span>`:''}
+        <span class="case-meta-item">${c.date}</span>
+      </div>
+    </div>`).join('');
 }
+
+function openCaseModal(id){
+  const c=cases.find(x=>x.id===id);if(!c)return;
+  currentModalCaseId=id;
+  document.getElementById('modal-title').textContent=c.name||'無題案件';
+  document.getElementById('modal-client').textContent=(c.client||'')+(c.address?' / '+c.address:'')+(c.date?' · '+c.date:'');
+  const tax=c.shokei*.1,total=c.shokei+tax;
+  const rieki=c.rieki||0;
+  const rColor=rieki>=40?'#16a34a':rieki>=25?'#d97706':'#dc2626';
+  document.getElementById('modal-body').innerHTML=`
+    <!-- 合計 -->
+    <div style="background:var(--h);border-radius:var(--rs);padding:14px 16px;margin-bottom:14px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:8px;">
+        <div>
+          <div style="font-size:10px;color:var(--h3);margin-bottom:2px;">合計（税込）</div>
+          <div style="font-size:26px;font-weight:700;font-family:var(--mono);color:var(--a);">${fmt(total)}</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-size:10px;color:var(--h3);">利益率</div>
+          <div style="font-size:18px;font-weight:700;font-family:var(--mono);color:${rColor};">${rieki.toFixed(1)}%</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:16px;font-size:11px;">
+        <span style="color:var(--h3);">小計 <span style="font-family:var(--mono);">${fmt(c.shokei)}</span></span>
+        <span style="color:var(--h3);">消費税 <span style="font-family:var(--mono);">${fmt(tax)}</span></span>
+        <span style="color:var(--h3);">原価 <span style="font-family:var(--mono);">${fmt(c.genka||0)}</span></span>
+      </div>
+    </div>
+    <!-- 寸法 -->
+    <div style="background:var(--g);border:1px solid var(--b);border-radius:var(--rs);padding:10px 14px;margin-bottom:12px;">
+      <div style="font-size:10px;font-weight:700;color:var(--t3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px;">寸法・生地</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;font-size:11px;font-family:var(--mono);">
+        <span style="color:var(--t2);">${c.fabricName||'-'}</span>
+        <span style="color:var(--t3);">間口 <strong>${c.maguchi?Math.round(c.maguchi*1000):'-'}mm</strong></span>
+        <span style="color:var(--t3);">出幅 <strong>${c.debaba?Math.round(c.debaba*1000):'-'}mm</strong></span>
+        <span style="color:var(--t3);">奥高 <strong>${c.okutaka?Math.round(c.okutaka*1000):'-'}mm</strong></span>
+        <span style="color:var(--t3);">前高 <strong>${c.maetaka?Math.round(c.maetaka*1000):'-'}mm</strong></span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;font-size:11px;font-family:var(--mono);margin-top:6px;">
+        <span style="color:var(--ad);">要尺 <strong>${c.totalY?c.totalY.toFixed(2)+' m':'-'}</strong></span>
+        <span style="color:var(--t3);">面積 <strong>${c.menseki?(Math.floor(c.menseki*100)/100).toFixed(2)+' m²':'-'}</strong></span>
+        <span style="color:var(--t3);">施工 <strong>${c.workers||'-'}人 × ${c.wtime||'-'}日</strong></span>
+        ${c.address?`<span style="color:var(--t3);">📍 ${c.address}</span>`:''}
+        ${c.distKm?`<span style="color:var(--t3);">${c.distKm.toFixed(1)}km</span>`:''}
+      </div>
+    </div>
+    <!-- 見積項目（estActiveItemsから） -->
+    ${c.estItems&&c.estItems.length?`
+    <div style="font-size:10px;font-weight:700;color:var(--t3);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px;">見積項目</div>
+    ${c.estItems.map(it=>`<div class="genka-row"><span class="genka-label">${it.name}</span><span class="genka-val">${fmt(it.value||0)}</span></div>`).join('')}
+    `:''}`;
+  document.getElementById('case-modal').style.display='block';
+  document.body.style.overflow='hidden';
+}
+
+function closeModal(){
+  document.getElementById('case-modal').style.display='none';
+  document.body.style.overflow='';
+  currentModalCaseId=null;
+}
+
+function deleteCaseFromModal(){
+  if(!currentModalCaseId)return;
+  if(!confirm('この案件を削除しますか？'))return;
+  cases=cases.filter(c=>c.id!==currentModalCaseId);
+  lsSave();closeModal();renderCases();
+}
+
+function loadCaseToEst(){
+  const c=cases.find(x=>x.id===currentModalCaseId);if(!c)return;
+  editingCaseId=c.id; // 編集モードセット
+  sw('est');
+  setTimeout(()=>{
+    const s=id=>document.getElementById(id);
+    if(s('cname'))s('cname').value=c.name||'';
+    if(s('client'))s('client').value=c.client||'';
+    if(c.address){currentAddr=c.address;if(s('addr-input'))s('addr-input').value=c.address;if(s('addr-result'))s('addr-result').textContent=c.address;}
+    if(c.maguchi&&s('maguchi'))s('maguchi').value=Math.round(c.maguchi*1000);
+    if(c.debaba&&s('debaba'))s('debaba').value=Math.round(c.debaba*1000);
+    if(c.okutaka&&s('okutaka'))s('okutaka').value=Math.round(c.okutaka*1000);
+    if(c.maetaka&&s('maetaka'))s('maetaka').value=Math.round(c.maetaka*1000);
+    if(c.tsumaC!==undefined&&s('tsuma'))s('tsuma').value=c.tsumaC;
+    if(c.workers&&s('workers'))s('workers').value=c.workers;
+    if(c.wtime&&s('worktime'))s('worktime').value=c.wtime;
+    const fabSel=s('fabric');if(fabSel&&c.fabricId)fabSel.value=c.fabricId;
+    calc();
+    // 見積項目を復元
+    if(c.estItems&&c.estItems.length){
+      estActiveItems=c.estItems.map(ei=>{
+        const m=master.estItems.find(i=>i.name===ei.name)||{id:'_',unit:'shiki',ranges:[{from:0,to:9999,tanka:0}]};
+        return{uid:Date.now()+Math.random(),masterId:m.id,name:ei.name,unit:m.unit,ranges:m.ranges,value:ei.value||0,edited:true};
+      });
+      renderEstActiveItems();
+    }
+    // 編集中バナーを表示
+    showEditingBanner(c.name);
+    closeModal();
+  },100);
+}
+
+function showEditingBanner(name){
+  let banner=document.getElementById('editing-banner');
+  if(!banner){
+    banner=document.createElement('div');
+    banner.id='editing-banner';
+    banner.style.cssText='position:sticky;top:calc(var(--hh) + var(--nh));z-index:97;background:#f59e0b;padding:8px 20px;display:flex;align-items:center;justify-content:center;gap:12px;font-size:12px;font-weight:600;color:#fff;';
+    document.getElementById('panel-est').prepend(banner);
+  }
+  banner.innerHTML=`✏️ 「${name}」を編集中　<button onclick="cancelEditing()" style="background:rgba(0,0,0,.2);border:none;color:#fff;border-radius:4px;padding:3px 10px;font-size:11px;cursor:pointer;">キャンセル</button>`;
+  banner.style.display='flex';
+}
+
+function cancelEditing(){
+  editingCaseId=null;
+  const banner=document.getElementById('editing-banner');
+  if(banner)banner.style.display='none';
+  resetEst();
+}
+
+function saveCase(){
+  if(!lastCalc){alert('先に寸法を入力してください');return;}
+  const name=document.getElementById('cname').value||'無題案件';
+  const client=document.getElementById('client').value||'';
+  const shokei=estActiveItems.reduce((s,i)=>s+(i.value||0),0);
+  const rieki=shokei>0?(shokei-lastCalc.genka)/shokei*100:0;
+  const data={
+    name,client,shokei,rieki,
+    date:new Date().toLocaleDateString('ja-JP'),
+    address:currentAddr,distKm,
+    estItems:estActiveItems.map(i=>({name:i.name,value:i.value||0})),
+    ...lastCalc
+  };
+  if(editingCaseId){
+    // 既存案件を上書き
+    const idx=cases.findIndex(c=>c.id===editingCaseId);
+    if(idx>=0){
+      cases[idx]={...cases[idx],...data};
+      lsSave();
+      showToast('「'+name+'」を更新しました');
+      editingCaseId=null;
+      const banner=document.getElementById('editing-banner');
+      if(banner)banner.style.display='none';
+      return;
+    }
+  }
+  // 新規保存
+  cases.unshift({id:Date.now(),...data});
+  lsSave();
+  showToast('「'+name+'」を保存しました');
+}
+
+// モーダル背景クリックで閉じる
+document.addEventListener('click',e=>{
+  if(e.target.id==='case-modal')closeModal();
+});
 
 // ── マスタ ──
 function renderMaster(){
@@ -1067,6 +1425,13 @@ function renderMaster(){
   document.getElementById('m-company').value=master.company;
   document.getElementById('m-ninku').value=master.ninku;
   [0,1,2,3].forEach(i=>document.getElementById('m-dist'+i).value=master.dist[i]);
+  const th=master.distTh||[10,30,50];
+  document.getElementById('m-dist-th0').value=th[0];
+  document.getElementById('m-dist-th1').value=th[1];
+  document.getElementById('m-dist-th2').value=th[2];
+  document.getElementById('m-dist-th0-2').value=th[0];
+  document.getElementById('m-dist-th1-2').value=th[1];
+  document.getElementById('m-dist-th2-2').value=th[2];
   const HANDLE=`<div class="drag-handle">${HANDLE_SVG}</div>`;
   const fl=document.getElementById('fabric-list');
   fl.innerHTML=master.fabrics.map(f=>`<div class="master-fabric-row sortable-item" data-id="${f.id}">${HANDLE}<div style="flex:1;min-width:0;"><div style="display:flex;align-items:baseline;gap:6px;margin-bottom:5px;"><span style="font-size:13px;font-weight:700;color:var(--t);">${f.name}</span><span style="font-size:11px;color:var(--t3);font-family:var(--mono);">${f.haba/10}cm巾</span></div><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><div style="display:flex;align-items:center;gap:3px;"><span style="font-size:10px;color:var(--t3);">仕入</span><input type="number" value="${f.siire}" style="width:72px;" onchange="updateFabricField(${f.id},'siire',this.value)"><span style="font-size:10px;color:var(--t3);">円/m</span></div><div style="display:flex;align-items:center;gap:3px;"><span style="font-size:10px;color:var(--t3);">掛率</span><input type="number" value="${f.kake}" style="width:52px;" onchange="updateFabricField(${f.id},'kake',this.value)"><span style="font-size:10px;color:var(--t3);">%</span></div><button class="btn btn-sm btn-danger" onclick="delFabric(${f.id})">削除</button></div></div></div>`).join('');
@@ -1077,28 +1442,354 @@ function renderMaster(){
 }
 function renderRangeSection(item){const ul=item.unit==='menseki'?'m²':'m';return`<div style="margin-top:8px;background:var(--g);border:1px solid var(--b);border-radius:var(--rs);padding:8px 10px;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;"><span style="font-size:10px;font-weight:700;color:var(--t3);">範囲別単価（${ul}あたり）</span><button class="btn btn-sm" onclick="addRange('${item.id}')">＋ 追加</button></div><div class="range-hdr"><span>以上</span><span>未満（空=上限なし）</span><span>単価（円/${ul}）</span><span></span></div>${(item.ranges||[]).map((r,ri)=>`<div class="range-row"><input type="number" value="${r.from}" step="0.1" onchange="updateRange('${item.id}',${ri},'from',this.value)"><input type="number" value="${r.to>=9999?'':r.to}" placeholder="上限なし" step="0.1" onchange="updateRange('${item.id}',${ri},'to',this.value)"><input type="number" value="${r.tanka}" step="1" onchange="updateRange('${item.id}',${ri},'tanka',this.value)"><button class="btn btn-sm btn-danger" onclick="delRange('${item.id}',${ri})">削除</button></div>`).join('')}</div>`;}
 
-function initDrag(container,type){
-  let dragEl=null,placeholder=null,startY=0;
-  function getItems(){return Array.from(container.querySelectorAll('.sortable-item'));}
-  function onStart(e,el){dragEl=el;dragEl.classList.add('dragging');placeholder=document.createElement('div');placeholder.style.cssText=`height:${dragEl.offsetHeight}px;background:var(--abg);border:1px dashed var(--ab);border-radius:var(--rs);margin:2px 0;`;startY=e.touches?e.touches[0].clientY:e.clientY;document.addEventListener('mousemove',onMove);document.addEventListener('mouseup',onEnd);document.addEventListener('touchmove',onMove,{passive:false});document.addEventListener('touchend',onEnd);}
-  function onMove(e){if(!dragEl)return;e.preventDefault();const cy=e.touches?e.touches[0].clientY:e.clientY;const dy=cy-startY;dragEl.style.cssText=`transform:translateY(${dy}px);z-index:999;position:relative;`;const items=getItems().filter(i=>i!==dragEl);const rect=dragEl.getBoundingClientRect();const midY=rect.top+rect.height/2+dy;let target=null;for(const it of items){const r=it.getBoundingClientRect();if(midY<r.top+r.height/2){target=it;break;}}if(target)container.insertBefore(placeholder,target);else container.appendChild(placeholder);}
-  function onEnd(){if(!dragEl)return;dragEl.classList.remove('dragging');dragEl.style.cssText='';if(placeholder?.parentNode){container.insertBefore(dragEl,placeholder);placeholder.remove();}const newOrder=getItems().map(el=>el.dataset.id);if(type==='fabric')master.fabrics=newOrder.map(id=>master.fabrics.find(f=>String(f.id)===id)).filter(Boolean);else if(type==='estitem')master.estItems=newOrder.map(id=>master.estItems.find(i=>i.id===id)).filter(Boolean);lsSave();buildImpItemsList();buildFabricSel();dragEl=null;placeholder=null;document.removeEventListener('mousemove',onMove);document.removeEventListener('mouseup',onEnd);document.removeEventListener('touchmove',onMove);document.removeEventListener('touchend',onEnd);}
-  container.addEventListener('mousedown',e=>{const h=e.target.closest('.drag-handle');if(h&&!h.dataset.area){const item=h.closest('.sortable-item');if(item)onStart(e,item);}});
-  container.addEventListener('touchstart',e=>{const h=e.target.closest('.drag-handle');if(h&&!h.dataset.area){const item=h.closest('.sortable-item');if(item)onStart(e,item);}},{passive:false});
+function initDrag(container, type){
+  makeDraggable(container, (orderedEls) => {
+    const newOrder = orderedEls.map(el => el.dataset.id);
+    if(type==='fabric')
+      master.fabrics = newOrder.map(id=>master.fabrics.find(f=>String(f.id)===id)).filter(Boolean);
+    else if(type==='estitem')
+      master.estItems = newOrder.map(id=>master.estItems.find(i=>i.id===id)).filter(Boolean);
+    lsSave(); buildFabricSel();
+  });
 }
 
 function updateFabricField(id,field,val){const f=master.fabrics.find(f=>f.id===id);if(f){f[field]=parseFloat(val)||0;lsSave();calc();}}
 function addFabric(){const name=document.getElementById('m-fname').value.trim();const habaCm=parseFloat(document.getElementById('m-fhaba').value);const siire=parseFloat(document.getElementById('m-fsiire').value);const kake=parseFloat(document.getElementById('m-fkake').value)||70;if(!name||!habaCm||!siire){alert('全項目を入力してください');return;}master.fabrics.push({id:master.nextFabricId++,name,haba:habaCm*10,siire,kake});lsSave();['m-fname','m-fhaba','m-fsiire'].forEach(id=>document.getElementById(id).value='');document.getElementById('fabric-add-form').style.display='none';document.getElementById('fabric-add-btn').textContent='＋ 生地を追加';renderMaster();buildFabricSel();}
 function delFabric(id){if(master.fabrics.length<=1){alert('最低1つ必要です');return;}master.fabrics=master.fabrics.filter(f=>f.id!==id);lsSave();renderMaster();buildFabricSel();}
-function addEstItem(){const name=document.getElementById('m-iname').value.trim();const unit=document.getElementById('m-iunit').value;const tanka=parseFloat(document.getElementById('m-itanka').value)||0;if(!name){alert('項目名を入力してください');return;}const id='ei'+(master.nextItemId++);master.estItems.push({id,name,unit,ranges:[{from:0,to:9999,tanka}],template:false});lsSave();['m-iname','m-itanka'].forEach(i=>document.getElementById(i).value='');document.getElementById('estitem-add-form').style.display='none';document.getElementById('estitem-add-btn').textContent='＋ 項目を追加';renderMaster();buildImpItemsList();}
-function delEstItem(id){if(master.estItems.length<=1){alert('最低1項目必要です');return;}master.estItems=master.estItems.filter(i=>i.id!==id);lsSave();renderMaster();buildImpItemsList();}
-function updateEstItemName(id,val){const item=master.estItems.find(i=>i.id===id);if(item){item.name=val;lsSave();buildImpItemsList();}}
-function updateEstItemUnit(id,val){const item=master.estItems.find(i=>i.id===id);if(item){item.unit=val;lsSave();renderMaster();buildImpItemsList();calc();}}
+function addEstItem(){const name=document.getElementById('m-iname').value.trim();const unit=document.getElementById('m-iunit').value;const tanka=parseFloat(document.getElementById('m-itanka').value)||0;if(!name){alert('項目名を入力してください');return;}const id='ei'+(master.nextItemId++);master.estItems.push({id,name,unit,ranges:[{from:0,to:9999,tanka}],template:false});lsSave();['m-iname','m-itanka'].forEach(i=>document.getElementById(i).value='');document.getElementById('estitem-add-form').style.display='none';document.getElementById('estitem-add-btn').textContent='＋ 項目を追加';renderMaster();}
+function delEstItem(id){if(master.estItems.length<=1){alert('最低1項目必要です');return;}master.estItems=master.estItems.filter(i=>i.id!==id);lsSave();renderMaster();}
+function updateEstItemName(id,val){const item=master.estItems.find(i=>i.id===id);if(item){item.name=val;lsSave();}}
+function updateEstItemUnit(id,val){const item=master.estItems.find(i=>i.id===id);if(item){item.unit=val;lsSave();renderMaster();calc();}}
 function updateEstItemTemplate(id,val){const item=master.estItems.find(i=>i.id===id);if(item){item.template=val;lsSave();}}
 function addRange(itemId){const item=master.estItems.find(i=>i.id===itemId);if(!item)return;const last=item.ranges[item.ranges.length-1];item.ranges.push({from:last.to>=9999?last.from+10:last.to,to:9999,tanka:0});lsSave();renderMaster();}
 function delRange(itemId,ri){const item=master.estItems.find(i=>i.id===itemId);if(!item||item.ranges.length<=1){alert('最低1行必要です');return;}item.ranges.splice(ri,1);lsSave();renderMaster();}
 function updateRange(itemId,ri,field,val){const item=master.estItems.find(i=>i.id===itemId);if(!item)return;const v=parseFloat(val);if(field==='to'&&(isNaN(v)||val===''))item.ranges[ri].to=9999;else item.ranges[ri][field]=isNaN(v)?0:v;lsSave();calc();}
-function saveM(){master.companyName=document.getElementById('m-compname').value;master.company=document.getElementById('m-company').value;master.ninku=parseFloat(document.getElementById('m-ninku').value)||30000;master.dist=[0,1,2,3].map(i=>parseFloat(document.getElementById('m-dist'+i).value)||0);lsSave();}
+function saveM(){
+  master.companyName=document.getElementById('m-compname').value;
+  master.company=document.getElementById('m-company').value;
+  master.ninku=parseFloat(document.getElementById('m-ninku').value)||30000;
+  master.dist=[0,1,2,3].map(i=>parseFloat(document.getElementById('m-dist'+i).value)||0);
+  master.distTh=[
+    parseFloat(document.getElementById('m-dist-th0')?.value)||10,
+    parseFloat(document.getElementById('m-dist-th1')?.value)||30,
+    parseFloat(document.getElementById('m-dist-th2')?.value)||50,
+  ];
+  lsSave();
+  // 表示ラベルを同期
+  ['0','1','2'].forEach(i=>{const el=document.getElementById('m-dist-th'+i+'-2');if(el)el.value=master.distTh[i]||'';});
+}
+
+// トースト通知
+function showToast(msg){
+  const toast=document.createElement('div');
+  toast.textContent=msg;
+  toast.style.cssText='position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#1e293b;color:#fff;padding:10px 20px;border-radius:99px;font-size:12px;z-index:500;pointer-events:none;font-family:var(--sans);border:1px solid #334155;white-space:nowrap;';
+  document.body.appendChild(toast);
+  setTimeout(()=>toast.remove(),2500);
+}
+
+// サンプルカード開閉
+function toggleSampleCard(){
+  const body=document.getElementById('sample-card-body');
+  const chevron=document.getElementById('sample-card-chevron');
+  const open=body.style.display==='none';
+  body.style.display=open?'block':'none';
+  chevron.textContent=open?'▲':'▼';
+  if(open)renderSamples();
+}
+
+// ══════════════════════════════
+// 初回セットアップ
+// ══════════════════════════════
+const SETUP_PRESETS=[
+  {name:'極小テント',maguchi:1800,debaba:900,okutaka:2200,maetaka:1800,tsuma:0},
+  {name:'小テント（正方形）',maguchi:2400,debaba:1500,okutaka:2300,maetaka:1900,tsuma:0},
+  {name:'小テント（横長）',maguchi:3600,debaba:1200,okutaka:2200,maetaka:1800,tsuma:0},
+  {name:'標準テント（妻なし）',maguchi:3600,debaba:2400,okutaka:2500,maetaka:2000,tsuma:0},
+  {name:'標準テント（妻あり）',maguchi:3600,debaba:2400,okutaka:2500,maetaka:2000,tsuma:2},
+  {name:'中テント',maguchi:4800,debaba:3000,okutaka:2600,maetaka:2000,tsuma:2},
+  {name:'中テント（横長）',maguchi:6000,debaba:2400,okutaka:2400,maetaka:2000,tsuma:0},
+  {name:'大テント',maguchi:6000,debaba:3600,okutaka:2800,maetaka:2100,tsuma:2},
+  {name:'大テント（横長）',maguchi:9000,debaba:3000,okutaka:2600,maetaka:2000,tsuma:2},
+  {name:'特大テント',maguchi:9000,debaba:4500,okutaka:3000,maetaka:2200,tsuma:2},
+];
+
+let setupStep=0;
+let setupAnswers=[];  // 各ステップの入力値を保持
+
+function startSetup(){
+  setupStep=0;
+  // 既存サンプルをコピーしてanswersを初期化
+  setupAnswers=SETUP_PRESETS.map((p,i)=>({
+    ...p,
+    items:{}  // {masterId: value}
+  }));
+  renderSetupStep();
+  document.getElementById('setup-modal').style.display='block';
+  document.body.style.overflow='hidden';
+}
+
+function closeSetup(){
+  document.getElementById('setup-modal').style.display='none';
+  document.body.style.overflow='';
+}
+
+function renderSetupStep(){
+  const total=SETUP_PRESETS.length;
+  const s=setupStep;
+  const preset=SETUP_PRESETS[s];
+  const ans=setupAnswers[s];
+
+  // ヘッダー更新
+  document.getElementById('setup-step-label').textContent=`ステップ ${s+1} / ${total}`;
+  document.getElementById('setup-progress').style.width=`${((s+1)/total)*100}%`;
+  document.getElementById('setup-prev-btn').style.display=s>0?'inline-flex':'none';
+  document.getElementById('setup-next-btn').textContent=s===total-1?'✨ 完了・マスタに反映':'次へ →';
+  document.getElementById('setup-footer-note').textContent=`${s+1}/${total}件 入力済み: ${setupAnswers.filter(a=>Object.values(a.items||{}).some(v=>v>0)).length}件`;
+
+  // 寸法から自動計算
+  const f=master.fabrics[0];
+  const habaM=f?f.haba/1000:1.2;
+  const maguchi=preset.maguchi/1000,debaba=preset.debaba/1000;
+  const okutaka=preset.okutaka/1000,maetaka=preset.maetaka/1000;
+  const tsumaC=preset.tsuma;
+  const dims=calcDims(maguchi,debaba,okutaka,maetaka,tsumaC,habaM);
+  dims.kojihi=(2*1*master.ninku);dims.maguchi=maguchi;dims.debaba=debaba;
+  const fabricCost=f?f.siire*dims.totalY:0;
+
+  document.getElementById('setup-body').innerHTML=`
+    <!-- 寸法表示（変更可能） -->
+    <div style="background:var(--abg);border:1px solid var(--ab);border-radius:var(--r);padding:14px 16px;margin-bottom:16px;">
+      <div style="font-size:13px;font-weight:700;color:var(--ad);margin-bottom:10px;">${preset.name}</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:8px;">
+        <div class="f"><label style="font-size:10px;">間口(mm)</label>
+          <input type="number" id="su-maguchi" value="${preset.maguchi}" oninput="setupUpdateDims()" style="font-family:var(--mono);font-size:13px;">
+        </div>
+        <div class="f"><label style="font-size:10px;">出幅(mm)</label>
+          <input type="number" id="su-debaba" value="${preset.debaba}" oninput="setupUpdateDims()" style="font-family:var(--mono);font-size:13px;">
+        </div>
+        <div class="f"><label style="font-size:10px;">奥高(mm)</label>
+          <input type="number" id="su-okutaka" value="${preset.okutaka}" oninput="setupUpdateDims()" style="font-family:var(--mono);font-size:13px;">
+        </div>
+        <div class="f"><label style="font-size:10px;">前高(mm)</label>
+          <input type="number" id="su-maetaka" value="${preset.maetaka}" oninput="setupUpdateDims()" style="font-family:var(--mono);font-size:13px;">
+        </div>
+        <div class="f"><label style="font-size:10px;">妻</label>
+          <select id="su-tsuma" onchange="setupUpdateDims()">
+            <option value="2"${tsumaC===2?' selected':''}>左右あり</option>
+            <option value="1"${tsumaC===1?' selected':''}>片側のみ</option>
+            <option value="0"${tsumaC===0?' selected':''}>なし</option>
+          </select>
+        </div>
+        <div class="f"><label style="font-size:10px;">生地</label>
+          <select id="su-fabric" onchange="setupUpdateDims()" class="fabric-sel" style="font-size:11px;">
+            ${master.fabrics.map(f=>`<option value="${f.id}">${f.name} (${f.haba/10}cm巾)</option>`).join('')}
+          </select>
+        </div>
+      </div>
+      <!-- 自動計算結果 -->
+      <div style="display:flex;gap:10px;flex-wrap:wrap;" id="su-dims-result">
+        <span style="font-size:11px;background:var(--gbg);border:1px solid var(--gb);color:var(--green);border-radius:3px;padding:2px 8px;font-family:var(--mono);">要尺 ${dims.totalY.toFixed(2)}m</span>
+        <span style="font-size:11px;background:var(--gbg);border:1px solid var(--gb);color:var(--green);border-radius:3px;padding:2px 8px;font-family:var(--mono);">面積 ${(Math.floor(dims.menseki*100)/100).toFixed(2)}m²</span>
+        <span style="font-size:11px;background:var(--g);border:1px solid var(--b);color:var(--t3);border-radius:3px;padding:2px 8px;font-family:var(--mono);">生地原価 ¥${Math.round(fabricCost).toLocaleString()}</span>
+      </div>
+    </div>
+    <!-- 各項目の金額入力 -->
+    <div style="font-size:12px;font-weight:700;color:var(--t2);margin-bottom:10px;">この現場での各項目の金額（税抜）</div>
+    ${master.estItems.filter(i=>i.unit!=='ninku').map(item=>{
+      const savedVal=ans.items[item.id];
+      const val=savedVal!==undefined?savedVal.value:'';
+      return`<div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--b);">
+        <div style="flex:1;font-size:12px;color:var(--t2);">${item.name} <span class="badge ${UNIT_BADGE[item.unit]||'badge-gray'}" style="font-size:9px;">${UNIT_LABELS[item.unit]||''}</span></div>
+        <input type="number" id="su-item-${item.id}" value="${val}" placeholder="0"
+          style="width:110px;text-align:right;font-family:var(--mono);font-size:13px;background:var(--g);border:1px solid var(--b);border-radius:var(--rs);padding:7px 10px;outline:none;"
+          onfocus="this.style.borderColor='var(--a)'" onblur="this.style.borderColor='var(--b)'">
+      </div>`;
+    }).join('')}
+    <!-- 施工費（人工）は別扱い -->
+    <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--b);">
+      <div style="flex:1;font-size:12px;color:var(--t2);">施工費（人工） <span class="badge badge-g" style="font-size:9px;">人工</span></div>
+      <div style="display:flex;gap:5px;align-items:center;">
+        <select id="su-workers" style="font-size:11px;padding:5px 20px 5px 7px;width:auto;">
+          <option value="1">1人</option><option value="2" selected>2人</option><option value="3">3人</option><option value="4">4人</option>
+        </select>
+        <span style="font-size:11px;color:var(--t3);">×</span>
+        <select id="su-wtime" style="font-size:11px;padding:5px 20px 5px 7px;width:auto;">
+          <option value="0.5">半日</option><option value="1" selected>1日</option><option value="2">2日</option>
+        </select>
+        <span style="font-size:11px;color:var(--t3);" id="su-koji-preview"></span>
+      </div>
+    </div>
+    <div style="margin-top:10px;padding:10px 12px;background:var(--g);border-radius:var(--rs);display:flex;justify-content:space-between;font-size:12px;">
+      <span style="color:var(--t3);">小計（参考）</span>
+      <span style="font-family:var(--mono);font-weight:700;color:var(--a);" id="su-subtotal">¥0</span>
+    </div>`;
+
+  // 施工費プレビューを初期化
+  updateSetupKoji();
+  updateSetupSubtotal();
+}
+
+function setupUpdateDims(){
+  const maguchi=(parseFloat(document.getElementById('su-maguchi')?.value)||0)/1000;
+  const debaba=(parseFloat(document.getElementById('su-debaba')?.value)||0)/1000;
+  const okutaka=(parseFloat(document.getElementById('su-okutaka')?.value)||0)/1000;
+  const maetaka=(parseFloat(document.getElementById('su-maetaka')?.value)||0)/1000;
+  const tsumaC=parseInt(document.getElementById('su-tsuma')?.value||0);
+  const fabId=parseInt(document.getElementById('su-fabric')?.value);
+  const f=master.fabrics.find(x=>x.id===fabId)||master.fabrics[0];
+  if(!f||!maguchi||!debaba)return;
+  const habaM=f.haba/1000;
+  const dims=calcDims(maguchi,debaba,okutaka,maetaka,tsumaC,habaM);
+  dims.maguchi=maguchi;dims.debaba=debaba;
+  const fabricCost=f.siire*dims.totalY;
+  const dr=document.getElementById('su-dims-result');
+  if(dr)dr.innerHTML=`
+    <span style="font-size:11px;background:var(--gbg);border:1px solid var(--gb);color:var(--green);border-radius:3px;padding:2px 8px;font-family:var(--mono);">要尺 ${dims.totalY.toFixed(2)}m</span>
+    <span style="font-size:11px;background:var(--gbg);border:1px solid var(--gb);color:var(--green);border-radius:3px;padding:2px 8px;font-family:var(--mono);">面積 ${(Math.floor(dims.menseki*100)/100).toFixed(2)}m²</span>
+    <span style="font-size:11px;background:var(--g);border:1px solid var(--b);color:var(--t3);border-radius:3px;padding:2px 8px;font-family:var(--mono);">生地原価 ¥${Math.round(fabricCost).toLocaleString()}</span>`;
+  updateSetupSubtotal();
+}
+
+function updateSetupKoji(){
+  const w=parseFloat(document.getElementById('su-workers')?.value||2);
+  const t=parseFloat(document.getElementById('su-wtime')?.value||1);
+  const koji=w*t*master.ninku;
+  const el=document.getElementById('su-koji-preview');
+  if(el)el.textContent='= ¥'+koji.toLocaleString();
+  updateSetupSubtotal();
+}
+
+function updateSetupSubtotal(){
+  let total=0;
+  master.estItems.filter(i=>i.unit!=='ninku').forEach(item=>{
+    total+=(parseFloat(document.getElementById('su-item-'+item.id)?.value)||0);
+  });
+  const w=parseFloat(document.getElementById('su-workers')?.value||2);
+  const t=parseFloat(document.getElementById('su-wtime')?.value||1);
+  total+=w*t*master.ninku;
+  const el=document.getElementById('su-subtotal');
+  if(el)el.textContent='¥'+total.toLocaleString();
+}
+
+function setupSaveCurrentStep(){
+  const s=setupStep;
+  const ans=setupAnswers[s];
+  // 寸法を更新
+  ans.maguchi=parseFloat(document.getElementById('su-maguchi')?.value)||ans.maguchi;
+  ans.debaba=parseFloat(document.getElementById('su-debaba')?.value)||ans.debaba;
+  ans.okutaka=parseFloat(document.getElementById('su-okutaka')?.value)||ans.okutaka;
+  ans.maetaka=parseFloat(document.getElementById('su-maetaka')?.value)||ans.maetaka;
+  ans.tsuma=parseInt(document.getElementById('su-tsuma')?.value||0);
+  const fabId=parseInt(document.getElementById('su-fabric')?.value);
+  const f=master.fabrics.find(x=>x.id===fabId)||master.fabrics[0];
+  const habaM=f?f.haba/1000:1.2;
+  const dims=calcDims(ans.maguchi/1000,ans.debaba/1000,ans.okutaka/1000,ans.maetaka/1000,ans.tsuma,habaM);
+  dims.maguchi=ans.maguchi/1000;dims.debaba=ans.debaba/1000;
+  // 各項目の金額を保存
+  ans.items={};
+  master.estItems.filter(i=>i.unit!=='ninku').forEach(item=>{
+    const v=parseFloat(document.getElementById('su-item-'+item.id)?.value)||0;
+    if(v>0){
+      const base=item.unit==='yojaku'?dims.totalY:item.unit==='menseki'?dims.menseki:item.unit==='maguchi'?dims.maguchi:dims.debaba;
+      ans.items[item.id]={value:v,tanka:base>0?v/base:0,unit:item.unit};
+    }
+  });
+  // 施工費
+  const w=parseFloat(document.getElementById('su-workers')?.value||2);
+  const t=parseFloat(document.getElementById('su-wtime')?.value||1);
+  ans.koji=w*t*master.ninku;
+  ans.workers=w;ans.wtime=t;
+  ans.totalY=dims.totalY;ans.menseki=dims.menseki;
+  ans.fabricId=f?f.id:null;ans.fabricName=f?f.name:'';
+  ans.genka=(f?f.siire*dims.totalY:0); // 生地原価のみ
+}
+
+function setupNext(){
+  setupSaveCurrentStep();
+  if(setupEditId){
+    // 編集モード：既存サンプルを上書き保存
+    const ans=setupAnswers[0];
+    const f=master.fabrics.find(x=>x.id===parseInt(document.getElementById('su-fabric')?.value))||master.fabrics[0];
+    const habaM=f?f.haba/1000:1.2;
+    const dims=calcDims((ans.maguchi||0)/1000,(ans.debaba||0)/1000,(ans.okutaka||0)/1000,(ans.maetaka||0)/1000,ans.tsuma||0,habaM);
+    dims.maguchi=(ans.maguchi||0)/1000;dims.debaba=(ans.debaba||0)/1000;
+    const items=master.estItems.filter(i=>i.unit!=='ninku').map(item=>{
+      const v=parseFloat(document.getElementById('su-item-'+item.id)?.value)||0;
+      if(!v)return null;
+      const base=item.unit==='yojaku'?dims.totalY:item.unit==='menseki'?dims.menseki:item.unit==='maguchi'?dims.maguchi:dims.debaba;
+      return{masterId:item.id,name:item.name,unit:item.unit,value:v,tanka:base>0?v/base:0};
+    }).filter(Boolean);
+    const shokei=items.reduce((s,i)=>s+i.value,0);
+    const sname=document.getElementById('su-sname')?.value||ans.name;
+    const idx=samples.findIndex(x=>String(x.id)===String(setupEditId));
+    if(idx>=0){
+      samples[idx]={...samples[idx],name:sname,shokei,totalY:dims.totalY,menseki:dims.menseki,
+        maguchi:dims.maguchi,debaba:dims.debaba,
+        fabricName:f?f.name:'',items};
+    }
+    lsSave();closeSetup();setupEditId=null;
+    renderSamples();
+    showToast('サンプルを更新しました');
+    return;
+  }
+  if(setupStep<SETUP_PRESETS.length-1){
+    setupStep++;
+    renderSetupStep();
+  }else{
+    finishSetup();
+  }
+}
+
+function setupPrev(){
+  setupSaveCurrentStep();
+  if(setupStep>0){setupStep--;renderSetupStep();}
+}
+
+function setupFinishNow(){
+  setupSaveCurrentStep();
+  finishSetup();
+}
+
+function finishSetup(){
+  // 入力済みのステップだけサンプルに追加
+  const newSamples=setupAnswers.filter(a=>Object.values(a.items||{}).some(v=>v.value>0));
+  if(!newSamples.length){alert('少なくとも1件の金額を入力してください');return;}
+  // samplesに追加
+  newSamples.forEach(a=>{
+    const shokei=Object.values(a.items).reduce((s,i)=>s+i.value,0)+(a.koji||0);
+    const items=Object.entries(a.items).map(([id,v])=>({
+      masterId:id,
+      name:(master.estItems.find(i=>i.id===id)||{}).name||id,
+      unit:v.unit,value:v.value,tanka:v.tanka
+    }));
+    samples.push({
+      id:Date.now()+Math.random(),
+      name:a.name,shokei,
+      date:new Date().toLocaleDateString('ja-JP'),
+      totalY:a.totalY||0,menseki:a.menseki||0,
+      maguchi:(a.maguchi||0)/1000,debaba:(a.debaba||0)/1000,
+      kojihi:a.koji||0,genka:a.genka||0,
+      fabricName:a.fabricName||'',workers:a.workers||2,wtime:a.wtime||1,
+      items
+    });
+  });
+  lsSave();
+  closeSetup();
+  // マスタに反映
+  if(samples.length>=3){
+    generateRangesFromSamples();
+  }else{
+    renderSamples();
+    showToast(`${newSamples.length}件のサンプルを保存しました`);
+  }
+  // サンプルカードを開く
+  const body=document.getElementById('sample-card-body');
+  const chevron=document.getElementById('sample-card-chevron');
+  if(body){body.style.display='block';}
+  if(chevron)chevron.textContent='▲';
+  renderSamples();
+}
 
 // マスタの内容を見積に適用
 function applyMasterToEst(type){
